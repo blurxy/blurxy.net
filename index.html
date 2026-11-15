@@ -1080,7 +1080,7 @@ body.listmode #depth { visibility: hidden; }
       <p class="journal-provenance">Recorded October–November 2026. Dates refer to the portfolio record, not the original investigation dates.</p>
       <ol class="journal-entries">${JOURNAL_ENTRIES.map(e => `<li><time datetime="${e.date === "November 2026" ? "2026-11" : "2026-10"}">Recorded ${esc(e.date)}</time>${e.project ? `<span class="journal-project">${esc(e.project)}</span>` : ""}<h3>${esc(e.title)}</h3><dl>
         <div><dt>Observation</dt><dd>${esc(e.observation)}</dd></div><div><dt>Finding</dt><dd>${esc(e.finding)}</dd></div><div><dt>My work</dt><dd>${esc(e.work)}</dd></div></dl></li>`).join('')}</ol>
-      <p class="journal-provenance"><a href="https://github.com/blurxy/blurxy-worldcup26/blob/b8b190ee7171b3d4f300d031100495c2d3f14871/index.html" target="_blank" rel="noopener">Source notes ↗</a></p>`;
+      <p class="journal-provenance"><a href="https://github.com/blurxy/blurxy.net/blob/b8b190ee7171b3d4f300d031100495c2d3f14871/index.html" target="_blank" rel="noopener">Source notes ↗</a></p>`;
   }
 
   function resumeHTML() {
