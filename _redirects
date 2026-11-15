@@ -1,0 +1,6 @@
+# Bare project paths WITH a query string (/kev?utm_source=x) miss the project Workers'
+# routes (a route matches a query only when it ends in *), so they land here. Send them to
+# the slash URL, keeping the query; the project Worker serves it from there.
+/kev /kev/ 307
+/osint /osint/ 307
+/worldcup26 /worldcup26/ 307
