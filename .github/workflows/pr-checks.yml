@@ -1,0 +1,26 @@
+# PR-only checks. This workflow never deploys anything — Cloudflare
+# Workers Builds still owns deployment from main. It runs only on pull
+# requests, so a bad edit is caught before it can reach production.
+name: PR checks
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: HTML sanity check
+        run: python3 scripts/check-html.py
+      - name: Link check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --verbose
+            --exclude-mail
+            --exclude "https://github.com/blurxy/trading_bot-v3"
+            --exclude "https://github.com/blurxy/nq-practice-bot"
+            index.html resume.html v1/index.html README.md
+          fail: true
