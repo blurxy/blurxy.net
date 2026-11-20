@@ -242,12 +242,14 @@ body.listmode #depth { visibility: hidden; }
 /* v4 / experience record. The teaser uses the journal's existing dialog interaction. */
 .led.private { color: #a8b1c2; }
 .led.lab { color: var(--amber); }
-.resume-teaser { width: 480px; display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 10px 16px; border-left-color: var(--amber); }
+.led.archived { color: #7e8a99; }
+.led.archived::before { box-shadow: none; }
+.resume-teaser { width: 480px; display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 13px 16px; border-left-color: var(--amber); }
 .resume-teaser .journal-title, .resume-teaser .journal-intro, .resume-teaser .journal-action { margin: 0; }
 .resume-teaser .journal-title, .resume-teaser .journal-intro { grid-column: 1 / -1; }
 .resume-teaser .journal-action { grid-column: 2; grid-row: 1; align-self: center; }
 .resume-teaser .journal-title { font-size: 20px; }
-.resume-teaser .journal-intro { font-size: 12px; }
+.resume-teaser .journal-intro { font-size: 12.5px; line-height: 1.48; color: #c4cdd6; }
 .resume-section { border-top: 1px solid var(--line); padding-top: 18px; }
 .resume-section > h3 { margin: 0 0 16px; font: 600 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
 .resume-role + .resume-role { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); }
@@ -265,6 +267,121 @@ body.listmode #depth { visibility: hidden; }
 .resume-skills dt { margin-bottom: 5px; font-weight: 600; font-size: 14px; }
 .resume-skills dd { margin: 0; color: #b5c0cc; font-size: 13.5px; line-height: 1.6; }
 #list .resume-teaser { position: static; width: auto; }
+
+/* v5 / project visuals, unified filter bar, archived state, and colophon footer */
+#vFilter { display: none; }
+.fbar { position: fixed; top: calc(44px + env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 28; height: 42px;
+  padding-left: max(14px, env(safe-area-inset-left, 0px)); padding-right: max(14px, env(safe-area-inset-right, 0px));
+  display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, var(--panel) 94%, transparent);
+  border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
+.f-search { position: relative; display: flex; align-items: center; flex: 0 1 250px; min-width: 150px; }
+.f-search svg { position: absolute; left: 9px; width: 13px; height: 13px; color: var(--dim); pointer-events: none; }
+.f-search input { width: 100%; height: 28px; padding: 0 28px 0 28px; background: var(--bg); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 3px; font: 500 12px var(--mono); }
+.f-search input::placeholder { color: var(--dim); }
+.f-search input:focus { border-color: var(--amber); outline: none; }
+.f-search .f-key { position: absolute; right: 7px; font: 500 10px/1 var(--mono); color: var(--dim);
+  border: 1px solid var(--line); border-radius: 2px; padding: 2px 4px; pointer-events: none; }
+.f-search .f-clear { position: absolute; right: 4px; background: none; border: 0; color: var(--muted); cursor: pointer;
+  padding: 2px 6px; font: 600 13px/1 var(--mono); }
+.f-search .f-clear:hover { color: var(--ink); }
+.f-zone { height: 28px; padding: 0 24px 0 8px; background: var(--bg); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 3px; font: 500 11.5px var(--mono); max-width: 210px; }
+.f-zone:focus { border-color: var(--amber); outline: none; }
+.f-statuses { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.f-statuses::-webkit-scrollbar { display: none; }
+.fbtn { background: transparent; border: 1px solid transparent; border-radius: 3px; padding: 4px 8px;
+  font: 600 11px/1.2 var(--mono); letter-spacing: .06em; color: var(--muted); cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
+.fbtn:hover { color: var(--ink); border-color: var(--line); }
+.fbtn[aria-pressed="true"] { background: var(--raised); border-color: var(--amber); color: var(--amber); }
+.f-meta { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.f-count { font: 500 11.5px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.f-reset { background: var(--raised); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px;
+  font: 500 11px var(--mono); color: var(--amber); cursor: pointer; white-space: nowrap; }
+.f-reset:hover { border-color: var(--amber); }
+
+@media (min-width: 761px) {
+  .corner, .ruler.x { top: calc(86px + env(safe-area-inset-top, 0px)); }
+  .ruler.y { top: calc(108px + env(safe-area-inset-top, 0px)); }
+  #stage { inset: calc(108px + env(safe-area-inset-top, 0px)) 0 0 22px; }
+  #sheet { top: calc(108px + env(safe-area-inset-top, 0px)); }
+  body.listmode #sheet { top: calc(86px + env(safe-area-inset-top, 0px)); }
+  #list { inset: calc(86px + env(safe-area-inset-top, 0px)) 0 0 0; }
+}
+@media (max-width: 1120px) and (min-width: 761px) {
+  .f-search { flex-basis: 175px; min-width: 130px; }
+  .f-zone { max-width: 165px; }
+  .f-search .f-key { display: none; }
+}
+@media (max-width: 760px) {
+  #vFilter { display: inline-flex; align-items: center; }
+  .fbar { display: none; height: auto; flex-wrap: wrap; padding: 10px max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px));
+    gap: 8px; z-index: 29; box-shadow: 0 12px 32px -12px #000c; }
+  body.filteropen .fbar { display: flex; }
+  .f-search { flex: 1 1 100%; }
+  .f-search input { height: 38px; font-size: 13px; }
+  .f-search .f-key { display: none; }
+  .f-zone { flex: 1 1 auto; height: 36px; max-width: none; font-size: 12px; }
+  .f-statuses { flex: 1 1 100%; padding-bottom: 2px; }
+  .fbtn { min-height: 34px; padding: 6px 10px; }
+  .f-meta { width: 100%; justify-content: space-between; margin-left: 0; }
+}
+
+/* Project visual preview frames */
+.mod .mv { display: block; position: relative; background: #090c10; border-bottom: 1px solid var(--line); overflow: hidden; line-height: 0; }
+.mod .mv svg { display: block; width: 100%; height: auto; }
+.mod .mv .vis-glow { transition: opacity 200ms ease; opacity: .78; }
+.mod:is(:hover, :focus-visible, .sel) .mv .vis-glow { opacity: 1; }
+.sh-vis { margin: 0; border: 1px solid var(--line); border-radius: 2px; background: #090c10; overflow: hidden; }
+.sh-vis svg { display: block; width: 100%; height: auto; }
+.sh-vis figcaption { padding: 7px 11px; border-top: 1px solid var(--line); background: var(--bg);
+  font: 500 11px/1.45 var(--mono); color: var(--muted); }
+
+/* Archived state & board filter states */
+.mod.is-archived { border-style: dashed; background: #0b0e13; }
+.mod.is-archived .mn { color: #c7cfd8; }
+.mod.is-archived .mv { opacity: .82; }
+#world .mod.dimmed { opacity: .16; pointer-events: none; filter: saturate(.2); }
+#world .mod.matched { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+#traces .trace-base.dimmed, #traces .trace-port.dimmed { opacity: .12; }
+#boardEmpty { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 12;
+  background: color-mix(in srgb, var(--panel) 96%, transparent); border: 1px solid var(--line); border-top: 2px solid var(--amber);
+  border-radius: 3px; padding: 18px 22px; display: grid; gap: 10px; text-align: center; max-width: 340px; }
+#boardEmpty p, .list-empty p { margin: 0; color: var(--muted); font-size: 13.5px; }
+#boardEmpty strong, .list-empty strong { font: 700 15px var(--display); color: var(--ink); }
+.list-empty { padding: 28px 20px; border: 1px dashed var(--line); background: var(--panel); border-radius: 2px;
+  display: grid; gap: 10px; justify-items: start; }
+
+/* 3-column list grid alignment */
+#list .inner { max-width: 1060px; }
+#list .mods { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+#list .mod { grid-template-rows: auto auto 1fr auto; align-content: stretch; }
+#list .mod .mb { align-content: start; }
+@media (max-width: 960px) { #list .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { #list .mods { grid-template-columns: 1fr; } }
+
+/* Footers (List colophon + Board schematic footer) */
+.site-footer { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) auto; gap: 20px 28px; align-items: start; }
+.ft-brand { display: grid; gap: 7px; }
+.ft-copy { margin: 0; font: 500 12px/1.55 var(--mono); color: var(--muted); }
+.ft-built { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--dim); max-width: 44ch; }
+.ft-nav { display: grid; gap: 6px; }
+.ft-label { font: 600 10.5px var(--mono); color: var(--dim); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 2px; }
+.ft-links { display: flex; flex-wrap: wrap; gap: 6px 14px; font: 500 12px/1.5 var(--mono); color: var(--muted); }
+.ft-links a, .ft-links button { background: none; border: 0; padding: 0; text-decoration: none; color: inherit; cursor: pointer; text-align: left; }
+.ft-links a:hover, .ft-links button:hover { color: var(--amber); }
+.ft-actions { display: grid; gap: 10px; justify-items: end; align-content: start; }
+.ft-top { background: var(--raised); border: 1px solid var(--line); border-radius: 3px; padding: 6px 12px;
+  font: 500 12px var(--mono); color: var(--ink); cursor: pointer; white-space: nowrap; }
+.ft-top:hover { border-color: var(--amber); color: var(--amber); }
+.board-footer { position: absolute; width: 1280px; background: var(--panel); border: 1px solid var(--line);
+  border-top: 2px solid var(--line); padding: 18px 22px;
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 14px 28px; align-items: center; }
+@media (max-width: 760px) {
+  .site-footer { grid-template-columns: 1fr; gap: 18px; }
+  .ft-actions { justify-items: start; }
+}
 
 
 /* blurxy cursor family — CSS-only, 32 CSS px, intrinsic SVG rasterization at device DPR.
@@ -302,10 +419,39 @@ body.listmode #depth { visibility: hidden; }
   <span class="mark"><i aria-hidden="true"></i>blurxy</span>
   <span class="crumb" id="crumb">board / blurxy / all modules</span>
   <span class="spacer"></span>
+  <button class="tbtn" id="vFilter" aria-expanded="false" aria-controls="filterBar">Filter</button>
   <button class="tbtn" id="vMotion" aria-pressed="true" title="Pause or resume the board's ambient motion">Motion</button>
   <button class="tbtn" id="vBoard" aria-pressed="true">Board</button>
   <button class="tbtn" id="vList" aria-pressed="false">List</button>
 </header>
+
+<section class="fbar" id="filterBar" aria-label="Search and filter projects">
+  <div class="f-search">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4.8"/><path d="M10.7 10.7L14 14"/></svg>
+    <input type="search" id="fQuery" placeholder="Search 14 projects…" autocomplete="off" spellcheck="false" aria-label="Search projects">
+    <span class="f-key" id="fKey" aria-hidden="true">/</span>
+    <button type="button" class="f-clear" id="fClear" aria-label="Clear search" hidden>×</button>
+  </div>
+  <select class="f-zone" id="fZone" aria-label="Filter by section">
+    <option value="all">All sections (14)</option>
+    <option value="security">Security boundaries (5)</option>
+    <option value="systems">Tools &amp; research (5)</option>
+    <option value="builds">Other builds (4)</option>
+  </select>
+  <div class="f-statuses" id="fStatuses" role="group" aria-label="Filter by status">
+    <button type="button" class="fbtn" data-status="all" aria-pressed="true">ALL</button>
+    <button type="button" class="fbtn" data-status="lab" aria-pressed="false">LAB</button>
+    <button type="button" class="fbtn" data-status="repo" aria-pressed="false">REPO</button>
+    <button type="button" class="fbtn" data-status="live" aria-pressed="false">LIVE</button>
+    <button type="button" class="fbtn" data-status="private" aria-pressed="false">PRIVATE</button>
+    <button type="button" class="fbtn" data-status="beta" aria-pressed="false">BETA</button>
+    <button type="button" class="fbtn" data-status="archived" aria-pressed="false">ARCHIVED</button>
+  </div>
+  <div class="f-meta">
+    <span class="f-count" id="fCount">14 / 14</span>
+    <button type="button" class="f-reset" id="fReset" hidden>Reset</button>
+  </div>
+</section>
 
 <div class="corner" aria-hidden="true"></div>
 <div class="ruler x" aria-hidden="true"><canvas id="rx"></canvas></div>
@@ -316,6 +462,7 @@ body.listmode #depth { visibility: hidden; }
   <div class="xh v" id="xv" hidden></div><div class="xh h" id="xhz" hidden></div>
   <div id="scanline" aria-hidden="true"></div>
   <div id="depth"><div id="world"><svg id="traces" aria-hidden="true"></svg></div></div>
+  <div id="boardEmpty" hidden><strong>No matching projects</strong><p>No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
 </main>
 
 <div class="hud" aria-hidden="true"><span id="hPos">X     0 · Y     0</span><span id="hZoom">ZOOM 100%</span><span id="hMods"></span><span id="hClock">LOCAL --:--:--</span></div>
@@ -341,8 +488,8 @@ body.listmode #depth { visibility: hidden; }
     "name": "IDS Rule Evaluation",
     "line": "Held-out lab detection: 6/37 → 33/37 attack requests caught, 0/20 benign requests flagged.",
     "lang": "Suricata · pcap · VirtualBox",
-    "last": "Capstone · Fall 2026",
-    "lastLabel": "",
+    "last": "Fall 2026",
+    "context": "Capstone · three-person lead",
     "links": [],
     "facts": [
       "On one 8,045-packet connect-scan capture, the stock Emerging Threats ruleset (52,667 signatures loaded) raised 0 alerts; 2 tuned rules raised 195.",
@@ -385,8 +532,8 @@ body.listmode #depth { visibility: hidden; }
     "name": "Haunted Inbox",
     "line": "A hidden-text prompt injection makes a local hospital assistant leak another patient's record, and a code-enforced guard stops it.",
     "lang": "Python · local LLM (Gemma 4 12B)",
-    "last": "Hacktoberfest Hack Day · Oct 2026",
-    "lastLabel": "",
+    "last": "2026-10",
+    "context": "Hacktoberfest Hack Day Brooklyn",
     "links": [
       [
         "Replay ↗",
@@ -413,8 +560,8 @@ body.listmode #depth { visibility: hidden; }
     "name": "Automated Futures Trading System",
     "line": "Local LLMs propose trades; deterministic code blocks unsafe entries and clamps orders before money moves.",
     "lang": "Python · Ollama/local LLMs · PostgreSQL · Redis",
-    "last": "Independent project",
-    "lastLabel": "",
+    "last": "2026",
+    "context": "Private · independent project",
     "links": [],
     "summary": "An independent futures trading system that contains model decisions with dependency checks, order limits and exchange-side stops.",
     "facts": [
@@ -434,8 +581,8 @@ body.listmode #depth { visibility: hidden; }
     "name": "Jetson Sentinel",
     "line": "An offline 8 GB edge appliance that drafts Suricata rules and keeps only those that fire on attacks and stay silent on benign traffic.",
     "lang": "Suricata · Qwen2.5-Coder 7B (QLoRA) · Jetson Orin Nano",
-    "last": "Independent project · Nov 2026",
-    "lastLabel": "",
+    "last": "2026-11",
+    "context": "Independent project",
     "links": [],
     "summary": "An independent, fully offline security appliance on a Jetson Orin Nano 8 GB, reported as a feasibility result rather than a finished detector.",
     "facts": [
@@ -457,7 +604,6 @@ body.listmode #depth { visibility: hidden; }
     "line": "2,141 OSINT tools. One starting point for reconnaissance, with a case notebook and report export.",
     "lang": "HTML / JS",
     "last": "2026-11-03",
-    "lastLabel": "updated",
     "links": [
       [
         "Open",
@@ -587,7 +733,8 @@ body.listmode #depth { visibility: hidden; }
     "name": "Coursewake",
     "line": "Read-only Brightspace extension with ciphertext-only cloud backup and a client-held key.",
     "lang": "Chrome MV3",
-    "last": "v0.2.5 beta",
+    "last": "2026",
+    "release": "v0.2.5 beta",
     "links": [
       [
         "Coursewake site",
@@ -599,7 +746,7 @@ body.listmode #depth { visibility: hidden; }
       ]
     ],
     "facts": [
-      "Chrome Web Store private beta: activation requires an invited tester's code.",
+      "Chrome Web Store private beta (v0.2.5): activation requires an invited tester's code.",
       "Read-only access: the extension does not submit work, enroll in courses, or change Brightspace records."
     ],
     "summary": "A Chrome extension for CUNY Brightspace that reads information available through your existing login, with optional encrypted cloud backup on a Cloudflare Worker."
@@ -629,37 +776,10 @@ body.listmode #depth { visibility: hidden; }
     "summary": "Drives Bessel eigenmodes of a clamped circular membrane from frequencies analysed ahead of time from real recordings, and renders the resulting patterns in Braille sub-cells."
   },
   {
-    "id": "L-01",
-    "key": "worldcup",
-    "zone": "builds",
-    "x": 680,
-    "y": 1270,
-    "status": "live",
-    "name": "World Cup 2026",
-    "line": "The 2026 World Cup is over, so the page now counts down to 2030. The 104-match results app stays in the source.",
-    "lang": "HTML / JS",
-    "last": "2026-11-15",
-    "links": [
-      [
-        "Open",
-        "https://blurxy.net/worldcup26/"
-      ],
-      [
-        "Source",
-        "https://github.com/blurxy/worldcup26"
-      ]
-    ],
-    "facts": [
-      "Every old link lands on a live countdown to the 2030 opener.",
-      "Hosted on Cloudflare Workers."
-    ],
-    "summary": "Was a match center for 48 teams in 16 cities with a selectable time zone. Since the final, the page counts down to the 2030 World Cup, and the full results app is kept in the repo."
-  },
-  {
     "id": "L-04",
     "key": "cactus",
     "zone": "builds",
-    "x": 1000,
+    "x": 680,
     "y": 1270,
     "status": "live",
     "name": "Cactus McCoy",
@@ -677,11 +797,39 @@ body.listmode #depth { visibility: hidden; }
     ],
     "summary": "An early-build, playable 3D game that runs directly in the browser without installation.",
     "note": "Play requires a keyboard and mouse."
+  },
+  {
+    "id": "L-01",
+    "key": "worldcup",
+    "zone": "builds",
+    "x": 1000,
+    "y": 1270,
+    "status": "archived",
+    "name": "World Cup 2026",
+    "line": "The 2026 World Cup is over, so the page now counts down to 2030. The 104-match results app stays in the source.",
+    "lang": "HTML / JS",
+    "last": "2026-11-15",
+    "context": "Archived · now counts down to 2030",
+    "links": [
+      [
+        "Open",
+        "https://blurxy.net/worldcup26/"
+      ],
+      [
+        "Source",
+        "https://github.com/blurxy/worldcup26"
+      ]
+    ],
+    "facts": [
+      "Every old link lands on a live countdown to the 2030 opener.",
+      "Hosted on Cloudflare Workers."
+    ],
+    "summary": "Was a match center for 48 teams in 16 cities with a selectable time zone. Since the final, the page counts down to the 2030 World Cup, and the full results app is kept in the repo."
   }
 ];
   const ZONES = { security: ["Testing and enforcing security boundaries", 560, -42], systems: ["Security tools & research", 0, 718], builds: ["Other builds & experiments", 680, 988] };
   const CORE = { x: 0, y: 0 };
-  const LED = { live: "LIVE", repo: "REPO", beta: "BETA", stage: "STAGING", private: "PRIVATE", lab: "LAB" };
+  const LED = { live: "LIVE", repo: "REPO", beta: "BETA", stage: "STAGING", private: "PRIVATE", lab: "LAB", archived: "ARCHIVED" };
 
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -869,8 +1017,350 @@ body.listmode #depth { visibility: hidden; }
   resume.className = 'journal resume-teaser'; resume.id = 'resume'; resume.dataset.key = 'resume';
   resume.setAttribute('aria-haspopup', 'dialog'); resume.setAttribute('aria-controls', 'sheet'); resume.setAttribute('aria-expanded', 'false');
   resume.innerHTML = `<span class="journal-meta">E-01 · EXPERIENCE</span><span class="journal-title">Resume & experience</span>
-    <span class="journal-intro">Access audit: caught a migration file that would have deactivated an employee&#8217;s working account, and wrote a corrected plan.</span><span class="journal-action">Read the record ↗</span>`;
+    <span class="journal-intro">Access audit: caught a migration file that would have deactivated an employee&#8217;s active account, and wrote the corrected plan.</span><span class="journal-action">Read the record ↗</span>`;
   world.appendChild(resume);
+
+  // Bespoke dark/amber inline SVG technical schematics & dark-UI previews for all 14 projects.
+  // Self-contained vectors stay razor-sharp across 25%–220% board zoom and match the industrial schematic palette.
+  const F = 'JetBrains Mono, ui-monospace, monospace';
+  const PROJECT_VISUALS = {
+    ids: {
+      caption: 'Held-out Suricata benchmark: stock ET ruleset vs. SHA-256 frozen tuned rules.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <path d="M0 30H320M0 60H320M0 90H320M80 0V120M160 0V120M240 0V120" stroke="#141b24" stroke-width="1"/>
+        <text x="14" y="19" fill="#8893a1" font-size="8.5" letter-spacing=".08em">HELD-OUT ATTACK CAPTURE · N=37</text>
+        <text x="306" y="19" text-anchor="end" fill="#39d98a" font-size="8.5">0/20 FP</text>
+        <text x="14" y="42" fill="#8893a1" font-size="8.5">STOCK ET (52,667)</text>
+        <rect x="14" y="47" width="244" height="11" rx="1.5" fill="#141a21" stroke="#26303b"/>
+        <rect x="14" y="47" width="40" height="11" rx="1.5" fill="#4f5d6e"/>
+        <text x="266" y="56" fill="#8893a1" font-size="9">6/37</text>
+        <text x="14" y="75" fill="#e9edf1" font-size="8.5">TUNED RULES (SHA-256)</text>
+        <rect x="14" y="80" width="244" height="11" rx="1.5" fill="#141a21" stroke="#26303b"/>
+        <rect class="vis-glow" x="14" y="80" width="218" height="11" rx="1.5" fill="#f2b705"/>
+        <text x="266" y="89" fill="#f2b705" font-size="9" font-weight="600">33/37</text>
+        <text x="14" y="109" fill="#78838f" font-size="8">8,045-pkt connect scan: 0 stock alerts → 195 tuned alerts</text>
+      </svg>`
+    },
+    aur: {
+      caption: 'Sandboxed package diff under bubblewrap + strace with systemd-resolved socket blocked.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="18" width="66" height="28" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="45" y="30" text-anchor="middle" fill="#8893a1" font-size="8">REV A</text>
+        <text x="45" y="41" text-anchor="middle" fill="#39d98a" font-size="7.5">known-good</text>
+        <rect x="12" y="60" width="66" height="28" rx="2" fill="#0e1217" stroke="#f2b705"/>
+        <text x="45" y="72" text-anchor="middle" fill="#e9edf1" font-size="8">REV B</text>
+        <text x="45" y="83" text-anchor="middle" fill="#f2b705" font-size="7.5">candidate</text>
+        <path d="M78 32H96V53H108M78 74H96V53" fill="none" stroke="#3a4654" stroke-width="1.3"/>
+        <rect x="108" y="14" width="94" height="78" rx="2" fill="#10151c" stroke="#3a4654" stroke-dasharray="4 3"/>
+        <text x="155" y="28" text-anchor="middle" fill="#e9edf1" font-size="8.5" font-weight="600">bwrap + strace</text>
+        <text x="155" y="42" text-anchor="middle" fill="#8893a1" font-size="7.5">--unshare-net</text>
+        <rect x="116" y="50" width="78" height="20" rx="1.5" fill="#191315" stroke="#ff6b57" stroke-width=".9"/>
+        <text x="155" y="63" text-anchor="middle" fill="#ff8a7a" font-size="7.2">systemd.Resolve ✕</text>
+        <text x="155" y="84" text-anchor="middle" fill="#78838f" font-size="7.2">DNS control re-test</text>
+        <path d="M202 53H218" fill="none" stroke="#f2b705" stroke-width="1.4"/>
+        <rect x="218" y="18" width="90" height="70" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="225" y="32" fill="#8893a1" font-size="7.5">DIFF OUTPUT</text>
+        <text x="225" y="46" fill="#f2b705" font-size="7.8">+exec /bin/sh</text>
+        <text x="225" y="59" fill="#7fb4ff" font-size="7.8">+connect :443</text>
+        <text x="225" y="72" fill="#39d98a" font-size="7.8">write /tmp/pkg</text>
+        <text x="14" y="109" fill="#78838f" font-size="8">--static PKGBUILD diff: 1.3 s without sandbox</text>
+      </svg>`
+    },
+    haunted: {
+      caption: 'Code-enforced reply guard & Unicode normalizer blocking prompt-injected chart leaks.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="20" width="76" height="66" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="19" y="34" fill="#e9edf1" font-size="8">INBOX MSG</text>
+        <line x1="19" y1="42" x2="78" y2="42" stroke="#26303b"/>
+        <rect x="19" y="48" width="60" height="6" rx="1" fill="#2b3644"/>
+        <rect x="19" y="59" width="62" height="19" rx="1.5" fill="#1b1512" stroke="#f2b705" stroke-dasharray="2 2"/>
+        <text x="50" y="71" text-anchor="middle" fill="#f2b705" font-size="7">hidden inject</text>
+        <path d="M88 53H108" stroke="#3a4654" stroke-width="1.4"/>
+        <rect x="108" y="24" width="74" height="58" rx="2" fill="#10151c" stroke="#26303b"/>
+        <text x="145" y="41" text-anchor="middle" fill="#e9edf1" font-size="8">GEMMA 4</text>
+        <text x="145" y="53" text-anchor="middle" fill="#8893a1" font-size="7.5">12B local</text>
+        <rect x="116" y="61" width="58" height="14" rx="1.5" fill="#141a21" stroke="#3a4654"/>
+        <text x="145" y="71" text-anchor="middle" fill="#7fb4ff" font-size="7">CLASSIFY ONLY</text>
+        <path d="M182 53H202" stroke="#f2b705" stroke-width="1.4"/>
+        <rect class="vis-glow" x="202" y="18" width="106" height="70" rx="2" fill="#121712" stroke="#39d98a"/>
+        <text x="255" y="34" text-anchor="middle" fill="#39d98a" font-size="8.2" font-weight="600">CODE GUARD</text>
+        <text x="255" y="48" text-anchor="middle" fill="#c9d0d7" font-size="7.4">Unicode normalise</text>
+        <text x="255" y="60" text-anchor="middle" fill="#c9d0d7" font-size="7.4">Deterministic check</text>
+        <text x="255" y="77" text-anchor="middle" fill="#39d98a" font-size="8.2" font-weight="600">0/3 LEAKED</text>
+        <text x="14" y="108" fill="#78838f" font-size="8">Unguarded: 3/3 chart leaks · Guarded: 0/3 (temp 0, fixed seed)</text>
+      </svg>`
+    },
+    trading: {
+      caption: 'Fail-closed dependency gates, deterministic order clamps, and exchange-side bracket stops.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <g font-size="7.5">
+          <rect x="12" y="14" width="60" height="16" rx="1.5" fill="#0e1217" stroke="#26303b"/><text x="42" y="25" text-anchor="middle" fill="#c9d0d7">LLM</text>
+          <rect x="12" y="34" width="60" height="16" rx="1.5" fill="#0e1217" stroke="#26303b"/><text x="42" y="45" text-anchor="middle" fill="#c9d0d7">MARKET</text>
+          <rect x="12" y="54" width="60" height="16" rx="1.5" fill="#0e1217" stroke="#26303b"/><text x="42" y="65" text-anchor="middle" fill="#c9d0d7">POSTGRES</text>
+          <rect x="12" y="74" width="60" height="16" rx="1.5" fill="#0e1217" stroke="#26303b"/><text x="42" y="85" text-anchor="middle" fill="#c9d0d7">REDIS</text>
+        </g>
+        <path d="M72 22H88V82H72M72 42H88M72 62H88M88 52H106" fill="none" stroke="#3a4654" stroke-width="1.3"/>
+        <rect class="vis-glow" x="106" y="18" width="96" height="68" rx="2" fill="#141612" stroke="#f2b705"/>
+        <text x="154" y="34" text-anchor="middle" fill="#f2b705" font-size="8" font-weight="600">FAIL-CLOSED GATE</text>
+        <text x="154" y="49" text-anchor="middle" fill="#c9d0d7" font-size="7.4">Tripwire checks</text>
+        <text x="154" y="61" text-anchor="middle" fill="#c9d0d7" font-size="7.4">Contract &amp; loss cap</text>
+        <text x="154" y="74" text-anchor="middle" fill="#8893a1" font-size="7.2">No model override</text>
+        <path d="M202 52H220" stroke="#f2b705" stroke-width="1.4"/>
+        <rect x="220" y="18" width="88" height="32" rx="2" fill="#0e1217" stroke="#39d98a"/>
+        <text x="264" y="32" text-anchor="middle" fill="#39d98a" font-size="7.8">EXCHANGE STOP</text>
+        <text x="264" y="43" text-anchor="middle" fill="#8893a1" font-size="7">bracket on fill</text>
+        <rect x="220" y="56" width="88" height="30" rx="2" fill="#181213" stroke="#ff6b57" stroke-width=".9"/>
+        <text x="264" y="70" text-anchor="middle" fill="#ff8a7a" font-size="7.8">KILL SWITCH</text>
+        <text x="264" y="80" text-anchor="middle" fill="#8893a1" font-size="7">parks scheduler</text>
+        <text x="14" y="109" fill="#78838f" font-size="8">Upstream fix merged: project-x-py PR #179 (v4.4.2)</text>
+      </svg>`
+    },
+    jetson: {
+      caption: 'Offline 8 GB edge rule-drafting pipeline and adversarial variant validation.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="16" width="106" height="72" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="20" y="31" fill="#f2b705" font-size="8" font-weight="600">ORIN NANO · 8 GB</text>
+        <text x="20" y="45" fill="#e9edf1" font-size="7.6">Qwen2.5-Coder 7B</text>
+        <text x="20" y="57" fill="#8893a1" font-size="7.4">QLoRA (12,855 ET)</text>
+        <text x="20" y="69" fill="#8893a1" font-size="7.4">+ Grammar decode</text>
+        <text x="20" y="81" fill="#39d98a" font-size="7.2">100% OFFLINE</text>
+        <path d="M118 52H136" stroke="#f2b705" stroke-width="1.4"/>
+        <rect x="136" y="16" width="172" height="72" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="145" y="30" fill="#8893a1" font-size="7.8">SURICATA VARIANT SCORER</text>
+        <text x="145" y="45" fill="#e9edf1" font-size="7.5">Reference rule</text>
+        <rect x="145" y="49" width="124" height="8" rx="1" fill="#141a21"/>
+        <rect class="vis-glow" x="145" y="49" width="124" height="8" rx="1" fill="#39d98a"/>
+        <text x="275" y="56" fill="#39d98a" font-size="7.6">100%</text>
+        <text x="145" y="70" fill="#8893a1" font-size="7.5">Prompt-literal copy</text>
+        <rect x="145" y="74" width="124" height="8" rx="1" fill="#141a21"/>
+        <rect x="145" y="74" width="46" height="8" rx="1" fill="#f2b705"/>
+        <text x="275" y="81" fill="#f2b705" font-size="7.4">20–50%</text>
+        <text x="14" y="108" fill="#78838f" font-size="8">Priv-esc: deterministic engine 15/17 (0/8 FP) beat local LLM</text>
+      </svg>`
+    },
+    osint: {
+      caption: 'Unified OSINT directory (2,141 tools) with passive/active scoping and timestamped case notebook.',
+      svg: `<svg viewBox="0 0 560 144" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="560" height="144" fill="#090c10"/>
+        <rect x="12" y="12" width="536" height="120" rx="3" fill="#0d1117" stroke="#26303b"/>
+        <rect x="12" y="12" width="536" height="24" rx="3" fill="#121821"/>
+        <line x1="12" y1="36" x2="548" y2="36" stroke="#26303b"/>
+        <polygon points="22,20 30,20 30,28" fill="#f2b705"/>
+        <text x="37" y="27" fill="#e9edf1" font-size="9" font-weight="600">OSINT FIELD KIT</text>
+        <rect x="150" y="17" width="210" height="14" rx="2" fill="#08090c" stroke="#26303b"/>
+        <text x="158" y="27" fill="#78838f" font-size="7.8">search 2,141 tools · domain / ip / email…</text>
+        <text x="538" y="27" text-anchor="end" fill="#39d98a" font-size="8">1,813 LIVE CHECKED</text>
+        <g transform="translate(22,46)">
+          <text x="0" y="9" fill="#8893a1" font-size="7.8" letter-spacing=".08em">MERGED DIRECTORY · 1,103 OSINT FW + 1,153 OSINT4ALL (−115 OVERLAP)</text>
+          <rect x="0" y="16" width="332" height="20" rx="2" fill="#12171f" stroke="#26303b"/>
+          <text x="8" y="29" fill="#e9edf1" font-size="8.2">Certificate Transparency · crt.sh</text>
+          <text x="324" y="29" text-anchor="end" fill="#39d98a" font-size="7.5">PASSIVE</text>
+          <rect x="0" y="40" width="332" height="20" rx="2" fill="#12171f" stroke="#26303b"/>
+          <text x="8" y="53" fill="#e9edf1" font-size="8.2">DNS &amp; ASN Pivot · BGPView / RDAP</text>
+          <text x="324" y="53" text-anchor="end" fill="#39d98a" font-size="7.5">PASSIVE</text>
+          <rect class="vis-glow" x="0" y="64" width="332" height="20" rx="2" fill="#171611" stroke="#f2b705"/>
+          <text x="8" y="77" fill="#e9edf1" font-size="8.2">Active Subdomain Probe · Scope Req.</text>
+          <text x="324" y="77" text-anchor="end" fill="#f2b705" font-size="7.5" font-weight="600">ACTIVE</text>
+        </g>
+        <line x1="366" y1="36" x2="366" y2="132" stroke="#26303b"/>
+        <g transform="translate(378,46)">
+          <text x="0" y="9" fill="#f2b705" font-size="7.8" letter-spacing=".08em">CASE NOTEBOOK</text>
+          <text x="0" y="25" fill="#78838f" font-size="7.4">14:02 · Passive DNS log</text>
+          <text x="0" y="38" fill="#c9d0d7" font-size="7.4">14:05 · Cert SAN match</text>
+          <text x="0" y="51" fill="#c9d0d7" font-size="7.4">14:09 · Scope confirmed</text>
+          <rect x="0" y="64" width="156" height="20" rx="2" fill="#141a21" stroke="#f2b705"/>
+          <text x="78" y="77" text-anchor="middle" fill="#f2b705" font-size="8">EXPORT RECON REPORT ↗</text>
+        </g>
+      </svg>`
+    },
+    kev: {
+      caption: 'CISA KEV triage queue sorted by fix-by date with EPSS scores and calendar export.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="10" width="296" height="100" rx="2" fill="#0d1117" stroke="#26303b"/>
+        <rect x="12" y="10" width="296" height="20" fill="#121821"/>
+        <line x1="12" y1="30" x2="308" y2="30" stroke="#26303b"/>
+        <text x="20" y="23" fill="#e9edf1" font-size="7.8" font-weight="600">CISA KEV · BOD 26-04</text>
+        <text x="300" y="23" text-anchor="end" fill="#39d98a" font-size="7.2">5m SYNC · .ICS</text>
+        <text x="20" y="43" fill="#78838f" font-size="7">CVE / VENDOR</text>
+        <text x="172" y="43" fill="#78838f" font-size="7">EPSS</text>
+        <text x="298" y="43" text-anchor="end" fill="#78838f" font-size="7">FIX-BY</text>
+        <line x1="18" y1="48" x2="302" y2="48" stroke="#1b232d"/>
+        <text x="20" y="61" fill="#e9edf1" font-size="7.8">CVE-2026-2140 · Edge</text>
+        <rect x="172" y="54" width="58" height="7" rx="1" fill="#141a21"/><rect class="vis-glow" x="172" y="54" width="54" height="7" rx="1" fill="#f2b705"/>
+        <text x="298" y="61" text-anchor="end" fill="#f2b705" font-size="7.5">DUE 4d</text>
+        <line x1="18" y1="68" x2="302" y2="68" stroke="#1b232d"/>
+        <text x="20" y="81" fill="#c9d0d7" font-size="7.8">CVE-2026-1892 · VPN</text>
+        <rect x="172" y="74" width="58" height="7" rx="1" fill="#141a21"/><rect x="172" y="74" width="44" height="7" rx="1" fill="#7fb4ff"/>
+        <text x="298" y="81" text-anchor="end" fill="#8893a1" font-size="7.5">DUE 11d</text>
+        <line x1="18" y1="88" x2="302" y2="88" stroke="#1b232d"/>
+        <text x="20" y="101" fill="#c9d0d7" font-size="7.8">CVE-2026-1407 · OS</text>
+        <rect x="172" y="94" width="58" height="7" rx="1" fill="#141a21"/><rect x="172" y="94" width="31" height="7" rx="1" fill="#39d98a"/>
+        <text x="298" y="101" text-anchor="end" fill="#8893a1" font-size="7.5">DUE 19d</text>
+      </svg>`
+    },
+    beacon: {
+      caption: 'Rayleigh / Z² timestamp phase-coherence periodogram vs. 1% false-alarm threshold.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <path d="M28 18V92H304" fill="none" stroke="#3a4654" stroke-width="1.2"/>
+        <line x1="28" y1="42" x2="304" y2="42" stroke="#f2b705" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/>
+        <text x="302" y="38" text-anchor="end" fill="#f2b705" font-size="7.4">1% FA THRESHOLD</text>
+        <polyline class="vis-glow" fill="none" stroke="#7fb4ff" stroke-width="1.5" points="32,89 44,85 52,88 64,82 74,87 88,83 98,89 112,78 120,86 132,82 142,24 148,84 160,88 172,81 186,87 198,83 212,68 218,86 232,83 246,88 260,84 274,87 288,83 300,88"/>
+        <circle cx="142" cy="24" r="3" fill="#f2b705"/>
+        <text x="150" y="25" fill="#e9edf1" font-size="7.8">Z² PEAK (N ≥ 57)</text>
+        <text x="18" y="26" fill="#78838f" font-size="7.5">Z²</text>
+        <text x="30" y="107" fill="#8893a1" font-size="7.8">Benign FA: 19.4% · Dispersion control: 98.0%</text>
+      </svg>`
+    },
+    pyexec: {
+      caption: 'Direct JSON-to-stdin Python execution from MCP clients without shell quoting.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="14" y="22" width="84" height="44" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="56" y="40" text-anchor="middle" fill="#e9edf1" font-size="8.2" font-weight="600">MCP CLIENT</text>
+        <text x="56" y="54" text-anchor="middle" fill="#7fb4ff" font-size="7.4">{"code":"..."}</text>
+        <path class="vis-glow" d="M98 44H212" stroke="#f2b705" stroke-width="1.8"/>
+        <polygon points="210,40 218,44 210,48" fill="#f2b705"/>
+        <rect x="122" y="26" width="68" height="14" rx="1.5" fill="#141a21" stroke="#f2b705" stroke-width=".8"/>
+        <text x="156" y="36" text-anchor="middle" fill="#f2b705" font-size="7.2">JSON → stdin</text>
+        <rect x="116" y="64" width="80" height="22" rx="1.5" fill="#141214" stroke="#4a383c" stroke-dasharray="3 2"/>
+        <text x="156" y="78" text-anchor="middle" fill="#8893a1" font-size="7.3">sh -c / argv</text>
+        <line x1="120" y1="84" x2="192" y2="66" stroke="#ff6b57" stroke-width="1.2"/>
+        <rect x="220" y="22" width="86" height="44" rx="2" fill="#0e1217" stroke="#39d98a"/>
+        <text x="263" y="40" text-anchor="middle" fill="#39d98a" font-size="8.2" font-weight="600">PYTHON</text>
+        <text x="263" y="54" text-anchor="middle" fill="#8893a1" font-size="7.2">uvx py-exec-mcp</text>
+        <text x="14" y="107" fill="#78838f" font-size="8">No shell escaping · PyPI package · MCP SDK v1 &amp; v2</text>
+      </svg>`
+    },
+    spore: {
+      caption: 'Serverless LAN peer mesh with Noise_XX authentication and signed-block replication.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <g stroke="#2c3745" stroke-width="1.2" fill="none">
+          <line x1="62" y1="30" x2="160" y2="22"/><line x1="160" y1="22" x2="258" y2="34"/>
+          <line x1="62" y1="30" x2="96" y2="74"/><line x1="96" y1="74" x2="226" y2="74"/>
+          <line x1="258" y1="34" x2="226" y2="74"/><line x1="160" y1="22" x2="96" y2="74" stroke-dasharray="3 3"/>
+          <line x1="160" y1="22" x2="226" y2="74" stroke-dasharray="3 3"/>
+        </g>
+        <circle class="vis-glow" cx="160" cy="22" r="9" fill="#171611" stroke="#f2b705" stroke-width="1.5"/>
+        <text x="160" y="25" text-anchor="middle" fill="#f2b705" font-size="6.8" font-weight="600">BCN</text>
+        <circle cx="62" cy="30" r="8" fill="#0e1217" stroke="#7fb4ff"/><text x="62" y="33" text-anchor="middle" fill="#c9d0d7" font-size="6.5">P1</text>
+        <circle cx="258" cy="34" r="8" fill="#0e1217" stroke="#7fb4ff"/><text x="258" y="37" text-anchor="middle" fill="#c9d0d7" font-size="6.5">P2</text>
+        <circle cx="96" cy="74" r="8" fill="#0e1217" stroke="#39d98a"/><text x="96" y="77" text-anchor="middle" fill="#c9d0d7" font-size="6.5">P3</text>
+        <circle cx="226" cy="74" r="8" fill="#0e1217" stroke="#39d98a"/><text x="226" y="77" text-anchor="middle" fill="#c9d0d7" font-size="6.5">P4</text>
+        <text x="160" y="53" text-anchor="middle" fill="#78838f" font-size="7.4">NO SERVER · Noise_XX</text>
+        <rect x="20" y="92" width="280" height="18" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="160" y="104" text-anchor="middle" fill="#8893a1" font-size="7.4">[BLK #1] → [BLK #2] → [BLK #3]  ·  SIGNED APPEND LOG</text>
+      </svg>`
+    },
+    coursewake: {
+      caption: 'Read-only Brightspace extension with local client-held key and ciphertext-only Worker backup.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="24" width="80" height="54" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="52" y="43" text-anchor="middle" fill="#e9edf1" font-size="7.8">BRIGHTSPACE</text>
+        <text x="52" y="56" text-anchor="middle" fill="#39d98a" font-size="7.2">READ-ONLY</text>
+        <text x="52" y="68" text-anchor="middle" fill="#78838f" font-size="6.8">session view</text>
+        <path d="M92 51H112" stroke="#3a4654" stroke-width="1.4"/>
+        <rect class="vis-glow" x="112" y="18" width="96" height="66" rx="2" fill="#161510" stroke="#f2b705"/>
+        <text x="160" y="34" text-anchor="middle" fill="#f2b705" font-size="8" font-weight="600">MV3 CLIENT</text>
+        <text x="160" y="48" text-anchor="middle" fill="#e9edf1" font-size="7.3">Client-held key</text>
+        <text x="160" y="61" text-anchor="middle" fill="#8893a1" font-size="7.2">Local encrypt</text>
+        <text x="160" y="75" text-anchor="middle" fill="#f2b705" font-size="7">v0.2.5 beta</text>
+        <path d="M208 51H226" stroke="#f2b705" stroke-width="1.4"/>
+        <rect x="226" y="24" width="82" height="54" rx="2" fill="#0e1217" stroke="#26303b"/>
+        <text x="267" y="42" text-anchor="middle" fill="#7fb4ff" font-size="7.6">CF WORKER</text>
+        <text x="267" y="55" text-anchor="middle" fill="#8893a1" font-size="7.1">ciphertext only</text>
+        <text x="267" y="67" text-anchor="middle" fill="#5e6a77" font-size="7">0x9f4a·c2e1…</text>
+        <text x="14" y="108" fill="#78838f" font-size="8">No submissions, enrollments, or Brightspace writes</text>
+      </svg>`
+    },
+    chladni: {
+      caption: 'Terminal Braille-cell visualization of clamped circular membrane Bessel eigenmodes.',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="12" y="10" width="296" height="100" rx="2" fill="#0b0e13" stroke="#26303b"/>
+        <text x="22" y="25" fill="#78838f" font-size="7.6">$ chladni-tui --audio sample.wav</text>
+        <g transform="translate(86,62)">
+          <circle cx="0" cy="0" r="36" fill="none" stroke="#26303b" stroke-width="1"/>
+          <circle class="vis-glow" cx="0" cy="0" r="24" fill="none" stroke="#f2b705" stroke-width="1.2" stroke-dasharray="2 3"/>
+          <circle cx="0" cy="0" r="12" fill="none" stroke="#e9edf1" stroke-width="1" stroke-dasharray="1.5 2.5"/>
+          <path d="M-35 0H35M0 -35V35M-25 -25L25 25M-25 25L25 -25" stroke="#f2b705" stroke-width=".9" stroke-dasharray="2 3" opacity=".8"/>
+          <circle cx="0" cy="0" r="2.2" fill="#f2b705"/>
+        </g>
+        <g transform="translate(154,36)">
+          <text x="0" y="10" fill="#e9edf1" font-size="8">U_mn(r,θ) = J_m(αr)·cos(mθ)</text>
+          <text x="0" y="26" fill="#f2b705" font-size="7.8">Energy: Σ aᵢ² Uᵢ²</text>
+          <text x="0" y="42" fill="#8893a1" font-size="7.5">Render: Braille sub-cells</text>
+          <text x="0" y="56" fill="#39d98a" font-size="7.5">No GPU required</text>
+        </g>
+      </svg>`
+    },
+    cactus: {
+      caption: 'Browser WebGL 3D third-person viewport preview (Thorn & Dust 3D).',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <line x1="0" y1="58" x2="320" y2="58" stroke="#f2b705" stroke-width="1" opacity=".65"/>
+        <path d="M18 58L48 34L86 34L104 58M204 58L228 28L276 28L298 58" fill="#10151c" stroke="#2c3745" stroke-width="1.2"/>
+        <g stroke="#1b2430" stroke-width="1">
+          <line x1="160" y1="58" x2="20" y2="120"/><line x1="160" y1="58" x2="90" y2="120"/>
+          <line x1="160" y1="58" x2="160" y2="120"/><line x1="160" y1="58" x2="230" y2="120"/>
+          <line x1="160" y1="58" x2="300" y2="120"/>
+          <line x1="0" y1="72" x2="320" y2="72"/><line x1="0" y1="90" x2="320" y2="90"/><line x1="0" y1="110" x2="320" y2="110"/>
+        </g>
+        <path class="vis-glow" d="M160 88V44M160 66H149V53M160 60H171V48" fill="none" stroke="#f2b705" stroke-width="2.4" stroke-linecap="square"/>
+        <text x="14" y="20" fill="#8893a1" font-size="8">WEBGL 3D VIEWPORT</text>
+        <text x="306" y="20" text-anchor="end" fill="#78838f" font-size="7.5">KB + MOUSE</text>
+      </svg>`
+    },
+    worldcup: {
+      caption: 'Archived 2026 match center redirected to a 2030 opener countdown (104-match app in source).',
+      svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" font-family="${F}">
+        <rect width="320" height="120" fill="#090c10"/>
+        <rect x="14" y="14" width="292" height="92" rx="2" fill="#0c1015" stroke="#26303b" stroke-dasharray="4 3"/>
+        <text x="26" y="30" fill="#7e8a99" font-size="7.8" letter-spacing=".08em">2026 FINAL · ARCHIVED</text>
+        <text x="294" y="30" text-anchor="end" fill="#8893a1" font-size="7.5">104 MATCHES IN SOURCE</text>
+        <line x1="24" y1="38" x2="296" y2="38" stroke="#1e2732"/>
+        <text x="160" y="57" text-anchor="middle" fill="#c9d0d7" font-size="9.5" font-weight="600">→ 2030 WORLD CUP COUNTDOWN</text>
+        <g transform="translate(62,66)" font-size="8">
+          <rect x="0" y="0" width="56" height="26" rx="2" fill="#12171f" stroke="#2c3745"/><text x="28" y="16" text-anchor="middle" fill="#f2b705">DAYS</text>
+          <rect x="68" y="0" width="56" height="26" rx="2" fill="#12171f" stroke="#2c3745"/><text x="96" y="16" text-anchor="middle" fill="#c9d0d7">HRS</text>
+          <rect x="136" y="0" width="56" height="26" rx="2" fill="#12171f" stroke="#2c3745"/><text x="164" y="16" text-anchor="middle" fill="#c9d0d7">MIN</text>
+        </g>
+      </svg>`
+    }
+  };
+
+  // Board-level schematic colophon footer (positioned dynamically below the lowest project row).
+  const boardFooter = document.createElement('footer');
+  boardFooter.className = 'board-footer';
+  boardFooter.setAttribute('aria-label', 'Site footer');
+  boardFooter.innerHTML = `<div class="ft-brand">
+      <span class="mark"><i aria-hidden="true"></i>blurxy</span>
+      <p class="ft-copy">© 2026 Rafiul Bari · CUNY City Tech</p>
+      <p class="ft-built">Built as a single static HTML file — inline CSS &amp; JS, no build step, hosted on Cloudflare.</p>
+    </div>
+    <nav class="ft-nav" aria-label="Board sections">
+      <span class="ft-label">Sections</span>
+      <div class="ft-links">
+        <button type="button" data-jump="security">Security boundaries</button>
+        <button type="button" data-jump="systems">Tools &amp; research</button>
+        <button type="button" data-jump="builds">Other builds</button>
+        <button type="button" data-open="journal">Investigation notes</button>
+        <button type="button" data-open="resume">Experience &amp; resume</button>
+      </div>
+    </nav>
+    <div class="ft-actions">
+      <button type="button" class="ft-top" data-top="board">Back to top ↑</button>
+      <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume ↗</a></div>
+    </div>`;
+  world.appendChild(boardFooter);
 
   // Stack rows from measured card heights; writes happen only after all measurements.
   function placeBoard() {
@@ -883,24 +1373,28 @@ body.listmode #depth { visibility: hidden; }
     rows[5] = rows[4] + Math.max(h.kev, h.beacon) + 40;
     rows[6] = rows[4];
     rows[7] = rows[6] + Math.max(h.coursewake, h.chladni) + 40;
-    const yByKey = {ids: rows[0], aur: rows[0], haunted: rows[1], trading: rows[1], jetson: rows[2], osint: rows[3], kev: rows[4], beacon: rows[4], pyexec: rows[5], spore: rows[5], coursewake: rows[6], chladni: rows[6], worldcup: rows[7], cactus: rows[7]};
+    const yByKey = {ids: rows[0], aur: rows[0], haunted: rows[1], trading: rows[1], jetson: rows[2], osint: rows[3], kev: rows[4], beacon: rows[4], pyexec: rows[5], spore: rows[5], coursewake: rows[6], chladni: rows[6], cactus: rows[7], worldcup: rows[7]};
     MODS.forEach(m => { m.y = yByKey[m.key]; modEls[m.key].style.top = m.y + 'px'; modEls[m.key].style.left = m.x + 'px'; });
     resume.style.left = '0px'; resume.style.top = (core.offsetHeight + 12) + 'px';
     journal.style.left = '560px'; journal.style.top = rows[2] + 'px';
     ZONES.systems[2] = rows[3] - 42; ZONES.builds[2] = rows[6] - 42;
     world.querySelectorAll('.zone').forEach(el => { el.style.top = ZONES[el.dataset.zone][2] + 'px'; });
+    const bottomY = Math.max(rows[5] + Math.max(h.pyexec, h.spore), rows[7] + Math.max(h.cactus, h.worldcup));
+    boardFooter.style.left = '0px'; boardFooter.style.top = (bottomY + 72) + 'px';
   }
 
   const modEls = {};
-  const lastLabel = m => m.lastLabel ?? (/^\d/.test(m.last) ? "last commit" : "");
   function modHTML(m) {
-    const lbl = lastLabel(m);
+    const vis = PROJECT_VISUALS[m.key];
     return `<span class="mh"><span>${m.featured ? "FEATURED · " : ""}${m.id}</span><span class="led ${m.status}">${LED[m.status]}</span></span>
+      ${vis ? `<span class="mv" aria-hidden="true">${vis.svg}</span>` : ""}
       <span class="mb"><span class="mn">${esc(m.name)}</span><span class="md">${esc(m.line)}</span></span>
-      <span class="mf"><span><b>${esc(m.lang)}</b></span><span>${lbl ? lbl + " " : ""}<b>${esc(m.last)}</b></span>${m.featured ? '<span class="project-action">Explore project ↗</span>' : ""}</span>`;
+      <span class="mf"><span><b>${esc(m.lang)}</b></span><span>updated <b>${esc(m.last)}</b></span>${m.featured ? '<span class="project-action">Explore project ↗</span>' : ""}</span>`;
   }
   for (const m of MODS) {
-    const b = document.createElement('button'); b.className = m.featured ? 'mod featured' : 'mod'; b.style.left = m.x + 'px'; b.style.top = m.y + 'px';
+    const b = document.createElement('button');
+    b.className = ['mod', m.featured ? 'featured' : '', m.status === 'archived' ? 'is-archived' : ''].filter(Boolean).join(' ');
+    b.style.left = m.x + 'px'; b.style.top = m.y + 'px';
     b.dataset.key = m.key; b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-controls', 'sheet'); b.setAttribute('aria-expanded', 'false'); b.innerHTML = modHTML(m);
     world.appendChild(b); modEls[m.key] = b;
   }
@@ -932,10 +1426,11 @@ body.listmode #depth { visibility: hidden; }
     svg.style.left = (minx - pad) + 'px'; svg.style.top = (miny - pad) + 'px';
     svg.setAttribute('viewBox', `${minx - pad} ${miny - pad} ${maxx - minx + pad * 2} ${maxy - miny + pad * 2}`);
     svg.innerHTML = paths.map(p => `<path class="trace-base" data-k="${p.k}" d="${p.d}" fill="none" stroke="var(--trace)" stroke-width="1.5"/>
-      <rect x="${p.sx - 3.5}" y="${p.sy - 3.5}" width="7" height="7" fill="var(--bg)" stroke="var(--trace)"/>
-      <rect x="${p.ex - 3.5}" y="${p.ey - 3.5}" width="7" height="7" fill="var(--bg)" stroke="var(--trace)"/>
+      <rect class="trace-port" data-k="${p.k}" x="${p.sx - 3.5}" y="${p.sy - 3.5}" width="7" height="7" fill="var(--bg)" stroke="var(--trace)"/>
+      <rect class="trace-port" data-k="${p.k}" x="${p.ex - 3.5}" y="${p.ey - 3.5}" width="7" height="7" fill="var(--bg)" stroke="var(--trace)"/>
       <path class="trace-highlight" data-k="${p.k}" d="${p.d}" fill="none" stroke="var(--amber)" stroke-width="2"/>`).join('');
     motion.wire(paths);
+    syncBoardFilterClasses();
   }
 
   // ---------- camera ----------
@@ -956,19 +1451,33 @@ body.listmode #depth { visibility: hidden; }
     for (const el of world.children) { if (el.id === 'traces' || el.classList.contains('trace-fx')) continue; const x = el.offsetLeft, y = el.offsetTop; minx = Math.min(minx, x); miny = Math.min(miny, y); maxx = Math.max(maxx, x + el.offsetWidth); maxy = Math.max(maxy, y + el.offsetHeight); }
     return { minx, miny, maxx, maxy };
   }
+  function fitNodes(els, maxScale = 1.0) {
+    if (!els.length) return;
+    const r = stage.getBoundingClientRect();
+    let minx = Infinity, miny = Infinity, maxx = -Infinity, maxy = -Infinity;
+    for (const el of els) {
+      minx = Math.min(minx, el.offsetLeft); miny = Math.min(miny, el.offsetTop);
+      maxx = Math.max(maxx, el.offsetLeft + el.offsetWidth); maxy = Math.max(maxy, el.offsetTop + el.offsetHeight);
+    }
+    const pad = 56, sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
+    const availW = Math.max(240, r.width - sheetW - pad * 2), availH = Math.max(200, r.height - pad * 2 - 34);
+    const s = clampS(Math.min(maxScale, availW / Math.max(1, maxx - minx), availH / Math.max(1, maxy - miny)));
+    cam.s = s; cam.x = (r.width - sheetW - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - 34 - (maxy - miny) * s) / 2 - miny * s; apply();
+  }
   function fit() {
     const r = stage.getBoundingClientRect(), { minx, miny, maxx, maxy } = bbox();
     const pad = 60, s = clampS(Math.min((r.width - pad * 2) / (maxx - minx), (r.height - pad * 2) / (maxy - miny)));
     cam.s = s; cam.x = (r.width - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - (maxy - miny) * s) / 2 - miny * s; apply();
   }
-  // Home keeps the entire core and contact readable beside the first security rows.
+  // Home keeps the entire core, contact row, and full E-01 Experience card readable beside the top security cards.
   function home() {
     const r = stage.getBoundingClientRect();
-    const height = Math.max(core.offsetHeight + 60, modEls.haunted.offsetTop + modEls.haunted.offsetHeight, modEls.trading.offsetTop + modEls.trading.offsetHeight);
-    const width = 1160, top = -42, padX = 48, padY = 38;
-    cam.s = clampS(Math.min(1, (r.width - padX * 2) / width, (r.height - padY * 2 - 30) / (height - top)));
+    const resumeBottom = resume.offsetTop + resume.offsetHeight + 16;
+    const height = Math.max(resumeBottom, modEls.haunted.offsetTop + modEls.haunted.offsetHeight, modEls.trading.offsetTop + modEls.trading.offsetHeight);
+    const width = 1160, top = -42, padX = 48, padY = 34;
+    cam.s = clampS(Math.min(1, (r.width - padX * 2) / width, (r.height - padY * 2 - 36) / (height - top)));
     cam.x = (r.width - width * cam.s) / 2;
-    cam.y = (r.height - 30 - (height - top) * cam.s) / 2 - top * cam.s;
+    cam.y = (r.height - 36 - (height - top) * cam.s) / 2 - top * cam.s;
     apply();
   }
   function zoomAt(f, px, py) {
@@ -1030,7 +1539,7 @@ body.listmode #depth { visibility: hidden; }
   // Tab to a module that is off screen: pan it into view (no zoom change) instead of letting the stage scroll.
   stage.addEventListener('focusin', e => {
     if (drag || !e.target.matches(':focus-visible')) return;   // a mouse or touch press is about to click it: don't move it away
-    let el = e.target.closest('.mod, .core, .journal'); if (!el) return;
+    let el = e.target.closest('.mod, .core, .journal, .board-footer'); if (!el) return;
     const r = stage.getBoundingClientRect(), m = 40, right = r.right - ($('sheet').classList.contains('open') ? Math.min(440, r.width) : 0);
     let b = el.getBoundingClientRect(); if (b.height > r.height - 2 * m || b.width > right - r.left - 2 * m) { el = e.target; b = el.getBoundingClientRect(); }
     let dx = 0, dy = 0;
@@ -1044,8 +1553,23 @@ body.listmode #depth { visibility: hidden; }
   $('zFit').onclick = () => { dirty = true; close(); fit(); };
   window.addEventListener('keydown', e => {
     if (e.ctrlKey || e.metaKey || e.altKey || !(e.target instanceof Element)) return;   // leave browser zoom and shortcuts alone
-    if (e.target.closest('input,textarea,select')) return;
-    if (e.key === 'Escape') { close(); return; }
+    if (e.target.closest('input,textarea,select')) {
+      if (e.key === 'Escape') {
+        if ($('fQuery') === e.target && $('fQuery').value) { $('fQuery').value = ''; filter.q = ''; applyFilter({ panBoard: true }); }
+        else e.target.blur();
+      }
+      return;
+    }
+    if (e.key === '/' && !document.body.classList.contains('sheetopen')) {
+      e.preventDefault();
+      if (window.innerWidth <= 760) setFilterDrawer(true);
+      $('fQuery').focus(); $('fQuery').select(); return;
+    }
+    if (e.key === 'Escape') {
+      if (current) { close(); return; }
+      if (document.body.classList.contains('filteropen')) { setFilterDrawer(false); return; }
+      return;
+    }
     if (document.body.classList.contains('sheetopen') || e.target.closest('#sheet, #list') || !$('list').hidden) return;
     const k = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] }[e.key];
     if (k) { e.preventDefault(); dirty = true; cam.x += k[0]; cam.y += k[1]; apply(); }
@@ -1056,7 +1580,7 @@ body.listmode #depth { visibility: hidden; }
   document.addEventListener('click', e => {
     if (!e.target.closest('.browse')) return;
     e.preventDefault(); setView('list');
-    const first = $('list').querySelector('.mod');
+    const first = $('list').querySelector('.mod') || $('list').querySelector('.zone');
     first?.focus({preventScroll:true}); first?.scrollIntoView({block:'start', behavior: motion.reduced() ? 'auto' : 'smooth'});
   });
 
@@ -1064,11 +1588,12 @@ body.listmode #depth { visibility: hidden; }
   function sheetHTML(m) {
     const acts = m.links.map(([t, u], i) => u === "#" ? `<span class="soon">${esc(t)}</span>` : `<a class="${i ? "" : "pri"}" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}${t.endsWith("↗") ? "" : " ↗"}</a>`).join("");
     const flags = s => esc(s).replace(/(^|\s)(--[a-z][a-z-]*)/g, '$1<code>$2</code>');   // keep CLI flags like --static on one line
-    const lbl = lastLabel(m);
+    const vis = PROJECT_VISUALS[m.key];
     return `<div class="sh-top"><span>${m.id} · ${LED[m.status]}</span><button class="tbtn" id="shClose">Close<span class="kbd"> · Esc</span></button></div>
       <h2 id="shTitle" tabindex="-1">${esc(m.name)}</h2><p class="lead">${esc(m.line)}</p>
       ${acts ? `<div class="acts">${acts}</div>` : ""}
-      <dl class="spec"><div><dt>Overview</dt><dd>${esc(m.summary)}</dd></div><div><dt>Stack</dt><dd>${esc(m.lang)}</dd></div><div><dt>${lbl ? lbl : m.status === "private" ? "Access" : "Version"}</dt><dd>${esc(m.status === "private" ? "Private · independent project" : m.last)}</dd></div></dl>
+      ${vis ? `<figure class="sh-vis">${vis.svg}<figcaption>${esc(vis.caption)}</figcaption></figure>` : ""}
+      <dl class="spec"><div><dt>Overview</dt><dd>${esc(m.summary)}</dd></div><div><dt>Stack</dt><dd>${esc(m.lang)}</dd></div><div><dt>Updated</dt><dd>${esc(m.last)}</dd></div>${m.release ? `<div><dt>Release</dt><dd>${esc(m.release)}</dd></div>` : ""}${m.context ? `<div><dt>Context</dt><dd>${esc(m.context)}</dd></div>` : ""}</dl>
       ${m.facts.length ? `<div class="blk"><h3>Inside the project</h3><ul>${m.facts.map(f => `<li>${flags(f)}</li>`).join("")}</ul></div>` : ""}
       ${m.note ? `<p class="project-note">${esc(m.note)}</p>` : ""}`;
   }
@@ -1104,12 +1629,14 @@ body.listmode #depth { visibility: hidden; }
     const list = !$('list').hidden, modal = !!current && window.innerWidth <= 760;
     stage.inert = list || modal; $('list').inert = modal;
     document.querySelector('.bar').inert = modal;
+    $('filterBar').inert = modal;
     document.querySelector('.zoomer').inert = list || modal;
     if (modal) $('sheet').setAttribute('aria-modal', 'true'); else $('sheet').removeAttribute('aria-modal');
     document.querySelectorAll('.mod, .journal').forEach(el => el.setAttribute('aria-expanded', String(el.dataset.key === current)));
   }
   function open(key, fromPop) {
     const m = item(key); if (!m) return;
+    if (window.innerWidth <= 760 && document.body.classList.contains('filteropen')) setFilterDrawer(false);
     const unchanged = current === key, switching = current !== null && !unchanged; current = key; dirty = true;
     const a = document.activeElement; if (a && a !== document.body && !a.closest('#sheet')) opener = a;
     const sh = $('sheet'); sh.innerHTML = key === 'resume' ? resumeHTML() : key === 'journal' ? journalHTML() : sheetHTML(m); sh.inert = false; sh.scrollTop = 0;
@@ -1147,30 +1674,175 @@ body.listmode #depth { visibility: hidden; }
     else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
   });
 
+  // ---------- search & filter ----------
+  const filter = { q: '', zone: 'all', status: 'all' };
+  const isFiltered = () => Boolean(filter.q.trim() || filter.zone !== 'all' || filter.status !== 'all');
+  function matches(m) {
+    if (filter.zone !== 'all' && m.zone !== filter.zone) return false;
+    if (filter.status !== 'all' && m.status !== filter.status) return false;
+    const q = filter.q.trim().toLowerCase();
+    if (!q) return true;
+    const hay = [m.id, m.name, m.line, m.summary, m.lang, m.last, m.release || '', m.context || '', m.note || '', LED[m.status], ZONES[m.zone][0], ...m.facts].join(' ').toLowerCase();
+    return q.split(/\s+/).every(tok => hay.includes(tok));
+  }
+  function setFilterDrawer(on) {
+    document.body.classList.toggle('filteropen', on);
+    $('vFilter').setAttribute('aria-expanded', String(on));
+  }
+  function syncBoardFilterClasses() {
+    const active = isFiltered();
+    const matchedKeys = new Set(MODS.filter(matches).map(m => m.key));
+    for (const m of MODS) {
+      const hit = matchedKeys.has(m.key);
+      modEls[m.key].classList.toggle('dimmed', active && !hit);
+      modEls[m.key].classList.toggle('matched', active && hit);
+      modEls[m.key].tabIndex = active && !hit ? -1 : 0;
+    }
+    $('traces').querySelectorAll('.trace-base, .trace-port').forEach(el => {
+      el.classList.toggle('dimmed', active && !matchedKeys.has(el.dataset.k));
+    });
+    $('boardEmpty').hidden = !active || matchedKeys.size > 0;
+    return matchedKeys;
+  }
+  function applyFilter({ panBoard = false, announce = true } = {}) {
+    const active = isFiltered();
+    const matched = MODS.filter(matches);
+    const matchedKeys = syncBoardFilterClasses();
+    $('fCount').textContent = `${matched.length} / ${MODS.length}`;
+    $('fReset').hidden = !active;
+    $('fClear').hidden = !filter.q;
+    $('fKey').hidden = Boolean(filter.q);
+    $('hMods').textContent = active ? `${matched.length} / ${MODS.length} MODULES` : `${MODS.length} MODULES`;
+    $('vFilter').textContent = active ? `Filter (${matched.length})` : 'Filter';
+    $('fStatuses').querySelectorAll('.fbtn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === filter.status)));
+    $('fZone').value = filter.zone;
+    if (!$('list').hidden) buildList();
+    else if (panBoard) {
+      if (active && matched.length > 0) {
+        dirty = true;
+        fitNodes(matched.map(m => modEls[m.key]), 0.96);
+      } else if (!active) {
+        dirty = false;
+        home();
+      }
+    }
+    if (announce) $('live').textContent = active ? `Showing ${matched.length} of ${MODS.length} projects` : `Showing all ${MODS.length} projects`;
+    return matchedKeys;
+  }
+  function resetFilters({ panBoard = true } = {}) {
+    filter.q = ''; filter.zone = 'all'; filter.status = 'all';
+    $('fQuery').value = '';
+    applyFilter({ panBoard });
+  }
+  $('fQuery').addEventListener('input', e => { filter.q = e.target.value; applyFilter({ panBoard: true }); });
+  $('fClear').addEventListener('click', () => { $('fQuery').value = ''; filter.q = ''; applyFilter({ panBoard: true }); $('fQuery').focus(); });
+  $('fZone').addEventListener('change', e => { filter.zone = e.target.value; applyFilter({ panBoard: true }); });
+  $('fStatuses').addEventListener('click', e => {
+    const b = e.target.closest('.fbtn'); if (!b) return;
+    filter.status = b.dataset.status; applyFilter({ panBoard: true });
+  });
+  $('fReset').addEventListener('click', () => resetFilters({ panBoard: true }));
+  $('boardReset').addEventListener('click', () => resetFilters({ panBoard: true }));
+  $('vFilter').addEventListener('click', () => setFilterDrawer(!document.body.classList.contains('filteropen')));
+
+  // Board footer jump & back-to-top actions
+  boardFooter.addEventListener('click', e => {
+    const j = e.target.closest('[data-jump]');
+    if (j) {
+      const z = j.dataset.jump;
+      if (isFiltered()) resetFilters({ panBoard: false });
+      const els = MODS.filter(m => m.zone === z).map(m => modEls[m.key]);
+      const zh = world.querySelector(`.zone[data-zone="${z}"]`);
+      if (zh) els.unshift(zh);
+      dirty = true; close(); fitNodes(els, 0.95);
+      return;
+    }
+    const o = e.target.closest('[data-open]');
+    if (o) { open(o.dataset.open); return; }
+    if (e.target.closest('[data-top]')) { dirty = false; close(); home(); }
+  });
+
   // ---------- list view ----------
   function buildList() {
     const inner = $('listInner'); inner.innerHTML = '';
-    inner.appendChild(core.cloneNode(true));
+    const heroClone = core.cloneNode(true); heroClone.id = 'listTop'; inner.appendChild(heroClone);
     const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume'); inner.appendChild(experienceCard);
+    const active = isFiltered();
+    let totalShown = 0;
     for (const z of ['security', 'systems', 'builds']) {
-      const h = document.createElement('div'); h.className = 'zone'; h.textContent = ZONES[z][0]; inner.appendChild(h);
+      const items = MODS.filter(x => x.zone === z && matches(x));
+      if (!items.length) continue;
+      totalShown += items.length;
+      const h = document.createElement('div'); h.className = 'zone'; h.id = 'zone-' + z; h.textContent = ZONES[z][0]; inner.appendChild(h);
       const grid = document.createElement('div'); grid.className = 'mods';
-      for (const m of MODS.filter(x => x.zone === z)) {
-        const b = document.createElement('button'); b.className = m.featured ? 'mod featured' : 'mod'; b.dataset.key = m.key;
+      for (const m of items) {
+        const b = document.createElement('button');
+        b.className = ['mod', m.featured ? 'featured' : '', m.status === 'archived' ? 'is-archived' : ''].filter(Boolean).join(' ');
+        b.dataset.key = m.key;
         b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-controls', 'sheet'); b.setAttribute('aria-expanded', String(current === m.key));
         b.innerHTML = modHTML(m); b.onclick = () => open(m.key); grid.appendChild(b);
       }
       inner.appendChild(grid);
     }
-    const collection = document.createElement('div'); collection.className = 'journal-collection';
+    if (active && totalShown === 0) {
+      const empty = document.createElement('div'); empty.className = 'list-empty';
+      empty.innerHTML = `<strong>No matching projects</strong><p>No projects match the active search or filter criteria.</p><button type="button" class="tbtn" id="listResetBtn">Reset filters</button>`;
+      empty.querySelector('#listResetBtn').onclick = () => resetFilters({ panBoard: false });
+      inner.appendChild(empty);
+    }
+    const collection = document.createElement('div'); collection.className = 'journal-collection'; collection.id = 'zone-journal';
     const h = document.createElement('div'); h.className = 'zone'; h.textContent = 'From the journal'; collection.appendChild(h);
     const j = journal.cloneNode(true); j.removeAttribute('id'); j.onclick = () => open('journal'); collection.appendChild(j); inner.appendChild(collection);
+
+    const footer = document.createElement('footer'); footer.className = 'site-footer'; footer.setAttribute('aria-label', 'Site footer');
+    footer.innerHTML = `<div class="ft-brand">
+        <span class="mark"><i aria-hidden="true"></i>blurxy</span>
+        <p class="ft-copy">© 2026 Rafiul Bari · CUNY City Tech</p>
+        <p class="ft-built">Built as a single static HTML file — inline CSS &amp; JS, no build step, hosted on Cloudflare.</p>
+      </div>
+      <nav class="ft-nav" aria-label="Page sections">
+        <span class="ft-label">Sections</span>
+        <div class="ft-links">
+          <button type="button" data-sec="security">Security boundaries</button>
+          <button type="button" data-sec="systems">Tools &amp; research</button>
+          <button type="button" data-sec="builds">Other builds</button>
+          <button type="button" data-open="journal">Investigation notes</button>
+          <button type="button" data-open="resume">Experience &amp; resume</button>
+        </div>
+      </nav>
+      <div class="ft-actions">
+        <button type="button" class="ft-top" data-top="list">Back to top ↑</button>
+        <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume ↗</a><a href="/v1/">v1 archive ↗</a></div>
+      </div>`;
+    footer.addEventListener('click', e => {
+      const sec = e.target.closest('[data-sec]');
+      if (sec) {
+        const z = sec.dataset.sec;
+        if (isFiltered() && !$('zone-' + z)) resetFilters({ panBoard: false });
+        $('zone-' + z)?.scrollIntoView({ block: 'start', behavior: motion.reduced() ? 'auto' : 'smooth' });
+        return;
+      }
+      const o = e.target.closest('[data-open]');
+      if (o) { open(o.dataset.open); return; }
+      if (e.target.closest('[data-top]')) {
+        $('list').scrollTo({ top: 0, behavior: motion.reduced() ? 'auto' : 'smooth' });
+      }
+    });
+    inner.appendChild(footer);
   }
   function setView(v) {
     const list = v === 'list'; if (list === !$('list').hidden) return;
     $('list').hidden = !list; $('vList').setAttribute('aria-pressed', String(list)); $('vBoard').setAttribute('aria-pressed', String(!list));
     document.body.classList.toggle('listmode', list); motion.sync();
-    if (list) buildList(); else requestAnimationFrame(() => { home(); if (current) focusOn(boardItem(current)); });
+    if (list) buildList();
+    else requestAnimationFrame(() => {
+      placeBoard(); drawTraces();
+      const active = isFiltered();
+      const matched = MODS.filter(matches);
+      if (current) focusOn(boardItem(current));
+      else if (active && matched.length > 0) fitNodes(matched.map(m => modEls[m.key]), 0.96);
+      else home();
+    });
     syncAccessibility();
   }
   $('vBoard').onclick = () => setView('board'); $('vList').onclick = () => setView('list');
@@ -1241,8 +1913,10 @@ body.listmode #depth { visibility: hidden; }
     }
     function nextPulse() {
       if (!allowed() || hovering || !booted || !routes.length) return;
-      // Exactly one packet on the board at once; every module receives it in turn.
-      const route = routes[pulseIndex++ % routes.length];
+      const activeRoutes = routes.filter(r => !modEls[r.k]?.classList.contains('dimmed'));
+      if (!activeRoutes.length) return;
+      // Exactly one packet on the board at once; every visible module receives it in turn.
+      const route = activeRoutes[pulseIndex++ % activeRoutes.length];
       const el = document.createElement('i'); el.className = 'trace-pulse'; fx.appendChild(el);
       const points = route.points.filter((p, i, all) => !i || p[0] !== all[i-1][0] || p[1] !== all[i-1][1]);
       let total = 0; const lengths = points.map((p, i) => i ? (total += Math.hypot(p[0]-points[i-1][0], p[1]-points[i-1][1])) : 0);
@@ -1288,7 +1962,7 @@ body.listmode #depth { visibility: hidden; }
         });
         boot.push(animate(modEls[r.k], [{opacity: 0, transform: 'translateY(7px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 540, delay: delay + 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both'}));
       });
-      [journal, ...world.querySelectorAll('.zone')].forEach(el => boot.push(animate(el, [{opacity: 0}, {opacity: 1}], {duration: 650, delay: 950, fill: 'both'})));
+      [journal, boardFooter, ...world.querySelectorAll('.zone')].forEach(el => boot.push(animate(el, [{opacity: 0}, {opacity: 1}], {duration: 650, delay: 950, fill: 'both'})));
       bootTimer = setTimeout(() => { finishBoot(); ambient(); }, 1500 + routes.length * 65);
     }
     function sync() {
