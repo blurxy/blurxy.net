@@ -56,6 +56,8 @@ button { font: inherit; color: inherit; }
 .corner { position: fixed; z-index: 21; top: calc(44px + env(safe-area-inset-top, 0px)); left: 0; width: 22px; height: 22px; background: var(--panel); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .hud { position: fixed; z-index: 25; left: 34px; right: 260px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; flex-wrap: wrap; pointer-events: none; }
 .hud span { white-space: pre; font: 500 11.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
+.hud a { white-space: nowrap; font: 500 11.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; text-decoration: none; pointer-events: auto; }
+.hud a:hover { color: var(--amber); }
 .zoomer { position: fixed; z-index: 25; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px; }
 
 /* ---- the board ---- */
@@ -268,7 +270,7 @@ body.listmode #depth { visibility: hidden; }
 .resume-skills dd { margin: 0; color: #b5c0cc; font-size: 13.5px; line-height: 1.6; }
 #list .resume-teaser { position: static; width: auto; }
 
-/* v5 / project visuals, unified filter bar, archived state, and colophon footer */
+/* v5 / project visuals, unified filter bar, archived state; footer lives in the fixed status bar */
 #vFilter { display: none; }
 .fbar { position: fixed; top: calc(44px + env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 28; height: 42px;
   padding-left: max(14px, env(safe-area-inset-left, 0px)); padding-right: max(14px, env(safe-area-inset-right, 0px));
@@ -360,7 +362,7 @@ body.listmode #depth { visibility: hidden; }
 @media (max-width: 960px) { #list .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { #list .mods { grid-template-columns: 1fr; } }
 
-/* Footers (List colophon + Board schematic footer) */
+/* List colophon footer (board footer now lives in the fixed status bar) */
 .site-footer { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line);
   display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) auto; gap: 20px 28px; align-items: start; }
 .ft-brand { display: grid; gap: 7px; }
@@ -372,12 +374,6 @@ body.listmode #depth { visibility: hidden; }
 .ft-links a, .ft-links button { background: none; border: 0; padding: 0; text-decoration: none; color: inherit; cursor: pointer; text-align: left; }
 .ft-links a:hover, .ft-links button:hover { color: var(--amber); }
 .ft-actions { display: grid; gap: 10px; justify-items: end; align-content: start; }
-.ft-top { background: var(--raised); border: 1px solid var(--line); border-radius: 3px; padding: 6px 12px;
-  font: 500 12px var(--mono); color: var(--ink); cursor: pointer; white-space: nowrap; }
-.ft-top:hover { border-color: var(--amber); color: var(--amber); }
-.board-footer { position: absolute; width: 1280px; background: var(--panel); border: 1px solid var(--line);
-  border-top: 2px solid var(--line); padding: 18px 22px;
-  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 14px 28px; align-items: center; }
 @media (max-width: 760px) {
   .site-footer { grid-template-columns: 1fr; gap: 18px; }
   .ft-actions { justify-items: start; }
@@ -465,7 +461,7 @@ body.listmode #depth { visibility: hidden; }
   <div id="boardEmpty" hidden><strong>No matching projects</strong><p>No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
 </main>
 
-<div class="hud" aria-hidden="true"><span id="hPos">X     0 · Y     0</span><span id="hZoom">ZOOM 100%</span><span id="hMods"></span><span id="hClock">LOCAL --:--:--</span></div>
+<div class="hud"><span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></div>
 <div class="zoomer"><button class="tbtn" id="zOut" aria-label="Zoom out">−</button><button class="tbtn" id="zHome">Home</button><button class="tbtn" id="zFit">Fit</button><button class="tbtn" id="zIn" aria-label="Zoom in">+</button></div>
 
 <div id="sheet" role="dialog" aria-labelledby="shTitle" tabindex="-1" inert></div>
@@ -1337,31 +1333,6 @@ body.listmode #depth { visibility: hidden; }
     }
   };
 
-  // Board-level schematic colophon footer (positioned dynamically below the lowest project row).
-  const boardFooter = document.createElement('footer');
-  boardFooter.className = 'board-footer';
-  boardFooter.setAttribute('aria-label', 'Site footer');
-  boardFooter.innerHTML = `<div class="ft-brand">
-      <span class="mark"><i aria-hidden="true"></i>blurxy</span>
-      <p class="ft-copy">© 2026 Rafiul Bari · CUNY City Tech</p>
-      <p class="ft-built">Built as a single static HTML file — inline CSS &amp; JS, no build step, hosted on Cloudflare.</p>
-    </div>
-    <nav class="ft-nav" aria-label="Board sections">
-      <span class="ft-label">Sections</span>
-      <div class="ft-links">
-        <button type="button" data-jump="security">Security boundaries</button>
-        <button type="button" data-jump="systems">Tools &amp; research</button>
-        <button type="button" data-jump="builds">Other builds</button>
-        <button type="button" data-open="journal">Investigation notes</button>
-        <button type="button" data-open="resume">Experience &amp; resume</button>
-      </div>
-    </nav>
-    <div class="ft-actions">
-      <button type="button" class="ft-top" data-top="board">Back to top ↑</button>
-      <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume ↗</a></div>
-    </div>`;
-  world.appendChild(boardFooter);
-
   // Stack rows from measured card heights; writes happen only after all measurements.
   function placeBoard() {
     const h = Object.fromEntries(MODS.map(m => [m.key, modEls[m.key].offsetHeight]));
@@ -1379,8 +1350,6 @@ body.listmode #depth { visibility: hidden; }
     journal.style.left = '560px'; journal.style.top = rows[2] + 'px';
     ZONES.systems[2] = rows[3] - 42; ZONES.builds[2] = rows[6] - 42;
     world.querySelectorAll('.zone').forEach(el => { el.style.top = ZONES[el.dataset.zone][2] + 'px'; });
-    const bottomY = Math.max(rows[5] + Math.max(h.pyexec, h.spore), rows[7] + Math.max(h.cactus, h.worldcup));
-    boardFooter.style.left = '0px'; boardFooter.style.top = (bottomY + 72) + 'px';
   }
 
   const modEls = {};
@@ -1539,7 +1508,7 @@ body.listmode #depth { visibility: hidden; }
   // Tab to a module that is off screen: pan it into view (no zoom change) instead of letting the stage scroll.
   stage.addEventListener('focusin', e => {
     if (drag || !e.target.matches(':focus-visible')) return;   // a mouse or touch press is about to click it: don't move it away
-    let el = e.target.closest('.mod, .core, .journal, .board-footer'); if (!el) return;
+    let el = e.target.closest('.mod, .core, .journal'); if (!el) return;
     const r = stage.getBoundingClientRect(), m = 40, right = r.right - ($('sheet').classList.contains('open') ? Math.min(440, r.width) : 0);
     let b = el.getBoundingClientRect(); if (b.height > r.height - 2 * m || b.width > right - r.left - 2 * m) { el = e.target; b = el.getBoundingClientRect(); }
     let dx = 0, dy = 0;
@@ -1745,23 +1714,6 @@ body.listmode #depth { visibility: hidden; }
   $('boardReset').addEventListener('click', () => resetFilters({ panBoard: true }));
   $('vFilter').addEventListener('click', () => setFilterDrawer(!document.body.classList.contains('filteropen')));
 
-  // Board footer jump & back-to-top actions
-  boardFooter.addEventListener('click', e => {
-    const j = e.target.closest('[data-jump]');
-    if (j) {
-      const z = j.dataset.jump;
-      if (isFiltered()) resetFilters({ panBoard: false });
-      const els = MODS.filter(m => m.zone === z).map(m => modEls[m.key]);
-      const zh = world.querySelector(`.zone[data-zone="${z}"]`);
-      if (zh) els.unshift(zh);
-      dirty = true; close(); fitNodes(els, 0.95);
-      return;
-    }
-    const o = e.target.closest('[data-open]');
-    if (o) { open(o.dataset.open); return; }
-    if (e.target.closest('[data-top]')) { dirty = false; close(); home(); }
-  });
-
   // ---------- list view ----------
   function buildList() {
     const inner = $('listInner'); inner.innerHTML = '';
@@ -1811,7 +1763,6 @@ body.listmode #depth { visibility: hidden; }
         </div>
       </nav>
       <div class="ft-actions">
-        <button type="button" class="ft-top" data-top="list">Back to top ↑</button>
         <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume ↗</a><a href="/v1/">v1 archive ↗</a></div>
       </div>`;
     footer.addEventListener('click', e => {
@@ -1824,9 +1775,6 @@ body.listmode #depth { visibility: hidden; }
       }
       const o = e.target.closest('[data-open]');
       if (o) { open(o.dataset.open); return; }
-      if (e.target.closest('[data-top]')) {
-        $('list').scrollTo({ top: 0, behavior: motion.reduced() ? 'auto' : 'smooth' });
-      }
     });
     inner.appendChild(footer);
   }
@@ -1962,7 +1910,7 @@ body.listmode #depth { visibility: hidden; }
         });
         boot.push(animate(modEls[r.k], [{opacity: 0, transform: 'translateY(7px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 540, delay: delay + 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both'}));
       });
-      [journal, boardFooter, ...world.querySelectorAll('.zone')].forEach(el => boot.push(animate(el, [{opacity: 0}, {opacity: 1}], {duration: 650, delay: 950, fill: 'both'})));
+      [journal, ...world.querySelectorAll('.zone')].forEach(el => boot.push(animate(el, [{opacity: 0}, {opacity: 1}], {duration: 650, delay: 950, fill: 'both'})));
       bootTimer = setTimeout(() => { finishBoot(); ambient(); }, 1500 + routes.length * 65);
     }
     function sync() {
