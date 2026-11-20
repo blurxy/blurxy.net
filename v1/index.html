@@ -158,7 +158,8 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 <main id="stage" aria-label="Project board. Drag to pan, scroll to zoom, or switch to List.">
   <canvas id="grid" aria-hidden="true"></canvas>
   <div class="xh v" id="xv" hidden></div><div class="xh h" id="xhz" hidden></div>
-  <div id="world"><svg id="traces" aria-hidden="true"></svg></div>
+  <div style="position:relative;z-index:99;background:#f2b705;color:#08090c;font:600 13px/1.5 'JetBrains Mono',monospace;padding:8px 14px;text-align:center">Archived version (v1) — an earlier board. The current site is at <a href="https://blurxy.net/" style="color:#08090c">blurxy.net</a>.</div>
+<div id="world"><svg id="traces" aria-hidden="true"></svg></div>
 </main>
 
 <div class="hud" aria-hidden="true"><span id="hPos">X     0 · Y     0</span><span id="hZoom">ZOOM 100%</span><span id="hMods"></span></div>
@@ -211,7 +212,7 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
       cant: ["Isolation: it is not sandboxed and runs code with your own permissions. Isolation has to come from a container or VM underneath."] },
     { id: "L-01", key: "worldcup", zone: "live", x: 520, y: -300, status: "live", name: "World Cup 2026",
       line: "All 104 matches of the 2026 World Cup, with final scores.",
-      lang: "HTML / JS", last: "2026-07-11", links: [["Open", "https://blurxy.net/worldcup26/"], ["Source", GH + "blurxy-worldcup26"]],
+      lang: "HTML / JS", last: "2026-07-11", links: [["Open", "https://blurxy.net/worldcup26/"], ["Source", GH + "blurxy.net"]],
       measures: "104 matches, 48 teams, 16 cities, June 11 to July 19. Kickoff times in a time zone you pick, a match center for every game, scores from ESPN.",
       facts: ["Hosted on Cloudflare Workers."], cant: ["Score accuracy beyond ESPN's own feed: scores come from ESPN's unofficial API and the site does not check them independently."] },
     { id: "L-02", key: "osint", zone: "live", x: 560, y: -30, status: "live", name: "OSINT Field Kit",
@@ -233,7 +234,7 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
       measures: "Runs in the browser on WebGL, no install.", facts: [], cant: ["Phone play: it needs a keyboard and mouse, with no touch controls yet."] },
     { id: "L-05", key: "kev", zone: "live", x: 860, y: 330, status: "live", name: "KEV Watch",
       line: "What CISA says attackers are exploiting right now, by fix-by date.",
-      lang: "HTML / JS", last: "2026-10-28", links: [["Open", "https://blurxy.net/kev/"], ["Source", GH + "blurxy-worldcup26/tree/main/kev"]],
+      lang: "HTML / JS", last: "2026-10-28", links: [["Open", "https://blurxy.net/kev/"], ["Source", GH + "security-toolkit/tree/main/public/kev"]],
       measures: "CISA's Known Exploited Vulnerabilities catalog, loaded live from CISA's mirror and sorted by fix-by date: vendor follows, EPSS scores, calendar export and a wall-display mode. Re-fetches every five minutes.",
       facts: ["Hosted on Cloudflare Workers.", "Opens with a Measured / Not established strip stating what the list is and is not."],
       cant: ["Whether you run an affected version: the catalog names products, not your inventory.", "Fix-by dates bind US federal agencies only (BOD 22-01); for everyone else they are a priority signal, not a deadline."] },
