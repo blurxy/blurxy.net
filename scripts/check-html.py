@@ -80,8 +80,11 @@ def main() -> int:
         checker.feed(path.read_text(encoding="utf-8"))
         checker.close()
         errors = list(checker.errors)
-        if checker.stack:
-            errors.append(f"unclosed tags at end of file: {[t for t, _ in checker.stack]}")
+        # </html> and </body> are optional in HTML and both files omit them;
+        # only other unclosed tags are errors.
+        unclosed = [t for t, _ in checker.stack if t not in ("html", "body")]
+        if unclosed:
+            errors.append(f"unclosed tags at end of file: {unclosed}")
         if not checker.has_title:
             errors.append("missing non-empty <title>")
         for anchor in checker.anchors:
