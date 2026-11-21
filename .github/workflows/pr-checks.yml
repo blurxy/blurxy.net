@@ -17,10 +17,44 @@ jobs:
       - name: Link check
         uses: lycheeverse/lychee-action@v2
         with:
+          lycheeVersion: v0.24.2
           args: >-
             --no-progress --verbose
-            --exclude-mail
+            --exclude-loopback
+            --root-dir "${{ github.workspace }}"
             --exclude "https://github.com/blurxy/trading_bot-v3"
             --exclude "https://github.com/blurxy/nq-practice-bot"
+            --exclude '^https://github\.com/blurxy/cactus-mccoy-3d(?:/|$)'
             index.html resume.html v1/index.html README.md
           fail: true
+
+  visual:
+    name: Visual checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: .github/visual-tests
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: .github/visual-tests/package-lock.json
+      - name: Install visual test dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Chromium
+        run: npx playwright install --with-deps --only-shell chromium
+      - name: Run portfolio visual checks
+        run: npm test
+      - name: Save failure screenshots and traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-visual-failures
+          path: .github/visual-tests/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
