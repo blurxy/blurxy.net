@@ -55,8 +55,15 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
 .skills dt { font-size:12px; font-weight:700; margin-bottom:4px; }
 .skills dd { margin:0; font-size:11.5px; line-height:1.55; color:#c9d0d7; }
 .footer { margin-top:24px; padding-top:12px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font:400 10px var(--mono); }
+@media screen {
+ .toolbar .actions a, .contact a, .copy-email { display:inline-flex; align-items:center; min-height:28px; }
+ .contact a { min-width:0; overflow-wrap:anywhere; }
+}
+@media screen and (pointer:coarse) {
+ .toolbar .actions a, .contact a, .copy-email { min-height:36px; }
+}
 @media screen and (max-width:760px) {
- .toolbar { padding:18px 16px; } .toolbar .actions { gap:12px; }
+ .toolbar { padding:18px 16px; flex-wrap:wrap; gap:12px; } .toolbar .actions { flex-wrap:wrap; gap:12px; }
  .document { margin:0 12px 24px; padding:24px 20px; } h1 { font-size:42px; }
  .columns { grid-template-columns:1fr; gap:26px; } .side-column { border-left:0; border-top:1px solid var(--line); padding:24px 0 0; }
  .contact { font-size:10px; } .identity-top { gap:12px; } .kicker { font-size:10px; }
@@ -104,7 +111,7 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
  <div class="identity-top"><p class="kicker">Professional record</p><span class="handle">blurxy</span></div>
  <h1>Rafiul Bari</h1>
  <p class="focus">Security engineering · Detection &amp; automation · Identity &amp; access</p>
- <div class="contact"><span>Brooklyn, NY</span><a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com">Copy email</button><a href="https://linkedin.com/in/rafiul-bari">linkedin.com/in/rafiul-bari</a><a href="https://github.com/blurxy">github.com/blurxy</a></div>
+ <div class="contact"><span>Brooklyn, NY</span><a href="mailto:rafiulbari70@gmail.com">rafiulbari70@<wbr>gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com">Copy email</button><a href="https://linkedin.com/in/rafiul-bari">linkedin.com/in/<wbr>rafiul-bari</a><a href="https://github.com/blurxy">github.com/<wbr>blurxy</a></div>
  <p class="summary">Cybersecurity B.S. candidate (December 2026) administering nonprofit access and evaluating security controls through IDS lab experiments, sandbox tests, and Python tooling.</p>
 </header>
 <div class="columns">

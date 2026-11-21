@@ -115,9 +115,9 @@ button { font: inherit; color: inherit; }
 #sheet.open { transform: none; }
 #shTitle:focus, #sheet:focus { outline: none; }
 #sheet code { font: 500 12.5px var(--mono); white-space: nowrap; color: var(--ink); }
-.sh-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line); font: 600 11px var(--mono); color: var(--muted); letter-spacing: .1em; }
+.sh-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); font: 600 11px var(--mono); color: var(--muted); letter-spacing: .1em; }
 .sh-id { display: inline-flex; align-items: center; gap: 8px; }
-.sh-actions { display: inline-flex; align-items: center; gap: 6px; }
+.sh-actions { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
 .sh-link { background: none; border: 0; padding: 0; font: 500 12px/1.4 var(--mono); color: var(--amber); cursor: pointer; text-align: left; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--amber) 45%, transparent); }
 .sh-link:hover, .sh-link:focus-visible { text-decoration-color: var(--amber); color: #ffd452; }
 #sheet h2 { margin: 0; font: 800 28px/1.08 var(--display); font-stretch: 110%; text-wrap: balance; }
@@ -149,7 +149,11 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 /* While a sheet is open the zoom buttons move left of it instead of hiding under it; on narrow screens the sheet covers everything, so they hide. */
 @media (min-width: 761px) { body.sheetopen .zoomer { right: calc(min(440px, 100%) + 14px); } body.sheetopen #boardEmpty { left: calc((100% - min(440px, 100%)) / 2); } }
 @media (min-width: 1101px) { body.sheetopen .hud { right: calc(min(440px, 100%) + 250px); } }
-@media (max-width: 760px) { body.sheetopen .zoomer { visibility: hidden; } }
+@media (max-width: 760px) {
+  #sheet { width: 100%; border-left: 0; }
+  #sheet:has(> .journal-entries) { grid-template-columns: minmax(0, 36rem); justify-content: center; }
+  body.sheetopen .zoomer { visibility: hidden; }
+}
 @media (max-width: 1100px) { body.sheetopen .hud { display: none; } }
 @media (max-width: 760px) { .core h1 { font-size: 38px; } .crumb { display: none; } .core .seeking br { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -241,9 +245,10 @@ body.listmode #depth { visibility: hidden; }
 .journal .journal-action { margin-top: 12px; font: 500 11.5px var(--mono); color: var(--amber); }
 .journal-entries { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; counter-reset: entry; }
 .journal-entries li { padding-top: 16px; border-top: 1px solid var(--line); }
-.journal-entries time { font: 500 11px var(--mono); color: var(--muted); }
-.journal-entries .journal-project { display: block; margin-top: 6px; font: 500 11px var(--mono); color: var(--amber); letter-spacing: .04em; text-transform: uppercase; }
-.journal-entries button.journal-project { display: inline-block; }
+.journal-meta-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.journal-meta-row time { font: 500 11px/1.45 var(--mono); color: var(--muted); }
+.journal-meta-row .journal-project { min-width: 0; font: 500 11px/1.45 var(--mono); color: var(--amber); letter-spacing: .04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.journal-meta-row button { min-height: 24px; }
 .journal-entries h3 { margin: 8px 0 12px; font: 700 20px/1.2 var(--display); }
 .journal-entries dl { margin: 0; display: grid; gap: 10px; }
 .journal-entries dl div { display: grid; gap: 3px; }
@@ -304,28 +309,29 @@ body.listmode #depth { visibility: hidden; }
   border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
 .f-search { position: relative; display: flex; align-items: center; flex: 1 1 240px; min-width: 110px; max-width: 260px; }
 .f-search svg { position: absolute; left: 9px; width: 13px; height: 13px; color: var(--dim); pointer-events: none; }
-.f-search input { width: 100%; height: 28px; padding: 0 28px 0 28px; background: var(--bg); color: var(--ink);
+.f-search input { width: 100%; height: 28px; padding: 0 32px 0 28px; background: var(--bg); color: var(--ink);
   border: 1px solid var(--line); border-radius: 3px; font: 500 12px var(--mono); }
 .f-search input::placeholder { color: var(--dim); }
+.f-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
 .f-search input:focus { border-color: var(--amber); }
 .f-search input:focus:not(:focus-visible) { outline: none; }
 .f-search .f-key { position: absolute; right: 7px; font: 500 10px/1 var(--mono); color: var(--dim);
   border: 1px solid var(--line); border-radius: 2px; padding: 2px 4px; pointer-events: none; }
-.f-search .f-clear { position: absolute; right: 4px; background: none; border: 0; color: var(--muted); cursor: pointer;
-  padding: 2px 6px; font: 600 13px/1 var(--mono); }
+.f-search .f-clear { position: absolute; right: 4px; min-width: 24px; min-height: 24px;
+  background: none; border: 0; color: var(--muted); cursor: pointer; padding: 0; font: 600 13px/1 var(--mono); }
 .f-search .f-clear:hover { color: var(--ink); }
 .f-zone { height: 28px; padding: 0 24px 0 8px; background: var(--bg); color: var(--ink); border: 1px solid var(--line);
   border-radius: 3px; font: 500 11.5px var(--mono); flex: 0 1 190px; min-width: 115px; max-width: 210px; }
 .f-zone:focus { border-color: var(--amber); }
 .f-zone:focus:not(:focus-visible) { outline: none; }
 .f-statuses { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
-.fbtn { background: transparent; border: 1px solid transparent; border-radius: 3px; padding: 4px 8px;
+.fbtn { min-height: 24px; background: transparent; border: 1px solid transparent; border-radius: 3px; padding: 4px 8px;
   font: 600 11px/1.2 var(--mono); letter-spacing: .06em; color: var(--muted); cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 .fbtn:hover { color: var(--ink); border-color: var(--line); }
 .fbtn[aria-pressed="true"] { background: var(--raised); border-color: var(--amber); color: var(--amber); }
 .f-meta { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
 .f-count { font: 500 11.5px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.f-reset { background: var(--raised); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px;
+.f-reset { min-height: 24px; background: var(--raised); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px;
   font: 500 11px var(--mono); color: var(--amber); cursor: pointer; white-space: nowrap; }
 .f-reset:hover { border-color: var(--amber); }
 
@@ -340,6 +346,7 @@ body.listmode #depth { visibility: hidden; }
 @media (max-width: 1120px) and (min-width: 761px) {
   .fbar { gap: 6px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
   .f-search { flex-basis: 150px; min-width: 104px; }
+  .f-search:not(:has(.f-clear:not([hidden]))) input { padding-right: 8px; }
   .f-zone { flex-basis: 140px; min-width: 104px; max-width: 155px; }
   .f-search .f-key { display: none; }
   .f-statuses { gap: 2px; }
@@ -350,11 +357,14 @@ body.listmode #depth { visibility: hidden; }
   .bar { gap: 8px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
   .bar .tbtn { padding: 5px 9px; font-size: 11.5px; }
   #vFilter { display: inline-flex; align-items: center; }
+  #vFilter.is-active { border-color: var(--amber); color: var(--amber); }
   .fbar { display: none; height: auto; flex-wrap: wrap; padding: 10px max(12px, env(safe-area-inset-right, 0px)) 10px max(12px, env(safe-area-inset-left, 0px));
-    gap: 8px; z-index: 29; box-shadow: 0 12px 32px -12px #000c; }
+    gap: 8px; z-index: 29; box-shadow: 0 12px 32px -12px #000c;
+    max-height: calc(100dvh - 44px - env(safe-area-inset-top, 0px)); overflow-y: auto; overscroll-behavior: contain; }
   body.filteropen .fbar { display: flex; }
   .f-search { flex: 1 1 100%; min-width: 0; max-width: none; }
-  .f-search input { height: 38px; font-size: 13px; }
+  .f-search input { height: 38px; padding-right: 40px; font-size: 13px; }
+  .f-search .f-clear { min-width: 32px; min-height: 32px; }
   .f-search .f-key { display: none; }
   .f-zone { flex: 1 1 100%; width: 100%; min-width: 0; height: 36px; max-width: none; font-size: 12px; }
   .f-statuses { flex: 1 1 100%; flex-wrap: wrap; gap: 5px; }
@@ -370,6 +380,14 @@ body.listmode #depth { visibility: hidden; }
   .bar .tbtn { min-height: 36px; padding: 6px 10px; }
   .zoomer .tbtn { min-height: 36px; padding: 6px 10px; }
 }
+@media (max-width: 760px) and (max-height: 400px) {
+  body.filteropen .hud, body.filteropen .zoomer { visibility: hidden; }
+}
+@media (max-width: 360px) {
+  .bar { gap: 4px; padding-inline: max(8px, env(safe-area-inset-left, 0px)) max(8px, env(safe-area-inset-right, 0px)); }
+  .bar .mark { gap: 6px; font-size: 16px; font-stretch: 100%; }
+  .bar .tbtn { padding-inline: 8px; }
+}
 @media (max-width: 480px) {
   .spec div { grid-template-columns: 92px 1fr; gap: 8px; }
 }
@@ -379,7 +397,7 @@ body.listmode #depth { visibility: hidden; }
 .mod .mv svg { display: block; width: 100%; height: auto; }
 .mod .mv .vis-glow { transition: opacity 200ms ease; opacity: .78; }
 .mod:is(:hover, :focus-visible, .sel) .mv .vis-glow { opacity: 1; }
-.sh-vis { margin: 0; border: 1px solid var(--line); border-radius: 2px; background: #090c10; overflow: hidden; }
+.sh-vis { margin: 0; border: 1px solid var(--line); border-radius: 2px; background: #090c10; overflow: clip; }
 .sh-vis svg { display: block; width: 100%; height: auto; }
 .sh-vis figcaption { padding: 8px 12px; border-top: 1px solid var(--line); background: var(--bg);
   font: 500 11px/1.45 var(--mono); color: var(--muted); }
@@ -465,10 +483,11 @@ body.listmode #depth { visibility: hidden; }
 #vHelp { min-width: 28px; text-align: center; padding-inline: 8px; }
 #kbdHelp { position: fixed; z-index: 36; top: calc(52px + env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px));
   width: 296px; background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--amber); border-radius: 2px;
-  padding: 12px 14px 14px; box-shadow: 0 18px 48px -16px #000d; display: grid; gap: 10px; }
+  padding: 12px 14px 14px; box-shadow: 0 18px 48px -16px #000d; display: grid; gap: 10px;
+  max-height: calc(100dvh - 64px - env(safe-area-inset-top, 0px)); overflow-y: auto; }
 .kh-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
 .kh-top strong { font: 600 11px/1.2 var(--mono); color: var(--amber); letter-spacing: .12em; text-transform: uppercase; }
-.kh-top .tbtn { padding: 2px 7px; font-size: 13px; line-height: 1.1; }
+.kh-top .tbtn { min-width: 24px; min-height: 24px; padding: 2px 7px; font-size: 13px; line-height: 1.1; }
 .kh-list { margin: 0; display: grid; gap: 7px; }
 .kh-list div { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12.5px; }
 .kh-list dt { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; }
@@ -507,15 +526,15 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 <section class="fbar" id="filterBar" aria-label="Search and filter projects">
   <div class="f-search">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4.8"/><path d="M10.7 10.7L14 14"/></svg>
-    <input type="search" id="fQuery" placeholder="Search 14 projects…" autocomplete="off" spellcheck="false" aria-label="Search projects">
+    <input type="search" id="fQuery" placeholder="Search…" autocomplete="off" spellcheck="false" aria-label="Search projects">
     <span class="f-key" id="fKey" aria-hidden="true">/</span>
     <button type="button" class="f-clear" id="fClear" aria-label="Clear search" hidden>×</button>
   </div>
   <select class="f-zone" id="fZone" aria-label="Filter by section">
-    <option value="all">All sections (14)</option>
-    <option value="security">Security boundaries (5)</option>
-    <option value="systems">Tools &amp; research (5)</option>
-    <option value="builds">Other builds (4)</option>
+    <option value="all">All sections</option>
+    <option value="security">Security</option>
+    <option value="systems">Research</option>
+    <option value="builds">Builds</option>
   </select>
   <div class="f-statuses" id="fStatuses" role="group" aria-label="Filter by status">
     <button type="button" class="fbtn" data-status="all" aria-pressed="true">ALL</button>
@@ -1505,7 +1524,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 
   // ---------- camera ----------
   const cam = { x: 0, y: 0, s: 1 };
-  const clampS = s => Math.min(2.2, Math.max(0.25, s));
+  const clampS = (s, minimum = 0.25) => Math.min(2.2, Math.max(minimum, s));
   let ptr = null, redraw = 0, dirty = false;   // dirty: the visitor has moved the camera or opened something
   function apply() {
     world.style.transform = `translate(${cam.x}px,${cam.y}px) scale(${cam.s})`; world.style.setProperty('--s', cam.s);
@@ -1538,10 +1557,15 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   }
   function fit() {
     const r = stage.getBoundingClientRect(), { minx, miny, maxx, maxy } = bbox();
-    const narrowStage = window.innerWidth <= 760;
-    const pad = narrowStage ? 22 : 60, bottomPad = narrowStage ? 108 : 0;
-    const s = clampS(Math.min((r.width - pad * 2) / (maxx - minx), (r.height - pad * 2 - bottomPad) / (maxy - miny)));
-    cam.s = s; cam.x = (r.width - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - bottomPad - (maxy - miny) * s) / 2 - miny * s; apply();
+    const chromeTop = Math.min(document.querySelector('.hud').getBoundingClientRect().top, document.querySelector('.zoomer').getBoundingClientRect().top);
+    const height = Math.max(1, Math.min(r.bottom, chromeTop) - r.top);
+    const horizontalPad = window.innerWidth <= 760 ? 16 : 40;
+    const widthScale = Math.max(1, r.width - 2 * horizontalPad) / (maxx - minx);
+    const heightScale = Math.max(1, height - 32) / (maxy - miny);
+    cam.s = Math.min(2.2, widthScale, heightScale);
+    cam.x = (r.width - (maxx - minx) * cam.s) / 2 - minx * cam.s;
+    cam.y = (height - (maxy - miny) * cam.s) / 2 - miny * cam.s;
+    apply();
   }
   // Home keeps the entire core, contact row, and full E-01 Experience card readable beside the top security cards.
   // On narrow viewports (e.g. 390px phones), frame the core + E-01 at legible scale above the HUD and zoom controls.
@@ -1566,7 +1590,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     apply();
   }
   function zoomAt(f, px, py) {
-    const s = clampS(cam.s * f), k = s / cam.s; cam.x = px - (px - cam.x) * k; cam.y = py - (py - cam.y) * k; cam.s = s; apply();
+    const s = clampS(cam.s * f, Math.min(0.25, cam.s)), k = s / cam.s; cam.x = px - (px - cam.x) * k; cam.y = py - (py - cam.y) * k; cam.s = s; apply();
   }
   function focusOn(el) {
     const r = stage.getBoundingClientRect(); const s = Math.max(cam.s, window.innerWidth <= 760 ? 0.72 : 0.9); const sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
@@ -1648,7 +1672,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
         const r = stage.getBoundingClientRect();
         const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y) || 1;
         const midX = (pts[0].x + pts[1].x) / 2 - r.left, midY = (pts[0].y + pts[1].y) / 2 - r.top;
-        const s = clampS(pinch.s * (dist / pinch.dist));
+        const s = clampS(pinch.s * (dist / pinch.dist), Math.min(0.25, pinch.s));
         const wx = (pinch.midX - pinch.cx) / pinch.s, wy = (pinch.midY - pinch.cy) / pinch.s;
         cam.s = s; cam.x = midX - wx * s; cam.y = midY - wy * s; apply();
         return;
@@ -1840,7 +1864,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
       <h2 id="shTitle" tabindex="-1">Investigation Notes</h2>
       <p class="lead">Observations, explanations, and the work behind them.</p>
       <p class="journal-provenance">Recorded October–November 2026. Dates refer to the portfolio record, not the original investigation dates.</p>
-      <ol class="journal-entries">${JOURNAL_ENTRIES.map((e, idx) => `<li data-entry-idx="${idx}"><time datetime="${e.date === "November 2026" ? "2026-11" : "2026-10"}">Recorded ${esc(e.date)}</time>${e.projectKey ? `<button type="button" class="journal-project sh-link" data-jump="${esc(e.projectKey)}">${esc(e.project || (item(e.projectKey)?.name || ''))} →</button>` : (e.project ? `<span class="journal-project">${esc(e.project)}</span>` : "")}<h3>${esc(e.title)}</h3><dl>
+      <ol class="journal-entries">${JOURNAL_ENTRIES.map((e, idx) => `<li data-entry-idx="${idx}"><div class="journal-meta-row"><time datetime="${e.date === "November 2026" ? "2026-11" : "2026-10"}">Recorded ${esc(e.date)}</time>${e.projectKey ? `<button type="button" class="journal-project sh-link" data-jump="${esc(e.projectKey)}">${esc(e.project || (item(e.projectKey)?.name || ''))} →</button>` : (e.project ? `<span class="journal-project">${esc(e.project)}</span>` : "")}</div><h3>${esc(e.title)}</h3><dl>
         <div><dt>Observation</dt><dd>${esc(e.observation)}</dd></div><div><dt>Finding</dt><dd>${esc(e.finding)}</dd></div><div><dt>My work</dt><dd>${esc(e.work)}</dd></div></dl></li>`).join('')}</ol>
       <p class="journal-provenance"><a href="https://github.com/blurxy/blurxy.net/blob/b8b190ee7171b3d4f300d031100495c2d3f14871/index.html" target="_blank" rel="noopener">Source notes ↗</a></p>`;
   }
@@ -2019,7 +2043,8 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     $('fClear').hidden = !filter.q;
     $('fKey').hidden = Boolean(filter.q);
     $('hMods').textContent = active ? `${matched.length} / ${MODS.length} MODULES` : `${MODS.length} MODULES`;
-    $('vFilter').textContent = active ? `Filter (${matched.length})` : 'Filter';
+    $('vFilter').classList.toggle('is-active', active);
+    $('vFilter').setAttribute('aria-label', active ? 'Filter, ' + matched.length + ' of ' + MODS.length + ' projects' : 'Filter');
     $('fStatuses').querySelectorAll('.fbtn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === filter.status)));
     $('fZone').value = filter.zone;
     if (syncUrl) syncURLFromFilter();
