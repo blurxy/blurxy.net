@@ -7,7 +7,7 @@ entry-level roles.
 Live at **https://blurxy.net** — "follow the evidence".
 
 The site is a single-file static board (`index.html`, inline CSS/JS, no build
-step, no npm): 14 projects, an Experience card, and Investigation Notes from
+step): 14 projects, an Experience card, and Investigation Notes from
 the journal, in a dark board design with an amber accent.
 
 ## Deployment
@@ -54,6 +54,27 @@ the sub-site Workers can serve them.
 
 No build step — serve the folder statically, e.g. `python3 -m http.server`
 and open http://localhost:8000, or `npx wrangler dev`.
+
+## Pull request checks
+
+PRs targeting `main` run HTML and link checks plus 30 Chromium visual checks
+against a loopback preview of the checked-out files. The visual job covers
+journal spacing, sheet clipping, search and filter controls, board Fit,
+résumé layout and text resizing, print controls, and journal contrast.
+It saves measurements, screenshots, and traces for failed cases.
+
+Run the same suite locally from the repository root with Node.js 24:
+
+```sh
+cd .github/visual-tests
+npm ci --ignore-scripts
+npx playwright install --only-shell chromium
+npm test
+```
+
+The test dependencies, including Fontsource fixtures for the Google Fonts
+stylesheet, are pinned in the CI lockfile. Self-hosted fonts in the checked-out site
+are loaded directly by the browser.
 
 ## Licence
 
