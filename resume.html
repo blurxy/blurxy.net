@@ -27,7 +27,11 @@ a { color:inherit; text-decoration:none; } a:hover { text-decoration:underline; 
 .handle { font:500 12px var(--mono); color:var(--muted); }
 h1 { margin:10px 0 9px; font:800 50px/1 var(--display); letter-spacing:-.045em; }
 .focus { margin:0; font-size:15px; font-weight:600; color:var(--ink); }
-.contact { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:15px; font:400 11px/1.6 var(--mono); color:var(--muted); }
+.contact { display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px; margin-top:15px; font:400 11px/1.6 var(--mono); color:var(--muted); }
+.copy-email { font:inherit; color:var(--muted); background:var(--bg); border:1px solid var(--line); border-radius:3px; padding:1px 7px; cursor:pointer; }
+.copy-email:hover { border-color:var(--amber); color:var(--amber); }
+.copy-email.copied { border-color:#39d98a; color:#39d98a; }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .summary { margin:18px 0 0; max-width:83ch; color:#c9d0d7; font-size:14px; }
 .columns { display:grid; grid-template-columns:minmax(0,1fr) 245px; gap:32px; padding-top:24px; }
 .main-column, .side-column { min-width:0; }
@@ -63,7 +67,7 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
  :root { --bg:#fff; --paper:#fff; --ink:#111820; --muted:#46505b; --line:#bcc3cb; --amber:#795700; color-scheme:light; }
  *, *::before, *::after { animation:none !important; transition:none !important; box-shadow:none !important; text-shadow:none !important; }
  html, body { width:auto; height:auto; margin:0; background:#fff !important; color:var(--ink); font-size:9.2pt; line-height:1.3; }
- .toolbar { display:none !important; }
+ .toolbar, .copy-email { display:none !important; }
  .document { width:auto; max-width:none; margin:0; padding:0; border:0; }
  .identity { padding-bottom:11px; border-top:3px solid #a77a00; padding-top:10px; }
  .kicker { font-size:7pt; } .handle { display:none !important; }
@@ -100,7 +104,7 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
  <div class="identity-top"><p class="kicker">Professional record</p><span class="handle">blurxy</span></div>
  <h1>Rafiul Bari</h1>
  <p class="focus">Security engineering · Detection &amp; automation · Identity &amp; access</p>
- <div class="contact"><span>Brooklyn, NY</span><a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a><a href="https://linkedin.com/in/rafiul-bari">linkedin.com/in/rafiul-bari</a><a href="https://github.com/blurxy">github.com/blurxy</a></div>
+ <div class="contact"><span>Brooklyn, NY</span><a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com">Copy email</button><a href="https://linkedin.com/in/rafiul-bari">linkedin.com/in/rafiul-bari</a><a href="https://github.com/blurxy">github.com/blurxy</a></div>
  <p class="summary">Cybersecurity B.S. candidate (December 2026) administering nonprofit access and evaluating security controls through IDS lab experiments, sandbox tests, and Python tooling.</p>
 </header>
 <div class="columns">
@@ -143,5 +147,25 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
 </div>
 <footer class="footer"><span>Rafiul Bari</span><a href="https://github.com/blurxy">github.com/blurxy</a></footer>
 </main>
+<div class="sr" id="live" aria-live="polite"></div>
+<script>
+document.addEventListener('click', async e => {
+  const btn = e.target.closest('[data-copy-email]'); if (!btn) return;
+  const email = btn.dataset.copyEmail; let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(email); ok = true; } } catch (_) {}
+  if (!ok) {
+    const focused = document.activeElement;
+    const ta = document.createElement('textarea'); ta.value = email; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+    document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (_) {} ta.remove();
+    if (focused instanceof HTMLElement && focused.isConnected) focused.focus({ preventScroll: true });
+  }
+  const live = document.getElementById('live');
+  clearTimeout(btn._copyTimer);
+  btn.textContent = ok ? 'Copied ✓' : 'Copy failed';
+  btn.classList.toggle('copied', ok);
+  live.textContent = ok ? 'Email copied: ' + email : 'Could not copy automatically. Email address is ' + email;
+  btn._copyTimer = setTimeout(() => { btn.textContent = 'Copy email'; btn.classList.remove('copied'); }, 2000);
+});
+</script>
 </body>
 </html>

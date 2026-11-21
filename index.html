@@ -5,11 +5,25 @@
 <title>blurxy — follow the evidence</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 16,0 16,16' fill='%23f2b705'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#08090c">
-<meta property="og:title" content="blurxy — follow the evidence">
-<meta property="og:description" content="Follow the evidence. Security investigations and practical tools by blurxy, a CUNY City Tech cybersecurity student seeking internships and entry-level roles.">
+<meta name="description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
+<link rel="canonical" href="https://blurxy.net/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="blurxy">
 <meta property="og:url" content="https://blurxy.net/">
-<meta name="description" content="blurxy · Rafiul Bari. Cybersecurity student at CUNY City Tech. Investigations, OSINT tools, and security projects. Seeking internships and full-time entry-level roles.">
+<meta property="og:title" content="blurxy — follow the evidence">
+<meta property="og:description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
+<meta property="og:image" content="https://blurxy.net/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="blurxy — Rafiul Bari, cybersecurity student at CUNY City Tech. Follow the evidence.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="blurxy — follow the evidence">
+<meta name="twitter:description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
+<meta name="twitter:image" content="https://blurxy.net/og.png">
+<meta name="twitter:image:alt" content="blurxy — Rafiul Bari, cybersecurity student at CUNY City Tech. Follow the evidence.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"blurxy","url":"https://blurxy.net/","description":"Security investigations, OSINT tools, and practical security engineering by Rafiul Bari, cybersecurity student at CUNY City Tech.","author":{"@type":"Person","name":"Rafiul Bari","alternateName":"blurxy","url":"https://blurxy.net/","sameAs":["https://github.com/blurxy","https://linkedin.com/in/rafiul-bari"]}}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap">
@@ -32,7 +46,7 @@ a { color: inherit; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 /* Inside the scaled board the ring keeps a fixed on-screen thickness (--s is the camera scale). */
-#world :focus-visible { outline-width: round(up, calc(2px / var(--s, 1)), 1px); outline-offset: round(up, calc(2px / var(--s, 1)), 1px); }
+#world :focus-visible { outline-width: 2px; outline-offset: 2px; outline-width: round(up, calc(2px / var(--s, 1)), 1px); outline-offset: round(up, calc(2px / var(--s, 1)), 1px); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ---- chrome: top bar, rulers, HUD ---- */
@@ -54,10 +68,10 @@ button { font: inherit; color: inherit; }
 .ruler.y { top: calc(66px + env(safe-area-inset-top, 0px)); left: 0; bottom: 0; width: 22px; border-right: 1px solid var(--line); }
 .ruler canvas { display: block; }
 .corner { position: fixed; z-index: 21; top: calc(44px + env(safe-area-inset-top, 0px)); left: 0; width: 22px; height: 22px; background: var(--panel); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.hud { position: fixed; z-index: 25; left: 34px; right: 260px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; flex-wrap: wrap; pointer-events: none; }
-.hud span { white-space: pre; font: 500 11.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
-.hud a { white-space: nowrap; font: 500 11.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; text-decoration: none; pointer-events: auto; }
-.hud a:hover { color: var(--amber); }
+.hud { position: fixed; z-index: 25; left: 34px; right: 260px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px 8px; flex-wrap: wrap; align-items: center; pointer-events: none; }
+.hud span { white-space: pre; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
+.hud a { white-space: nowrap; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; text-decoration: none; pointer-events: auto; }
+.hud a:hover, .hud a:focus-visible { color: var(--amber); border-color: var(--amber); }
 .zoomer { position: fixed; z-index: 25; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px; }
 
 /* ---- the board ---- */
@@ -74,8 +88,9 @@ button { font: inherit; color: inherit; }
 .core h1 { margin: 10px 0 6px; font: 800 44px/0.95 var(--display); font-stretch: 112%; letter-spacing: -.01em; text-wrap: balance; }
 .core .who { font: 500 13px var(--mono); color: var(--muted); }
 .core .links { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-.core .links a { font: 500 12px var(--mono); border: 1px solid var(--line); border-radius: 3px; padding: 6px 10px; text-decoration: none; background: var(--raised); }
-.core .links a:hover { border-color: var(--amber); color: var(--amber); }
+.core .links a, .core .links .copy-email { font: 500 12px var(--mono); border: 1px solid var(--line); border-radius: 3px; padding: 6px 10px; text-decoration: none; background: var(--raised); cursor: pointer; }
+.core .links a:hover, .core .links .copy-email:hover { border-color: var(--amber); color: var(--amber); }
+.core .links .copy-email.copied { border-color: var(--pass); color: var(--pass); }
 
 .zone { position: absolute; font: 600 11px var(--mono); color: var(--dim); letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
 .zone::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--dim); vertical-align: middle; margin-right: 8px; }
@@ -83,49 +98,57 @@ button { font: inherit; color: inherit; }
 .mod { position: absolute; width: 272px; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 2px; padding: 0; cursor: pointer; display: grid; transition: border-color .15s; }
 .mod:hover, .mod.sel { border-color: var(--amber); }
 .mod.sel { box-shadow: 0 0 0 1px var(--amber), 0 0 40px -12px var(--amber); }
-.mod .mh { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--line); font: 600 11px var(--mono); color: var(--muted); letter-spacing: .08em; }
+.mod .mh { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 14px; border-bottom: 1px solid var(--line); font: 600 11px var(--mono); color: var(--muted); letter-spacing: .08em; }
 .led { display: inline-flex; align-items: center; gap: 6px; }
 .led::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
 .led.live { color: var(--pass); } .led.repo { color: #7fb4ff; } .led.beta { color: var(--amber); } .led.stage { color: #c79bff; }
-.mod .mb { padding: 12px 12px 12px; display: grid; gap: 6px; }
+.mod .mb { padding: 13px 14px 14px; display: grid; gap: 7px; }
 .mod .mn, .mod .md { display: block; }
-.mod .mn { font: 700 19px/1.1 var(--display); font-stretch: 105%; }
-.mod .md { font-size: 13.5px; color: #bcc4cd; line-height: 1.42; }
-.mod .mf { display: flex; gap: 10px; flex-wrap: wrap; padding: 8px 12px; border-top: 1px dashed var(--line); font: 500 11px var(--mono); color: var(--dim); }
+.mod .mn { font: 700 19px/1.15 var(--display); font-stretch: 105%; }
+.mod .md { font-size: 13.5px; color: #bcc4cd; line-height: 1.46; }
+.mod .mf { display: flex; gap: 4px 12px; flex-wrap: wrap; align-items: baseline; padding: 9px 14px; border-top: 1px dashed var(--line); font: 500 11px/1.4 var(--mono); color: var(--dim); }
 .mod .mf b { color: var(--muted); font-weight: 500; }
 
 /* ---- spec sheet ---- */
 #sheet { position: fixed; z-index: 40; top: calc(66px + env(safe-area-inset-top, 0px)); right: 0; bottom: 0; width: min(440px, 100%); background: var(--panel); border-left: 1px solid var(--line);
-  transform: translateX(100%); transition: transform .22s ease; overflow-y: auto; padding: 18px max(18px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) 20px; display: grid; gap: 14px; align-content: start; }
+  transform: translateX(100%); transition: transform .22s ease; overflow-y: auto; padding: 20px max(20px, env(safe-area-inset-right, 0px)) calc(32px + env(safe-area-inset-bottom, 0px)) 20px; display: grid; gap: 16px; align-content: start; }
 #sheet.open { transform: none; }
 #shTitle:focus, #sheet:focus { outline: none; }
 #sheet code { font: 500 12.5px var(--mono); white-space: nowrap; color: var(--ink); }
-.sh-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 600 11px var(--mono); color: var(--muted); letter-spacing: .1em; }
-#sheet h2 { margin: 0; font: 800 30px/1 var(--display); font-stretch: 110%; text-wrap: balance; }
-#sheet .lead { margin: 0; color: #c9d0d7; }
+.sh-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line); font: 600 11px var(--mono); color: var(--muted); letter-spacing: .1em; }
+.sh-id { display: inline-flex; align-items: center; gap: 8px; }
+.sh-actions { display: inline-flex; align-items: center; gap: 6px; }
+.sh-link { background: none; border: 0; padding: 0; font: 500 12px/1.4 var(--mono); color: var(--amber); cursor: pointer; text-align: left; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--amber) 45%, transparent); }
+.sh-link:hover, .sh-link:focus-visible { text-decoration-color: var(--amber); color: #ffd452; }
+#sheet h2 { margin: 0; font: 800 28px/1.08 var(--display); font-stretch: 110%; text-wrap: balance; }
+#sheet .lead { margin: 0; color: #c9d0d7; line-height: 1.5; }
 .spec { border: 1px solid var(--line); border-radius: 2px; }
-.spec div { display: grid; grid-template-columns: 120px 1fr; gap: 10px; padding: 7px 12px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.spec div { display: grid; grid-template-columns: 116px 1fr; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
 .spec div:last-child { border-bottom: 0; }
-.spec dt { font: 500 11.5px/1.9 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
-.blk h3 { margin: 0 0 6px; font: 600 11px var(--mono); color: var(--amber); letter-spacing: .14em; text-transform: uppercase; }
-.blk ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #c9d0d7; font-size: 14px; }
+.spec dt { font: 500 11px/1.6 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.spec dd { margin: 0; min-width: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.blk h3 { margin: 0 0 8px; font: 600 11px var(--mono); color: var(--amber); letter-spacing: .14em; text-transform: uppercase; }
+.blk ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: #c9d0d7; font-size: 14px; line-height: 1.5; }
 .acts { display: flex; gap: 8px; flex-wrap: wrap; }
 .acts a { font: 600 12.5px var(--mono); text-decoration: none; padding: 8px 12px; border-radius: 3px; border: 1px solid var(--line); background: var(--raised); }
+.acts a:hover { border-color: var(--amber); color: var(--amber); }
 .acts a.pri { background: var(--amber); color: #111; border-color: var(--amber); }
+.acts a.pri:hover { filter: brightness(1.08); color: #111; }
 .acts .soon { font: 600 12.5px var(--mono); padding: 8px 12px; border-radius: 3px; border: 1px dashed var(--line); color: var(--muted); }
 
 /* ---- list view (also the phone default) ---- */
-#list { position: fixed; z-index: 15; inset: calc(44px + env(safe-area-inset-top, 0px)) 0 0 0; overflow-y: auto; background: var(--bg);
+#list { position: fixed; z-index: 15; inset: calc(44px + env(safe-area-inset-top, 0px)) 0 0 0; overflow-y: auto; overflow-x: hidden; background: var(--bg);
   padding-block: 20px calc(40px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-#list .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 16px; }
+#list .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 18px; }
+#list .inner > * { min-width: 0; }
 #list .core, #list .journal, #list .mod { position: static; width: auto; }
 #list .mods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
-#list .zone { position: static; margin-top: 8px; }
+#list .zone { position: static; margin-top: 10px; margin-bottom: -4px; white-space: normal; line-height: 1.5; }
 body.listmode .ruler, body.listmode .corner, body.listmode .hud, body.listmode .zoomer { display: none; }
 body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 /* While a sheet is open the zoom buttons move left of it instead of hiding under it; on narrow screens the sheet covers everything, so they hide. */
-@media (min-width: 761px) { body.sheetopen .zoomer { right: calc(min(440px, 100%) + 14px); } }
+@media (min-width: 761px) { body.sheetopen .zoomer { right: calc(min(440px, 100%) + 14px); } body.sheetopen #boardEmpty { left: calc((100% - min(440px, 100%)) / 2); } }
+@media (min-width: 1101px) { body.sheetopen .hud { right: calc(min(440px, 100%) + 250px); } }
 @media (max-width: 760px) { body.sheetopen .zoomer { visibility: hidden; } }
 @media (max-width: 1100px) { body.sheetopen .hud { display: none; } }
 @media (max-width: 760px) { .core h1 { font-size: 38px; } .crumb { display: none; } .core .seeking br { display: none; } }
@@ -196,7 +219,7 @@ body.listmode #depth { visibility: hidden; }
 .core .education { margin: 16px 0 0; font-size: 12.5px; line-height: 1.65; color: #b5c0cc; }
 .core .links { gap: 7px; margin-top: 18px; }
 /* Contact is the recruiter's next step: it must stay legible (≥ 11 px rendered) at the 1280×720 opening zoom. */
-.core .links a { font-size: 13.5px; padding: 7px 10px; }
+.core .links a, .core .links .copy-email { font-size: 13.5px; padding: 7px 10px; }
 .core .browse { display: inline-block; margin-top: 16px; color: var(--muted); font: 500 12px var(--mono); text-decoration: none; }
 .core .browse:hover { color: var(--amber); }
 /* Card footer: the browse action on its own line. */
@@ -204,22 +227,23 @@ body.listmode #depth { visibility: hidden; }
 .core .foot .browse { margin-top: 0; }
 .mod { width: 280px; }
 .mod.featured { width: 600px; border-top: 2px solid var(--amber); background: linear-gradient(125deg, #181a17, var(--panel) 65%); }
-.mod.featured .mb { padding: 18px; gap: 10px; }
-.mod.featured .mn { font-size: 29px; }
-.mod.featured .md { font-size: 16px; line-height: 1.5; max-width: 52ch; }
+.mod.featured .mb { padding: 16px 18px 18px; gap: 8px; }
+.mod.featured .mn { font-size: 28px; line-height: 1.1; }
+.mod.featured .md { font-size: 15.5px; line-height: 1.5; max-width: 52ch; }
 .mod.featured .mh, .mod.featured .mf { padding-inline: 18px; }
 .mod .project-action { margin-left: auto; color: var(--amber); }
 .journal { position: absolute; width: 280px; padding: 16px; text-align: left; background: var(--panel); border: 1px solid var(--line); border-left: 2px solid #8893a1; border-radius: 2px; cursor: pointer; }
 .journal:hover, .journal:focus-visible, .journal.sel { border-color: var(--amber); }
 .journal > span { display: block; }
-.journal .journal-meta { color: var(--dim); font: 500 10.5px/1.5 var(--mono); }
-.journal .journal-title { margin-top: 9px; font: 700 20px/1.2 var(--display); }
-.journal .journal-intro { margin-top: 8px; color: #bcc4cd; font-size: 13px; line-height: 1.5; }
+.journal .journal-meta { color: var(--dim); font: 500 11px/1.4 var(--mono); letter-spacing: .06em; }
+.journal .journal-title { margin-top: 8px; font: 700 20px/1.18 var(--display); }
+.journal .journal-intro { margin-top: 7px; color: #bcc4cd; font-size: 13.5px; line-height: 1.46; }
 .journal .journal-action { margin-top: 12px; font: 500 11.5px var(--mono); color: var(--amber); }
 .journal-entries { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; counter-reset: entry; }
 .journal-entries li { padding-top: 16px; border-top: 1px solid var(--line); }
 .journal-entries time { font: 500 11px var(--mono); color: var(--muted); }
 .journal-entries .journal-project { display: block; margin-top: 6px; font: 500 11px var(--mono); color: var(--amber); letter-spacing: .04em; text-transform: uppercase; }
+.journal-entries button.journal-project { display: inline-block; }
 .journal-entries h3 { margin: 8px 0 12px; font: 700 20px/1.2 var(--display); }
 .journal-entries dl { margin: 0; display: grid; gap: 10px; }
 .journal-entries dl div { display: grid; gap: 3px; }
@@ -233,11 +257,13 @@ body.listmode #depth { visibility: hidden; }
 #list .zone { margin-top: 12px; }
 @media (max-width: 760px) {
   .core { padding: 20px; }
-  .core h1 { font-size: 46px; }
-  .core .value { font-size: 25px; }
+  .core h1 { font-size: 44px; }
+  .core .value { font-size: 24px; }
   .core .role { font-size: 15px; }
-  .core .links a { min-height: 40px; display: inline-flex; align-items: center; }
-  #list .mod.featured .mn { font-size: 25px; }
+  .core .links a, .core .links .copy-email { min-height: 40px; display: inline-flex; align-items: center; }
+  #list .mod.featured .mn { font-size: 24px; }
+  #list .mod.featured .md { font-size: 14.5px; }
+  #list .mod.featured .mh, #list .mod.featured .mb, #list .mod.featured .mf { padding-inline: 14px; }
 }
 
 
@@ -246,12 +272,12 @@ body.listmode #depth { visibility: hidden; }
 .led.lab { color: var(--amber); }
 .led.archived { color: #7e8a99; }
 .led.archived::before { box-shadow: none; }
-.resume-teaser { width: 480px; display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 13px 16px; border-left-color: var(--amber); }
+.resume-teaser { width: 480px; display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 14px 16px; border-left-color: var(--amber); }
 .resume-teaser .journal-title, .resume-teaser .journal-intro, .resume-teaser .journal-action { margin: 0; }
 .resume-teaser .journal-title, .resume-teaser .journal-intro { grid-column: 1 / -1; }
 .resume-teaser .journal-action { grid-column: 2; grid-row: 1; align-self: center; }
 .resume-teaser .journal-title { font-size: 20px; }
-.resume-teaser .journal-intro { font-size: 12.5px; line-height: 1.48; color: #c4cdd6; }
+.resume-teaser .journal-intro { font-size: 13px; line-height: 1.48; color: #c4cdd6; }
 .resume-section { border-top: 1px solid var(--line); padding-top: 18px; }
 .resume-section > h3 { margin: 0 0 16px; font: 600 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
 .resume-role + .resume-role { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); }
@@ -276,22 +302,23 @@ body.listmode #depth { visibility: hidden; }
   padding-left: max(14px, env(safe-area-inset-left, 0px)); padding-right: max(14px, env(safe-area-inset-right, 0px));
   display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, var(--panel) 94%, transparent);
   border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
-.f-search { position: relative; display: flex; align-items: center; flex: 0 1 250px; min-width: 150px; }
+.f-search { position: relative; display: flex; align-items: center; flex: 1 1 240px; min-width: 110px; max-width: 260px; }
 .f-search svg { position: absolute; left: 9px; width: 13px; height: 13px; color: var(--dim); pointer-events: none; }
 .f-search input { width: 100%; height: 28px; padding: 0 28px 0 28px; background: var(--bg); color: var(--ink);
   border: 1px solid var(--line); border-radius: 3px; font: 500 12px var(--mono); }
 .f-search input::placeholder { color: var(--dim); }
-.f-search input:focus { border-color: var(--amber); outline: none; }
+.f-search input:focus { border-color: var(--amber); }
+.f-search input:focus:not(:focus-visible) { outline: none; }
 .f-search .f-key { position: absolute; right: 7px; font: 500 10px/1 var(--mono); color: var(--dim);
   border: 1px solid var(--line); border-radius: 2px; padding: 2px 4px; pointer-events: none; }
 .f-search .f-clear { position: absolute; right: 4px; background: none; border: 0; color: var(--muted); cursor: pointer;
   padding: 2px 6px; font: 600 13px/1 var(--mono); }
 .f-search .f-clear:hover { color: var(--ink); }
 .f-zone { height: 28px; padding: 0 24px 0 8px; background: var(--bg); color: var(--ink); border: 1px solid var(--line);
-  border-radius: 3px; font: 500 11.5px var(--mono); max-width: 210px; }
-.f-zone:focus { border-color: var(--amber); outline: none; }
-.f-statuses { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.f-statuses::-webkit-scrollbar { display: none; }
+  border-radius: 3px; font: 500 11.5px var(--mono); flex: 0 1 190px; min-width: 115px; max-width: 210px; }
+.f-zone:focus { border-color: var(--amber); }
+.f-zone:focus:not(:focus-visible) { outline: none; }
+.f-statuses { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
 .fbtn { background: transparent; border: 1px solid transparent; border-radius: 3px; padding: 4px 8px;
   font: 600 11px/1.2 var(--mono); letter-spacing: .06em; color: var(--muted); cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 .fbtn:hover { color: var(--ink); border-color: var(--line); }
@@ -311,22 +338,40 @@ body.listmode #depth { visibility: hidden; }
   #list { inset: calc(86px + env(safe-area-inset-top, 0px)) 0 0 0; }
 }
 @media (max-width: 1120px) and (min-width: 761px) {
-  .f-search { flex-basis: 175px; min-width: 130px; }
-  .f-zone { max-width: 165px; }
+  .fbar { gap: 6px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
+  .f-search { flex-basis: 150px; min-width: 104px; }
+  .f-zone { flex-basis: 140px; min-width: 104px; max-width: 155px; }
   .f-search .f-key { display: none; }
+  .f-statuses { gap: 2px; }
+  .fbtn { padding: 4px 6px; font-size: 10.5px; letter-spacing: .04em; }
+  .f-meta { gap: 6px; }
 }
 @media (max-width: 760px) {
+  .bar { gap: 8px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
+  .bar .tbtn { padding: 5px 9px; font-size: 11.5px; }
   #vFilter { display: inline-flex; align-items: center; }
-  .fbar { display: none; height: auto; flex-wrap: wrap; padding: 10px max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px));
+  .fbar { display: none; height: auto; flex-wrap: wrap; padding: 10px max(12px, env(safe-area-inset-right, 0px)) 10px max(12px, env(safe-area-inset-left, 0px));
     gap: 8px; z-index: 29; box-shadow: 0 12px 32px -12px #000c; }
   body.filteropen .fbar { display: flex; }
-  .f-search { flex: 1 1 100%; }
+  .f-search { flex: 1 1 100%; min-width: 0; max-width: none; }
   .f-search input { height: 38px; font-size: 13px; }
   .f-search .f-key { display: none; }
-  .f-zone { flex: 1 1 auto; height: 36px; max-width: none; font-size: 12px; }
-  .f-statuses { flex: 1 1 100%; padding-bottom: 2px; }
-  .fbtn { min-height: 34px; padding: 6px 10px; }
+  .f-zone { flex: 1 1 100%; width: 100%; min-width: 0; height: 36px; max-width: none; font-size: 12px; }
+  .f-statuses { flex: 1 1 100%; flex-wrap: wrap; gap: 5px; }
+  .fbtn { min-height: 34px; padding: 6px 9px; font-size: 11px; }
   .f-meta { width: 100%; justify-content: space-between; margin-left: 0; }
+  .hud { left: 28px; right: max(10px, env(safe-area-inset-right, 0px)); bottom: calc(56px + env(safe-area-inset-bottom, 0px)); gap: 4px 5px; max-width: calc(100vw - 38px); }
+  .hud span, .hud a { font-size: 10.5px; line-height: 1.35; padding: 2px 6px; }
+  .hud .hCopy { white-space: normal; }
+  .zoomer { right: max(10px, env(safe-area-inset-right, 0px)); bottom: calc(10px + env(safe-area-inset-bottom, 0px)); gap: 5px; }
+  .zoomer .tbtn { min-height: 36px; padding: 6px 10px; font-size: 11.5px; }
+}
+@media (max-width: 760px) and (pointer: coarse) {
+  .bar .tbtn { min-height: 36px; padding: 6px 10px; }
+  .zoomer .tbtn { min-height: 36px; padding: 6px 10px; }
+}
+@media (max-width: 480px) {
+  .spec div { grid-template-columns: 92px 1fr; gap: 8px; }
 }
 
 /* Project visual preview frames */
@@ -336,22 +381,29 @@ body.listmode #depth { visibility: hidden; }
 .mod:is(:hover, :focus-visible, .sel) .mv .vis-glow { opacity: 1; }
 .sh-vis { margin: 0; border: 1px solid var(--line); border-radius: 2px; background: #090c10; overflow: hidden; }
 .sh-vis svg { display: block; width: 100%; height: auto; }
-.sh-vis figcaption { padding: 7px 11px; border-top: 1px solid var(--line); background: var(--bg);
+.sh-vis figcaption { padding: 8px 12px; border-top: 1px solid var(--line); background: var(--bg);
   font: 500 11px/1.45 var(--mono); color: var(--muted); }
 
 /* Archived state & board filter states */
-.mod.is-archived { border-style: dashed; background: #0b0e13; }
+.mod.is-archived { border-style: dashed; border-color: color-mix(in srgb, var(--line) 85%, transparent); background: #0b0e13; }
+.mod.is-archived::after { border-style: dashed; }
+.mod.is-archived .mh { border-bottom-style: dashed; color: var(--dim); }
 .mod.is-archived .mn { color: #c7cfd8; }
-.mod.is-archived .mv { opacity: .82; }
+.mod.is-archived .md { color: #9aa4b0; }
+.mod.is-archived .mv { opacity: .78; filter: saturate(.65); transition: opacity 200ms ease, filter 200ms ease; }
+.mod.is-archived:is(:hover, :focus-visible, .sel) .mv { opacity: .94; filter: saturate(.9); }
+#sheet.is-archived .sh-vis, #sheet.is-archived .spec { border-style: dashed; }
+#sheet.is-archived .sh-vis { opacity: .88; }
 #world .mod.dimmed { opacity: .16; pointer-events: none; filter: saturate(.2); }
 #world .mod.matched { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
 #traces .trace-base.dimmed, #traces .trace-port.dimmed { opacity: .12; }
 #boardEmpty { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 12;
   background: color-mix(in srgb, var(--panel) 96%, transparent); border: 1px solid var(--line); border-top: 2px solid var(--amber);
-  border-radius: 3px; padding: 18px 22px; display: grid; gap: 10px; text-align: center; max-width: 340px; }
-#boardEmpty p, .list-empty p { margin: 0; color: var(--muted); font-size: 13.5px; }
-#boardEmpty strong, .list-empty strong { font: 700 15px var(--display); color: var(--ink); }
-.list-empty { padding: 28px 20px; border: 1px dashed var(--line); background: var(--panel); border-radius: 2px;
+  border-radius: 2px; padding: 20px 22px; display: grid; gap: 10px; text-align: center; width: min(340px, calc(100% - 28px)); box-shadow: 0 18px 48px -16px #000c; }
+#boardEmpty p, .list-empty p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.48; }
+#boardEmpty strong, .list-empty strong { font: 700 16px/1.2 var(--display); color: var(--ink); }
+.empty-tag { font: 600 10.5px/1.2 var(--mono); color: var(--amber); letter-spacing: .14em; text-transform: uppercase; }
+.list-empty { padding: 22px 24px; border: 1px solid var(--line); border-top: 2px solid var(--amber); background: var(--panel); border-radius: 2px;
   display: grid; gap: 10px; justify-items: start; }
 
 /* 3-column list grid alignment */
@@ -409,6 +461,22 @@ body.listmode #depth { visibility: hidden; }
 }
 /* end blurxy cursor family */
 
+/* Desktop Board keyboard-shortcut help popover */
+#vHelp { min-width: 28px; text-align: center; padding-inline: 8px; }
+#kbdHelp { position: fixed; z-index: 36; top: calc(52px + env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px));
+  width: 296px; background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--amber); border-radius: 2px;
+  padding: 12px 14px 14px; box-shadow: 0 18px 48px -16px #000d; display: grid; gap: 10px; }
+.kh-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.kh-top strong { font: 600 11px/1.2 var(--mono); color: var(--amber); letter-spacing: .12em; text-transform: uppercase; }
+.kh-top .tbtn { padding: 2px 7px; font-size: 13px; line-height: 1.1; }
+.kh-list { margin: 0; display: grid; gap: 7px; }
+.kh-list div { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12.5px; }
+.kh-list dt { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; }
+.kh-list dd { margin: 0; color: #bcc4cd; text-align: right; }
+.kh-list kbd { font: 500 10.5px/1.1 var(--mono); color: var(--ink); background: var(--raised); border: 1px solid var(--line); border-radius: 2px; padding: 3px 5px; }
+body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
+@media (max-width: 760px) { #vHelp, #kbdHelp { display: none !important; } }
+
 </style>
 
 <header class="bar">
@@ -416,10 +484,25 @@ body.listmode #depth { visibility: hidden; }
   <span class="crumb" id="crumb">board / blurxy / all modules</span>
   <span class="spacer"></span>
   <button class="tbtn" id="vFilter" aria-expanded="false" aria-controls="filterBar">Filter</button>
+  <button type="button" class="tbtn" id="vHelp" aria-haspopup="dialog" aria-expanded="false" aria-controls="kbdHelp" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">?</button>
   <button class="tbtn" id="vMotion" aria-pressed="true" title="Pause or resume the board's ambient motion">Motion</button>
   <button class="tbtn" id="vBoard" aria-pressed="true">Board</button>
   <button class="tbtn" id="vList" aria-pressed="false">List</button>
 </header>
+
+<div id="kbdHelp" role="dialog" aria-labelledby="kbdHelpTitle" hidden>
+  <div class="kh-top"><strong id="kbdHelpTitle">Keyboard shortcuts</strong><button type="button" class="tbtn" id="kbdHelpClose" aria-label="Close keyboard shortcuts">×</button></div>
+  <dl class="kh-list">
+    <div><dt><kbd>/</kbd></dt><dd>Search projects</dd></div>
+    <div><dt><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dt><dd>Pan board or move focus between modules</dd></div>
+    <div><dt><kbd>Enter</kbd></dt><dd>Open focused module</dd></div>
+    <div><dt><kbd>Home</kbd></dt><dd>Reset view to Home</dd></div>
+    <div><dt><kbd>F</kbd></dt><dd>Fit all modules</dd></div>
+    <div><dt><kbd>+</kbd><kbd>−</kbd></dt><dd>Zoom in / out</dd></div>
+    <div><dt><kbd>Esc</kbd></dt><dd>Close sheet, help, or search</dd></div>
+    <div><dt><kbd>?</kbd></dt><dd>Toggle shortcuts</dd></div>
+  </dl>
+</div>
 
 <section class="fbar" id="filterBar" aria-label="Search and filter projects">
   <div class="f-search">
@@ -458,10 +541,10 @@ body.listmode #depth { visibility: hidden; }
   <div class="xh v" id="xv" hidden></div><div class="xh h" id="xhz" hidden></div>
   <div id="scanline" aria-hidden="true"></div>
   <div id="depth"><div id="world"><svg id="traces" aria-hidden="true"></svg></div></div>
-  <div id="boardEmpty" hidden><strong>No matching projects</strong><p>No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
+  <div id="boardEmpty" hidden><span class="empty-tag">0 / 14 PROJECTS</span><strong>No matching projects</strong><p id="boardEmptyMsg">No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
 </main>
 
-<div class="hud"><span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></div>
+<footer class="hud" aria-label="Status bar and links"><span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></footer>
 <div class="zoomer"><button class="tbtn" id="zOut" aria-label="Zoom out">−</button><button class="tbtn" id="zHome">Home</button><button class="tbtn" id="zFit">Fit</button><button class="tbtn" id="zIn" aria-label="Zoom in">+</button></div>
 
 <div id="sheet" role="dialog" aria-labelledby="shTitle" tabindex="-1" inert></div>
@@ -473,6 +556,7 @@ body.listmode #depth { visibility: hidden; }
 (() => {
   // Set this one value when the PDF is ready. No placeholder link is rendered.
   const RESUME_URL = '/resume.pdf';
+  const COURSEWAKE_RELEASE = 'v0.2.11 beta 1';
   const MODS = [
   {
     "id": "M-07",
@@ -492,7 +576,9 @@ body.listmode #depth { visibility: hidden; }
       "On a held-out set, detection rose from 6/37 to 33/37 attack requests, with 0/20 false positives on benign traffic.",
       "Rules were frozen by SHA-256 before scoring; a re-check caught an earlier run that had silently loaded 0 rules, and every number was re-measured."
     ],
-    "summary": "Capstone lead: built the lab, recorded the captures, wrote and froze the rules, and ran and re-checked every measurement."
+    "summary": "Capstone lead: built the lab, recorded the captures, wrote and froze the rules, and ran and re-checked every measurement.",
+    "note": "Investigation Notes has an entry on how the connect scan bypassed 52,667 stock rules.",
+    "noteJump": { "key": "journal", "entry": 8, "label": "Read in Investigation Notes (J-01) →" }
   },
   {
     "id": "M-01",
@@ -516,7 +602,9 @@ body.listmode #depth { visibility: hidden; }
       "A --static mode reads PKGBUILD declarations in 1.3 seconds without starting the sandbox.",
       "Checked six real pkgcacheclean transitions: the static comparison flagged one and remained silent on five."
     ],
-    "summary": "Runs package revisions under bubblewrap with strace to identify newly contacted endpoints, executed binaries, and writes outside the build tree."
+    "summary": "Runs package revisions under bubblewrap with strace to identify newly contacted endpoints, executed binaries, and writes outside the build tree.",
+    "note": "Investigation Notes covers the systemd-resolved DNS bypass, shared build failures, and test assumptions behind this tool.",
+    "noteJump": { "key": "journal", "entry": 5, "label": "Read in Investigation Notes (J-01) →" }
   },
   {
     "id": "L-06",
@@ -587,7 +675,8 @@ body.listmode #depth { visibility: hidden; }
       "After an independent adversarial review showed the scorer was gameable, I rebuilt it: a reference rule fires on 100% of variants while a prompt-literal copy catches 20–50%, across 10 attack families.",
       "On privilege escalation, a deterministic engine (15/17, 0/8 false positives) beat the local-model arms, so I moved the project away from model-led selection."
     ],
-    "note": "Investigation Notes has four entries on how this project's claims were tested and corrected."
+    "note": "Investigation Notes has four entries on how this project's claims were tested and corrected.",
+    "noteJump": { "key": "journal", "entry": 0, "label": "Open Investigation Notes (J-01) →" }
   },
   {
     "id": "L-02",
@@ -730,7 +819,7 @@ body.listmode #depth { visibility: hidden; }
     "line": "Read-only Brightspace extension with ciphertext-only cloud backup and a client-held key.",
     "lang": "Chrome MV3",
     "last": "2026",
-    "release": "v0.2.5 beta",
+    "release": COURSEWAKE_RELEASE,
     "links": [
       [
         "Coursewake site",
@@ -742,7 +831,7 @@ body.listmode #depth { visibility: hidden; }
       ]
     ],
     "facts": [
-      "Chrome Web Store private beta (v0.2.5): activation requires an invited tester's code.",
+      "Chrome Web Store private beta (" + COURSEWAKE_RELEASE + "): activation requires an invited tester's code.",
       "Read-only access: the extension does not submit work, enroll in courses, or change Brightspace records."
     ],
     "summary": "A Chrome extension for CUNY Brightspace that reads information available through your existing login, with optional encrypted cloud backup on a Cloudflare Worker."
@@ -840,7 +929,7 @@ body.listmode #depth { visibility: hidden; }
     <p class="value">I test where security controls fail and build code-enforced limits.</p>
     <p class="seeking">Graduating this December — seeking security <br>internships and full-time entry-level roles.</p>
     <p class="education">CUNY New York City College of Technology · Cybersecurity<br>Coursework complete December 2026<br>Commencement Spring 2027</p>
-    <div class="links" aria-label="Contact"><a href="mailto:rafiulbari70@gmail.com" draggable="false">rafiulbari70@gmail.com</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener" draggable="false">LinkedIn ↗</a><a href="https://github.com/blurxy" target="_blank" rel="noopener" draggable="false">GitHub ↗</a>${RESUME_URL ? `<a href="${esc(RESUME_URL)}" target="_blank" rel="noopener" draggable="false">Resume ↗</a>` : ''}</div>
+    <div class="links" aria-label="Contact"><a href="mailto:rafiulbari70@gmail.com" draggable="false">rafiulbari70@gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com" draggable="false">Copy email</button><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener" draggable="false">LinkedIn ↗</a><a href="https://github.com/blurxy" target="_blank" rel="noopener" draggable="false">GitHub ↗</a>${RESUME_URL ? `<a href="${esc(RESUME_URL)}" target="_blank" rel="noopener" draggable="false">Resume ↗</a>` : ''}</div>
     <div class="foot"><a href="#projects" class="browse" draggable="false">Explore all ${MODS.length} projects ↓</a></div>`;
   world.appendChild(core);
 
@@ -857,7 +946,8 @@ body.listmode #depth { visibility: hidden; }
     "observation": "In an independent adversarial review, my container-based prover reported a vulnerable image as fixed when its data-leaking sink was packaged as a shell script instead of a compiled binary.",
     "finding": "The prover watched for the sink program's name being executed. A script runs under the shell, so the name never appeared, and one packaging change flipped the verdict.",
     "work": "I reproduced the failure, retracted the “malicious-image-robust” claim, scoped the guarantee to operator-built labs, and replaced the approach with a host-boundary egress check that doesn't rely on program names.",
-    "project": "Jetson Sentinel · offline AI security appliance"
+    "project": "Jetson Sentinel · M-08",
+    "projectKey": "jetson"
   },
   {
     "title": "A model edge that was just over-confirming",
@@ -865,7 +955,8 @@ body.listmode #depth { visibility: hidden; }
     "observation": "On privilege-escalation checks, my engine plus a local 7B model confirmed a renamed SUID bash that the rules-only engine had only flagged as a candidate.",
     "finding": "The model also confirmed a harmless SUID binary, so it was upgrading candidates indiscriminately; the evidence couldn't tell the two apart.",
     "work": "I added binary-identity evidence and re-ran. Across 25 hand-built scenarios the rules-only engine scored 15/17 with 0/8 false positives, engine plus model 15/17 with 2/8, and the raw model 2/17 with 7/8, so I moved the project away from model-led privilege escalation.",
-    "project": "Jetson Sentinel · offline AI security appliance"
+    "project": "Jetson Sentinel · M-08",
+    "projectKey": "jetson"
   },
   {
     "title": "What “held-out” actually held out",
@@ -873,7 +964,8 @@ body.listmode #depth { visibility: hidden; }
     "observation": "My fine-tuned Suricata rule-writer scored 7/15 on a held-out set, against 3/15 for the same grammar-constrained model untuned.",
     "finding": "An independent adversarial review pointed out that every attack type in that set was also in the training corpus. Only the exact captures were new, and at n=15 the gain is not statistically significant.",
     "work": "I restated it as a small feasibility result, ran the grammar on/off ablation (without the grammar the fine-tune still went 0/15 to 3/15), and designed a follow-up that removes three attack families from training entirely.",
-    "project": "Jetson Sentinel · offline AI security appliance"
+    "project": "Jetson Sentinel · M-08",
+    "projectKey": "jetson"
   },
   {
     "title": "A pass that proved nothing",
@@ -881,7 +973,8 @@ body.listmode #depth { visibility: hidden; }
     "observation": "An independent adversarial review showed my rule scorer passed any rule that fired on the attack capture and stayed quiet on one benign capture, so copying the example string from the prompt could pass.",
     "finding": "The scorer measured string overlap, not detection skill. My first hardened version swung the other way: on log4shell, no single rule cleared 80% of the attack variants while staying silent on the benign decoy.",
     "work": "I retuned the variants until a reference rule fired on 100% of them and stayed silent while a literal copy caught 20–50%, and confirmed it for all 10 attack families on Suricata.",
-    "project": "Jetson Sentinel · offline AI security appliance"
+    "project": "Jetson Sentinel · M-08",
+    "projectKey": "jetson"
   },
   {
     "title": "Two hosts or four?",
@@ -895,14 +988,18 @@ body.listmode #depth { visibility: hidden; }
     "observation": "A TCP probe indicated blocked network access, while DNS still resolved inside the sandbox.",
     "finding": "DNS reached the system resolver through the io.systemd.Resolve Unix socket.",
     "work": "I traced the resolver path. The package sandbox blocks that socket and reruns the DNS control on each check.",
-    "date": "October 2026"
+    "date": "October 2026",
+    "project": "aur-build-diff · M-01",
+    "projectKey": "aur"
   },
   {
     "title": "Reading the build behind the diff",
     "observation": "A package comparison returned unchanged.",
     "finding": "Both builds had failed in the same way, producing the same comparison outcome.",
     "work": "I checked the underlying build outcomes and documented the shared failure behind the result.",
-    "date": "October 2026"
+    "date": "October 2026",
+    "project": "aur-build-diff · M-01",
+    "projectKey": "aur"
   },
   {
     "title": "Tracing a process-search self-match",
@@ -916,14 +1013,18 @@ body.listmode #depth { visibility: hidden; }
     "observation": "A port scan produced no alerts with 52,667 IDS rules loaded.",
     "finding": "The enabled rules matched specific content or repeated activity on one port. The scan touched each port only once or twice.",
     "work": "I reviewed the rule conditions against the scan pattern, then ran a positive control: with the 15 disabled Nmap rules enabled and HOME_NET scoped to the targets, a SYN scan drew 2 stock alerts while the connect scan still drew 0. My tuned rule caught both (101 and 195).",
-    "date": "October 2026"
+    "date": "October 2026",
+    "project": "IDS Rule Evaluation · M-07",
+    "projectKey": "ids"
   },
   {
     "title": "Inspecting the assumptions inside a test",
     "observation": "Seven unit tests returned passing results.",
     "finding": "The tests shared the same assumption as the implementation they exercised.",
     "work": "I examined what the tests asserted and documented the shared assumption.",
-    "date": "October 2026"
+    "date": "October 2026",
+    "project": "aur-build-diff · M-01",
+    "projectKey": "aur"
   }
 ];
   const JOURNAL = { id: 'J-01', key: 'journal', name: 'Investigation Notes' };
@@ -1268,7 +1369,7 @@ body.listmode #depth { visibility: hidden; }
         <text x="160" y="34" text-anchor="middle" fill="#f2b705" font-size="8" font-weight="600">MV3 CLIENT</text>
         <text x="160" y="48" text-anchor="middle" fill="#e9edf1" font-size="7.3">Client-held key</text>
         <text x="160" y="61" text-anchor="middle" fill="#8893a1" font-size="7.2">Local encrypt</text>
-        <text x="160" y="75" text-anchor="middle" fill="#f2b705" font-size="7">v0.2.5 beta</text>
+        <text x="160" y="75" text-anchor="middle" fill="#f2b705" font-size="7">${COURSEWAKE_RELEASE}</text>
         <path d="M208 51H226" stroke="#f2b705" stroke-width="1.4"/>
         <rect x="226" y="24" width="82" height="54" rx="2" fill="#0e1217" stroke="#26303b"/>
         <text x="267" y="42" text-anchor="middle" fill="#7fb4ff" font-size="7.6">CF WORKER</text>
@@ -1428,20 +1529,35 @@ body.listmode #depth { visibility: hidden; }
       minx = Math.min(minx, el.offsetLeft); miny = Math.min(miny, el.offsetTop);
       maxx = Math.max(maxx, el.offsetLeft + el.offsetWidth); maxy = Math.max(maxy, el.offsetTop + el.offsetHeight);
     }
-    const pad = 56, sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
-    const availW = Math.max(240, r.width - sheetW - pad * 2), availH = Math.max(200, r.height - pad * 2 - 34);
+    const narrowStage = window.innerWidth <= 760;
+    const pad = narrowStage ? 20 : 56, bottomPad = narrowStage ? 114 : 34;
+    const sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
+    const availW = Math.max(200, r.width - sheetW - pad * 2), availH = Math.max(180, r.height - pad * 2 - bottomPad);
     const s = clampS(Math.min(maxScale, availW / Math.max(1, maxx - minx), availH / Math.max(1, maxy - miny)));
-    cam.s = s; cam.x = (r.width - sheetW - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - 34 - (maxy - miny) * s) / 2 - miny * s; apply();
+    cam.s = s; cam.x = (r.width - sheetW - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - bottomPad - (maxy - miny) * s) / 2 - miny * s; apply();
   }
   function fit() {
     const r = stage.getBoundingClientRect(), { minx, miny, maxx, maxy } = bbox();
-    const pad = 60, s = clampS(Math.min((r.width - pad * 2) / (maxx - minx), (r.height - pad * 2) / (maxy - miny)));
-    cam.s = s; cam.x = (r.width - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - (maxy - miny) * s) / 2 - miny * s; apply();
+    const narrowStage = window.innerWidth <= 760;
+    const pad = narrowStage ? 22 : 60, bottomPad = narrowStage ? 108 : 0;
+    const s = clampS(Math.min((r.width - pad * 2) / (maxx - minx), (r.height - pad * 2 - bottomPad) / (maxy - miny)));
+    cam.s = s; cam.x = (r.width - (maxx - minx) * s) / 2 - minx * s; cam.y = (r.height - bottomPad - (maxy - miny) * s) / 2 - miny * s; apply();
   }
   // Home keeps the entire core, contact row, and full E-01 Experience card readable beside the top security cards.
+  // On narrow viewports (e.g. 390px phones), frame the core + E-01 at legible scale above the HUD and zoom controls.
   function home() {
     const r = stage.getBoundingClientRect();
     const resumeBottom = resume.offsetTop + resume.offsetHeight + 16;
+    if (r.width < 680) {
+      const padX = 14, padY = 16, bottomPad = 116;
+      const coreW = Math.max(core.offsetWidth, resume.offsetWidth);
+      const s = clampS(Math.min(0.95, (r.width - padX * 2) / coreW, Math.max(0.64, (r.height - padY - bottomPad) / resumeBottom)));
+      cam.s = s;
+      cam.x = (r.width - coreW * s) / 2;
+      cam.y = padY;
+      apply();
+      return;
+    }
     const height = Math.max(resumeBottom, modEls.haunted.offsetTop + modEls.haunted.offsetHeight, modEls.trading.offsetTop + modEls.trading.offsetHeight);
     const width = 1160, top = -42, padX = 48, padY = 34;
     cam.s = clampS(Math.min(1, (r.width - padX * 2) / width, (r.height - padY * 2 - 36) / (height - top)));
@@ -1453,8 +1569,20 @@ body.listmode #depth { visibility: hidden; }
     const s = clampS(cam.s * f), k = s / cam.s; cam.x = px - (px - cam.x) * k; cam.y = py - (py - cam.y) * k; cam.s = s; apply();
   }
   function focusOn(el) {
-    const r = stage.getBoundingClientRect(); const s = Math.max(cam.s, 0.9); const sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
+    const r = stage.getBoundingClientRect(); const s = Math.max(cam.s, window.innerWidth <= 760 ? 0.72 : 0.9); const sheetW = $('sheet').classList.contains('open') ? Math.min(440, r.width) : 0;
     cam.s = s; cam.x = (r.width - sheetW) / 2 - (el.offsetLeft + el.offsetWidth / 2) * s; cam.y = r.height / 2 - (el.offsetTop + el.offsetHeight / 2) * s; apply();
+  }
+  function ensureInView(el) {
+    if (!el) return;
+    const r = stage.getBoundingClientRect(), m = window.innerWidth <= 760 ? 20 : 40;
+    const right = r.right - ($('sheet').classList.contains('open') ? Math.min(440, r.width) : 0);
+    const bottom = r.bottom - (window.innerWidth <= 760 ? 114 : 44);
+    let target = el, b = target.getBoundingClientRect();
+    if (b.height > bottom - r.top - 2 * m || b.width > right - r.left - 2 * m) { target = el; b = target.getBoundingClientRect(); }
+    let dx = 0, dy = 0;
+    if (b.left < r.left + m) dx = r.left + m - b.left; else if (b.right > right - m) dx = Math.max(right - m - b.right, r.left + m - b.left);
+    if (b.top < r.top + m) dy = r.top + m - b.top; else if (b.bottom > bottom - m) dy = Math.max(bottom - m - b.bottom, r.top + m - b.top);
+    if (dx || dy) { cam.x += dx; cam.y += dy; dirty = true; apply(); }
   }
 
   // ---------- grid + rulers ----------
@@ -1488,9 +1616,50 @@ body.listmode #depth { visibility: hidden; }
   // ---------- input ----------
   // Pointer capture starts only once the pointer has moved past 6px: capturing on pointerdown would retarget every click to
   // the stage, so a mouse click on a module or link would do nothing. Keyboard clicks (detail 0) always count.
-  let drag = null, moved = 0;
-  stage.addEventListener('pointerdown', e => { if (e.button !== 0 || !e.isPrimary) return; drag = { x: e.clientX, y: e.clientY, cx: cam.x, cy: cam.y, id: e.pointerId }; moved = 0; });
+  // Two-finger touch pinch zooms smoothly around the midpoint while panning.
+  let drag = null, moved = 0, pinch = null;
+  const touches = new Map();
+  function startPinch() {
+    const pts = [...touches.values()];
+    if (pts.length < 2) return;
+    const r = stage.getBoundingClientRect();
+    const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y) || 1;
+    const midX = (pts[0].x + pts[1].x) / 2 - r.left, midY = (pts[0].y + pts[1].y) / 2 - r.top;
+    pinch = { dist, midX, midY, cx: cam.x, cy: cam.y, s: cam.s };
+    drag = null; moved = 99; dirty = true; stage.classList.add('drag');
+  }
+  stage.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch') {
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 2) { startPinch(); return; }
+      if (touches.size > 2) return;
+      drag = { x: e.clientX, y: e.clientY, cx: cam.x, cy: cam.y, id: e.pointerId }; moved = 0;
+      return;
+    }
+    if (e.button !== 0 || !e.isPrimary) return;
+    drag = { x: e.clientX, y: e.clientY, cx: cam.x, cy: cam.y, id: e.pointerId }; moved = 0;
+  });
   stage.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') {
+      if (!touches.has(e.pointerId)) return;
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size >= 2 && pinch) {
+        const pts = [...touches.values()];
+        const r = stage.getBoundingClientRect();
+        const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y) || 1;
+        const midX = (pts[0].x + pts[1].x) / 2 - r.left, midY = (pts[0].y + pts[1].y) / 2 - r.top;
+        const s = clampS(pinch.s * (dist / pinch.dist));
+        const wx = (pinch.midX - pinch.cx) / pinch.s, wy = (pinch.midY - pinch.cy) / pinch.s;
+        cam.s = s; cam.x = midX - wx * s; cam.y = midY - wy * s; apply();
+        return;
+      }
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
+      if (moved <= 6) return;
+      if (!stage.hasPointerCapture(drag.id)) { try { stage.setPointerCapture(drag.id); } catch (_) {} stage.classList.add('drag'); dirty = true; }
+      cam.x = drag.cx + dx; cam.y = drag.cy + dy; apply();
+      return;
+    }
     if (!e.isPrimary) return;
     const r = motion.rect(); ptr = { x: e.clientX - r.left, y: e.clientY - r.top };
     $('xv').hidden = $('xhz').hidden = motion.reduced(); $('xv').style.transform = `translateX(${ptr.x}px)`; $('xhz').style.transform = `translateY(${ptr.y}px)`; readout();
@@ -1500,26 +1669,101 @@ body.listmode #depth { visibility: hidden; }
     if (!stage.hasPointerCapture(drag.id)) { try { stage.setPointerCapture(drag.id); } catch (_) {} stage.classList.add('drag'); dirty = true; }
     cam.x = drag.cx + dx; cam.y = drag.cy + dy; apply();
   });
-  const end = e => { if (e && !e.isPrimary) return; drag = null; stage.classList.remove('drag'); };
+  const end = e => {
+    if (e && e.pointerType === 'touch') {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinch = null;
+      if (touches.size === 1) {
+        const [remId, pt] = touches.entries().next().value;
+        drag = { x: pt.x, y: pt.y, cx: cam.x, cy: cam.y, id: remId };
+        return;
+      }
+      drag = null; stage.classList.remove('drag');
+      return;
+    }
+    if (e && !e.isPrimary) return;
+    touches.clear(); pinch = null; drag = null; stage.classList.remove('drag');
+  };
   window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end); window.addEventListener('blur', () => end());
   stage.addEventListener('pointerleave', () => { ptr = null; $('xv').hidden = $('xhz').hidden = true; });
   stage.addEventListener('wheel', e => { e.preventDefault(); dirty = true; const r = stage.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
-  stage.addEventListener('click', e => { if (moved > 6 && e.detail !== 0) { moved = 0; return; } const b = e.target.closest('.mod, .journal'); if (b) open(b.dataset.key); });
+  stage.addEventListener('click', e => { if (moved > 6 && e.detail !== 0) { moved = 0; return; } const b = e.target.closest('.mod, .journal'); if (b) open(b.dataset.key, false, b); });
   // Tab to a module that is off screen: pan it into view (no zoom change) instead of letting the stage scroll.
   stage.addEventListener('focusin', e => {
     if (drag || !e.target.matches(':focus-visible')) return;   // a mouse or touch press is about to click it: don't move it away
-    let el = e.target.closest('.mod, .core, .journal'); if (!el) return;
-    const r = stage.getBoundingClientRect(), m = 40, right = r.right - ($('sheet').classList.contains('open') ? Math.min(440, r.width) : 0);
-    let b = el.getBoundingClientRect(); if (b.height > r.height - 2 * m || b.width > right - r.left - 2 * m) { el = e.target; b = el.getBoundingClientRect(); }
-    let dx = 0, dy = 0;
-    if (b.left < r.left + m) dx = r.left + m - b.left; else if (b.right > right - m) dx = Math.max(right - m - b.right, r.left + m - b.left);
-    if (b.top < r.top + m) dy = r.top + m - b.top; else if (b.bottom > r.bottom - m) dy = Math.max(r.bottom - m - b.bottom, r.top + m - b.top);
-    if (dx || dy) { cam.x += dx; cam.y += dy; dirty = true; apply(); }
+    const el = e.target.closest('.mod, .core, .journal'); if (!el) return;
+    ensureInView(el);
   });
+  const arrowDirections = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+  function moveBoardFocus(currentCard, [dx, dy]) {
+    const items = [...Object.values(modEls).filter(el => !el.classList.contains('dimmed')), resume, journal];
+    const center = el => ({ x: el.offsetLeft + el.offsetWidth / 2, y: el.offsetTop + el.offsetHeight / 2 });
+    const origin = center(currentCard);
+    let bestCone = null, bestConeScore = Infinity, bestAny = null, bestAnyScore = Infinity;
+    for (const el of items) {
+      if (el === currentCard) continue;
+      const c = center(el), vx = c.x - origin.x, vy = c.y - origin.y;
+      const primary = vx * dx + vy * dy;
+      if (primary <= 10) continue;
+      const cross = Math.abs(vx * dy - vy * dx);
+      const score = primary + cross * 2.2;
+      if (cross <= primary * 1.8 && score < bestConeScore) { bestCone = el; bestConeScore = score; }
+      if (score < bestAnyScore) { bestAny = el; bestAnyScore = score; }
+    }
+    const next = bestCone || bestAny;
+    if (!next) return;
+    next.focus({ preventScroll: true });
+    ensureInView(next);
+    motion.highlight(next.dataset.key);
+  }
   $('zIn').onclick = () => { dirty = true; const r = stage.getBoundingClientRect(); zoomAt(1.25, r.width / 2, r.height / 2); };
   $('zOut').onclick = () => { dirty = true; const r = stage.getBoundingClientRect(); zoomAt(0.8, r.width / 2, r.height / 2); };
   $('zHome').onclick = () => { dirty = true; close(); home(); };
   $('zFit').onclick = () => { dirty = true; close(); fit(); };
+  function setHelp(on, { restoreFocus = false } = {}) {
+    const show = Boolean(on) && window.innerWidth > 760 && $('list').hidden;
+    $('kbdHelp').hidden = !show;
+    $('vHelp').setAttribute('aria-expanded', String(show));
+    $('vHelp').setAttribute('aria-pressed', String(show));
+    if (show) $('kbdHelpClose').focus({ preventScroll: true });
+    else if (restoreFocus) $('vHelp').focus({ preventScroll: true });
+  }
+  $('vHelp').addEventListener('click', () => setHelp($('kbdHelp').hidden));
+  $('kbdHelpClose').addEventListener('click', () => setHelp(false, { restoreFocus: true }));
+  document.addEventListener('pointerdown', e => {
+    if ($('kbdHelp').hidden) return;
+    if (!e.target.closest('#kbdHelp, #vHelp')) setHelp(false);
+  });
+
+  async function copyEmailText(btn) {
+    const email = btn.dataset.copyEmail;
+    if (!email) return;
+    let ok = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(email); ok = true; }
+    } catch (_) {}
+    if (!ok) {
+      const focused = document.activeElement;
+      const ta = document.createElement('textarea');
+      ta.value = email; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(ta); ta.select();
+      try { ok = document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+      if (focused instanceof HTMLElement && focused.isConnected) focused.focus({ preventScroll: true });
+    }
+    clearTimeout(btn._copyTimer);
+    btn.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    btn.classList.toggle('copied', ok);
+    $('live').textContent = ok ? 'Email copied: ' + email : 'Could not copy automatically. Email address is ' + email;
+    btn._copyTimer = setTimeout(() => { btn.textContent = 'Copy email'; btn.classList.remove('copied'); }, 2000);
+  }
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-copy-email]');
+    if (!btn) return;
+    e.preventDefault();
+    copyEmailText(btn);
+  });
+
   window.addEventListener('keydown', e => {
     if (e.ctrlKey || e.metaKey || e.altKey || !(e.target instanceof Element)) return;   // leave browser zoom and shortcuts alone
     if (e.target.closest('input,textarea,select')) {
@@ -1531,18 +1775,38 @@ body.listmode #depth { visibility: hidden; }
     }
     if (e.key === '/' && !document.body.classList.contains('sheetopen')) {
       e.preventDefault();
+      if (!$('kbdHelp').hidden) setHelp(false);
       if (window.innerWidth <= 760) setFilterDrawer(true);
       $('fQuery').focus(); $('fQuery').select(); return;
     }
     if (e.key === 'Escape') {
+      if (!$('kbdHelp').hidden) { setHelp(false, { restoreFocus: true }); return; }
       if (current) { close(); return; }
-      if (document.body.classList.contains('filteropen')) { setFilterDrawer(false); return; }
+      if (document.body.classList.contains('filteropen')) { setFilterDrawer(false); $('vFilter').focus(); return; }
       return;
     }
     if (document.body.classList.contains('sheetopen') || e.target.closest('#sheet, #list') || !$('list').hidden) return;
-    const k = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] }[e.key];
-    if (k) { e.preventDefault(); dirty = true; cam.x += k[0]; cam.y += k[1]; apply(); }
+    if (e.key === '?' && window.innerWidth > 760) {
+      e.preventDefault();
+      setHelp($('kbdHelp').hidden, { restoreFocus: !$('kbdHelp').hidden });
+      return;
+    }
+    if (Object.hasOwn(arrowDirections, e.key)) {
+      if (e.target.closest('.bar, .fbar, .zoomer, .hud, #kbdHelp')) return;
+      e.preventDefault();
+      const direction = arrowDirections[e.key];
+      const card = e.target.closest('#world .mod:not(.dimmed), #world .journal, #world .core');
+      if (card) moveBoardFocus(card, direction);
+      else {
+        dirty = true;
+        cam.x -= direction[0] * 60;
+        cam.y -= direction[1] * 60;
+        apply();
+      }
+      return;
+    }
     if (e.key === 'Home') { e.preventDefault(); dirty = true; home(); }
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); $('zFit').click(); }
     if (e.key === '+' || e.key === '=') { dirty = true; $('zIn').click(); }
     if (e.key === '-') { dirty = true; $('zOut').click(); }
   });
@@ -1554,31 +1818,35 @@ body.listmode #depth { visibility: hidden; }
   });
 
   // ---------- spec sheet ----------
+  function sheetActionsHTML() {
+    const backItem = sheetBack ? item(sheetBack.key) : null;
+    return `<span class="sh-actions">${backItem ? `<button type="button" class="tbtn" id="shBack" aria-label="Back to ${esc(backItem.name)}">← ${esc(backItem.id)}</button>` : ''}<button class="tbtn" id="shClose">Close<span class="kbd"> · Esc</span></button></span>`;
+  }
   function sheetHTML(m) {
     const acts = m.links.map(([t, u], i) => u === "#" ? `<span class="soon">${esc(t)}</span>` : `<a class="${i ? "" : "pri"}" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}${t.endsWith("↗") ? "" : " ↗"}</a>`).join("");
     const flags = s => esc(s).replace(/(^|\s)(--[a-z][a-z-]*)/g, '$1<code>$2</code>');   // keep CLI flags like --static on one line
     const vis = PROJECT_VISUALS[m.key];
-    return `<div class="sh-top"><span>${m.id} · ${LED[m.status]}</span><button class="tbtn" id="shClose">Close<span class="kbd"> · Esc</span></button></div>
+    return `<div class="sh-top"><span class="sh-id">${m.id} · <span class="led ${m.status}">${LED[m.status]}</span></span>${sheetActionsHTML()}</div>
       <h2 id="shTitle" tabindex="-1">${esc(m.name)}</h2><p class="lead">${esc(m.line)}</p>
       ${acts ? `<div class="acts">${acts}</div>` : ""}
       ${vis ? `<figure class="sh-vis">${vis.svg}<figcaption>${esc(vis.caption)}</figcaption></figure>` : ""}
       <dl class="spec"><div><dt>Overview</dt><dd>${esc(m.summary)}</dd></div><div><dt>Stack</dt><dd>${esc(m.lang)}</dd></div><div><dt>Updated</dt><dd>${esc(m.last)}</dd></div>${m.release ? `<div><dt>Release</dt><dd>${esc(m.release)}</dd></div>` : ""}${m.context ? `<div><dt>Context</dt><dd>${esc(m.context)}</dd></div>` : ""}</dl>
       ${m.facts.length ? `<div class="blk"><h3>Inside the project</h3><ul>${m.facts.map(f => `<li>${flags(f)}</li>`).join("")}</ul></div>` : ""}
-      ${m.note ? `<p class="project-note">${esc(m.note)}</p>` : ""}`;
+      ${m.note || m.noteJump ? `<p class="project-note">${m.note ? esc(m.note) : ""}${m.noteJump ? ` <button type="button" class="sh-link" data-jump="${esc(m.noteJump.key)}"${m.noteJump.entry != null ? ` data-entry="${m.noteJump.entry}"` : ""}>${esc(m.noteJump.label)}</button>` : ""}</p>` : ""}`;
   }
 
   function journalHTML() {
-    return `<div class="sh-top"><span>J-01 · ${String(JOURNAL_ENTRIES.length).padStart(2, "0")} FIELD NOTES</span><button class="tbtn" id="shClose">Close<span class="kbd"> · Esc</span></button></div>
+    return `<div class="sh-top"><span>J-01 · ${String(JOURNAL_ENTRIES.length).padStart(2, "0")} FIELD NOTES</span>${sheetActionsHTML()}</div>
       <h2 id="shTitle" tabindex="-1">Investigation Notes</h2>
       <p class="lead">Observations, explanations, and the work behind them.</p>
       <p class="journal-provenance">Recorded October–November 2026. Dates refer to the portfolio record, not the original investigation dates.</p>
-      <ol class="journal-entries">${JOURNAL_ENTRIES.map(e => `<li><time datetime="${e.date === "November 2026" ? "2026-11" : "2026-10"}">Recorded ${esc(e.date)}</time>${e.project ? `<span class="journal-project">${esc(e.project)}</span>` : ""}<h3>${esc(e.title)}</h3><dl>
+      <ol class="journal-entries">${JOURNAL_ENTRIES.map((e, idx) => `<li data-entry-idx="${idx}"><time datetime="${e.date === "November 2026" ? "2026-11" : "2026-10"}">Recorded ${esc(e.date)}</time>${e.projectKey ? `<button type="button" class="journal-project sh-link" data-jump="${esc(e.projectKey)}">${esc(e.project || (item(e.projectKey)?.name || ''))} →</button>` : (e.project ? `<span class="journal-project">${esc(e.project)}</span>` : "")}<h3>${esc(e.title)}</h3><dl>
         <div><dt>Observation</dt><dd>${esc(e.observation)}</dd></div><div><dt>Finding</dt><dd>${esc(e.finding)}</dd></div><div><dt>My work</dt><dd>${esc(e.work)}</dd></div></dl></li>`).join('')}</ol>
       <p class="journal-provenance"><a href="https://github.com/blurxy/blurxy.net/blob/b8b190ee7171b3d4f300d031100495c2d3f14871/index.html" target="_blank" rel="noopener">Source notes ↗</a></p>`;
   }
 
   function resumeHTML() {
-    return `<div class="sh-top"><span>E-01 · EXPERIENCE</span><button class="tbtn" id="shClose">Close<span class="kbd"> · Esc</span></button></div>
+    return `<div class="sh-top"><span>E-01 · EXPERIENCE</span>${sheetActionsHTML()}</div>
       <h2 id="shTitle" tabindex="-1">Experience & resume</h2>
       <p class="lead">Security engineering, detection and automation, and identity & access.</p>
       <div class="acts"><a class="pri" href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume PDF ↗</a><a href="/resume.html" target="_blank" rel="noopener">Print-ready view ↗</a></div>
@@ -1593,46 +1861,83 @@ body.listmode #depth { visibility: hidden; }
   const item = key => key === 'resume' ? RESUME : key === 'journal' ? JOURNAL : MODS.find(m => m.key === key);
   const boardItem = key => key === 'resume' ? resume : key === 'journal' ? journal : modEls[key];
   const hashKey = () => { try { const k = decodeURIComponent(location.hash.slice(1)); return k === 'faults' ? 'journal' : k; } catch (_) { return ''; } };
-  let current = null, opener = null, popping = false;
+  let current = null, opener = null, popping = false, sheetBack = null;
+  let searchOnSheetClose = null;
+  function sheetTrigger(key) {
+    return $('list').hidden ? boardItem(key) : $('list').querySelector('[data-key="' + key + '"]');
+  }
   function syncAccessibility() {
     const list = !$('list').hidden, modal = !!current && window.innerWidth <= 760;
     stage.inert = list || modal; $('list').inert = modal;
     document.querySelector('.bar').inert = modal;
     $('filterBar').inert = modal;
+    document.querySelector('.hud').inert = list || modal;
     document.querySelector('.zoomer').inert = list || modal;
     if (modal) $('sheet').setAttribute('aria-modal', 'true'); else $('sheet').removeAttribute('aria-modal');
     document.querySelectorAll('.mod, .journal').forEach(el => el.setAttribute('aria-expanded', String(el.dataset.key === current)));
   }
-  function open(key, fromPop) {
+  function open(key, fromPop, triggerEl, opts = {}) {
     const m = item(key); if (!m) return;
+    if (!$('kbdHelp').hidden) setHelp(false);
     if (window.innerWidth <= 760 && document.body.classList.contains('filteropen')) setFilterDrawer(false);
     const unchanged = current === key, switching = current !== null && !unchanged; current = key; dirty = true;
-    const a = document.activeElement; if (a && a !== document.body && !a.closest('#sheet')) opener = a;
-    const sh = $('sheet'); sh.innerHTML = key === 'resume' ? resumeHTML() : key === 'journal' ? journalHTML() : sheetHTML(m); sh.inert = false; sh.scrollTop = 0;
+    sheetBack = opts.fromSheet || null;
+    if (triggerEl && triggerEl instanceof Element && !triggerEl.closest('#sheet')) opener = triggerEl;
+    else if (!switching) {
+      const a = document.activeElement;
+      if (a && a !== document.body && !a.closest('#sheet')) opener = a;
+      else opener = sheetTrigger(key);
+    }
+    const sh = $('sheet'); sh.innerHTML = key === 'resume' ? resumeHTML() : key === 'journal' ? journalHTML() : sheetHTML(m); sh.inert = false; sh.scrollTop = opts.scrollTop || 0;
+    sh.classList.toggle('is-archived', m.status === 'archived');
     sh.classList.add('open'); document.body.classList.add('sheetopen'); motion.sync(); syncAccessibility();
     [...Object.values(modEls), journal, resume].forEach(el => el.classList.toggle('sel', el.dataset.key === key));
     motion.highlight(key);
     $('crumb').textContent = `board / blurxy / ${m.id.toLowerCase()} ${m.name}`;
-    $('shClose').onclick = close; $('shTitle').focus({preventScroll:true}); $('live').textContent = `${m.name} opened`;
+    $('shClose').onclick = close;
+    const backBtn = $('shBack');
+    if (backBtn && sheetBack) {
+      const target = sheetBack;
+      backBtn.onclick = () => open(target.key, false, null, { scrollTop: target.scrollTop || 0 });
+    }
+    $('shTitle').focus({preventScroll:true}); $('live').textContent = `${m.name} opened`;
+    if (opts.entry != null && opts.entry > 0) {
+      const entryEl = sh.querySelector(`[data-entry-idx="${opts.entry}"]`);
+      if (entryEl) entryEl.scrollIntoView({ block: 'start', behavior: motion.reduced() ? 'auto' : 'smooth' });
+    }
     if ($('list').hidden) focusOn(boardItem(key));
     // One history entry per open sheet: switching sheets replaces it, so Esc / Back always closes rather than reopening the previous one.
-    if (!fromPop && !unchanged) { try { history[switching ? 'replaceState' : 'pushState']({sheet:key}, '', '#' + encodeURIComponent(key)); } catch (_) {} }
+    if (!fromPop && !unchanged) { try { history[switching ? 'replaceState' : 'pushState']({sheet:key}, '', location.pathname + location.search + '#' + encodeURIComponent(key)); } catch (_) {} }
   }
   function close() {
-    if (!current) return; const key = current; current = null;
-    const sh = $('sheet'); sh.classList.remove('open'); sh.inert = true; document.body.classList.remove('sheetopen');
+    if (!current) return; const key = current, closing = item(key); current = null; sheetBack = null;
+    const sh = $('sheet'); sh.classList.remove('open', 'is-archived'); sh.inert = true; document.body.classList.remove('sheetopen');
     motion.sync(); syncAccessibility();
     setTimeout(() => { if (!current) sh.innerHTML = ''; }, motion.reduced() ? 0 : 360);
     [...Object.values(modEls), journal, resume].forEach(el => el.classList.remove('sel')); motion.highlight(null);
     $('crumb').textContent = 'board / blurxy / all modules';
-    const shown = el => el && el.isConnected && el.getClientRects().length && !el.closest('[inert],[hidden]');
-    const back = shown(opener) ? opener : ($('list').hidden ? boardItem(key) : $('list').querySelector(`[data-key="${key}"]`));
-    opener = null; if (shown(back)) back.focus({preventScroll:true});
+    $('live').textContent = `${closing ? closing.name : 'Detail sheet'} closed`;
+    const shown = el => el && el.isConnected && el.getClientRects().length && !el.closest('[inert],[hidden],.dimmed');
+    const openerCard = opener?.dataset.key ? sheetTrigger(opener.dataset.key) : null;
+    const back = [opener, openerCard, sheetTrigger(key), $('fQuery'), $('vFilter')].find(shown);
+    opener = null;
+    back?.focus({ preventScroll: !back.closest('#list') });
     if (!popping && location.hash) { try {
-      if (history.state?.sheet === key) history.back();
-      else history.replaceState(null, '', location.pathname + location.search);
+      if (history.state?.sheet === key) {
+        // Carry the current filters to the board on an explicit Close or Esc.
+        searchOnSheetClose = location.search;
+        history.back();
+      } else history.replaceState(null, '', location.pathname + location.search);
     } catch (_) {} }
   }
+  $('sheet').addEventListener('click', e => {
+    const jump = e.target.closest('[data-jump]');
+    if (!jump) return;
+    const targetKey = jump.dataset.jump;
+    if (!item(targetKey)) return;
+    const entry = jump.dataset.entry != null ? Number(jump.dataset.entry) : null;
+    open(targetKey, false, null, { fromSheet: current ? { key: current, scrollTop: $('sheet').scrollTop } : null, entry });
+  });
   // Narrow sheets cover the page; contain keyboard focus while the background is inert.
   $('sheet').addEventListener('keydown', e => {
     if (e.key !== 'Tab' || !current || window.innerWidth > 760) return;
@@ -1646,6 +1951,36 @@ body.listmode #depth { visibility: hidden; }
   // ---------- search & filter ----------
   const filter = { q: '', zone: 'all', status: 'all' };
   const isFiltered = () => Boolean(filter.q.trim() || filter.zone !== 'all' || filter.status !== 'all');
+  function readFilterFromURL() {
+    const sp = new URLSearchParams(location.search);
+    const q = sp.get('q') || '';
+    const z = sp.get('zone');
+    const st = sp.get('status');
+    filter.q = q;
+    filter.zone = z && Object.prototype.hasOwnProperty.call(ZONES, z) ? z : 'all';
+    filter.status = st && Object.prototype.hasOwnProperty.call(LED, st) && st !== 'stage' ? st : 'all';
+    $('fQuery').value = filter.q;
+  }
+  function syncURLFromFilter() {
+    try {
+      const sp = new URLSearchParams(location.search);
+      const q = filter.q.trim();
+      if (q) sp.set('q', q); else sp.delete('q');
+      if (filter.zone !== 'all') sp.set('zone', filter.zone); else sp.delete('zone');
+      if (filter.status !== 'all') sp.set('status', filter.status); else sp.delete('status');
+      const qs = sp.toString();
+      const next = location.pathname + (qs ? '?' + qs : '') + location.hash;
+      const cur = location.pathname + location.search + location.hash;
+      if (next !== cur) history.replaceState(history.state, '', next);
+    } catch (_) {}
+  }
+  function emptyFilterMessage() {
+    const parts = [];
+    if (filter.q.trim()) parts.push(`“${filter.q.trim()}”`);
+    if (filter.zone !== 'all') parts.push(ZONES[filter.zone][0]);
+    if (filter.status !== 'all') parts.push(LED[filter.status]);
+    return parts.length ? `No projects match ${parts.join(' · ')}.` : 'No projects match the active search or filter criteria.';
+  }
   function matches(m) {
     if (filter.zone !== 'all' && m.zone !== filter.zone) return false;
     if (filter.status !== 'all' && m.status !== filter.status) return false;
@@ -1670,10 +2005,12 @@ body.listmode #depth { visibility: hidden; }
     $('traces').querySelectorAll('.trace-base, .trace-port').forEach(el => {
       el.classList.toggle('dimmed', active && !matchedKeys.has(el.dataset.k));
     });
-    $('boardEmpty').hidden = !active || matchedKeys.size > 0;
+    const showEmpty = active && matchedKeys.size === 0;
+    $('boardEmpty').hidden = !showEmpty;
+    if (showEmpty) $('boardEmptyMsg').textContent = emptyFilterMessage();
     return matchedKeys;
   }
-  function applyFilter({ panBoard = false, announce = true } = {}) {
+  function applyFilter({ panBoard = false, announce = true, syncUrl = true } = {}) {
     const active = isFiltered();
     const matched = MODS.filter(matches);
     const matchedKeys = syncBoardFilterClasses();
@@ -1685,6 +2022,7 @@ body.listmode #depth { visibility: hidden; }
     $('vFilter').textContent = active ? `Filter (${matched.length})` : 'Filter';
     $('fStatuses').querySelectorAll('.fbtn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === filter.status)));
     $('fZone').value = filter.zone;
+    if (syncUrl) syncURLFromFilter();
     if (!$('list').hidden) buildList();
     else if (panBoard) {
       if (active && matched.length > 0) {
@@ -1698,10 +2036,14 @@ body.listmode #depth { visibility: hidden; }
     if (announce) $('live').textContent = active ? `Showing ${matched.length} of ${MODS.length} projects` : `Showing all ${MODS.length} projects`;
     return matchedKeys;
   }
-  function resetFilters({ panBoard = true } = {}) {
+  function resetFilters({ panBoard = true, restoreFocus = false } = {}) {
     filter.q = ''; filter.zone = 'all'; filter.status = 'all';
     $('fQuery').value = '';
     applyFilter({ panBoard });
+    if (restoreFocus) {
+      const target = (window.innerWidth <= 760 && !document.body.classList.contains('filteropen')) ? $('vFilter') : $('fQuery');
+      target?.focus({ preventScroll: true });
+    }
   }
   $('fQuery').addEventListener('input', e => { filter.q = e.target.value; applyFilter({ panBoard: true }); });
   $('fClear').addEventListener('click', () => { $('fQuery').value = ''; filter.q = ''; applyFilter({ panBoard: true }); $('fQuery').focus(); });
@@ -1710,15 +2052,15 @@ body.listmode #depth { visibility: hidden; }
     const b = e.target.closest('.fbtn'); if (!b) return;
     filter.status = b.dataset.status; applyFilter({ panBoard: true });
   });
-  $('fReset').addEventListener('click', () => resetFilters({ panBoard: true }));
-  $('boardReset').addEventListener('click', () => resetFilters({ panBoard: true }));
+  $('fReset').addEventListener('click', () => resetFilters({ panBoard: true, restoreFocus: true }));
+  $('boardReset').addEventListener('click', () => resetFilters({ panBoard: true, restoreFocus: true }));
   $('vFilter').addEventListener('click', () => setFilterDrawer(!document.body.classList.contains('filteropen')));
 
   // ---------- list view ----------
   function buildList() {
     const inner = $('listInner'); inner.innerHTML = '';
     const heroClone = core.cloneNode(true); heroClone.id = 'listTop'; inner.appendChild(heroClone);
-    const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume'); inner.appendChild(experienceCard);
+    const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume', false, experienceCard); inner.appendChild(experienceCard);
     const active = isFiltered();
     let totalShown = 0;
     for (const z of ['security', 'systems', 'builds']) {
@@ -1732,19 +2074,19 @@ body.listmode #depth { visibility: hidden; }
         b.className = ['mod', m.featured ? 'featured' : '', m.status === 'archived' ? 'is-archived' : ''].filter(Boolean).join(' ');
         b.dataset.key = m.key;
         b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-controls', 'sheet'); b.setAttribute('aria-expanded', String(current === m.key));
-        b.innerHTML = modHTML(m); b.onclick = () => open(m.key); grid.appendChild(b);
+        b.innerHTML = modHTML(m); b.onclick = () => open(m.key, false, b); grid.appendChild(b);
       }
       inner.appendChild(grid);
     }
     if (active && totalShown === 0) {
       const empty = document.createElement('div'); empty.className = 'list-empty';
-      empty.innerHTML = `<strong>No matching projects</strong><p>No projects match the active search or filter criteria.</p><button type="button" class="tbtn" id="listResetBtn">Reset filters</button>`;
-      empty.querySelector('#listResetBtn').onclick = () => resetFilters({ panBoard: false });
+      empty.innerHTML = `<span class="empty-tag">0 / ${MODS.length} PROJECTS</span><strong>No matching projects</strong><p>${esc(emptyFilterMessage())}</p><button type="button" class="tbtn" id="listResetBtn">Reset filters</button>`;
+      empty.querySelector('#listResetBtn').onclick = () => resetFilters({ panBoard: false, restoreFocus: true });
       inner.appendChild(empty);
     }
     const collection = document.createElement('div'); collection.className = 'journal-collection'; collection.id = 'zone-journal';
     const h = document.createElement('div'); h.className = 'zone'; h.textContent = 'From the journal'; collection.appendChild(h);
-    const j = journal.cloneNode(true); j.removeAttribute('id'); j.onclick = () => open('journal'); collection.appendChild(j); inner.appendChild(collection);
+    const j = journal.cloneNode(true); j.removeAttribute('id'); j.onclick = () => open('journal', false, j); collection.appendChild(j); inner.appendChild(collection);
 
     const footer = document.createElement('footer'); footer.className = 'site-footer'; footer.setAttribute('aria-label', 'Site footer');
     footer.innerHTML = `<div class="ft-brand">
@@ -1774,12 +2116,13 @@ body.listmode #depth { visibility: hidden; }
         return;
       }
       const o = e.target.closest('[data-open]');
-      if (o) { open(o.dataset.open); return; }
+      if (o) { open(o.dataset.open, false, o); return; }
     });
     inner.appendChild(footer);
   }
   function setView(v) {
     const list = v === 'list'; if (list === !$('list').hidden) return;
+    if (list && !$('kbdHelp').hidden) setHelp(false);
     $('list').hidden = !list; $('vList').setAttribute('aria-pressed', String(list)); $('vBoard').setAttribute('aria-pressed', String(!list));
     document.body.classList.toggle('listmode', list); motion.sync();
     if (list) buildList();
@@ -1799,7 +2142,22 @@ body.listmode #depth { visibility: hidden; }
     try { if (item(k) && k !== current) open(k, true); else if (!item(k) && current) close(); }
     finally { popping = false; }
   }
-  window.addEventListener('popstate', followHash); window.addEventListener('hashchange', followHash);
+  function followLocation() {
+    if (searchOnSheetClose !== null) {
+      const search = searchOnSheetClose;
+      searchOnSheetClose = null;
+      if (!item(hashKey()) && location.search !== search) {
+        history.replaceState(history.state, '', location.pathname + search + location.hash);
+      }
+    }
+    const prevQ = filter.q, prevZ = filter.zone, prevS = filter.status;
+    readFilterFromURL();
+    if (filter.q !== prevQ || filter.zone !== prevZ || filter.status !== prevS) {
+      applyFilter({ panBoard: true, announce: false, syncUrl: false });
+    }
+    followHash();
+  }
+  window.addEventListener('popstate', followLocation); window.addEventListener('hashchange', followHash);
 
   // ---------- v2 motion controller ----------
   // Geometry is measured only on layout changes. WAAPI follows cached orthogonal points;
@@ -1890,7 +2248,7 @@ body.listmode #depth { visibility: hidden; }
     }
     function powerOn() {
       if (booted) return;
-      if (!allowed() || dirty || location.hash) { finishBoot(); ambient(); return; }
+      if (!allowed() || dirty || location.hash || isFiltered()) { finishBoot(); ambient(); return; }
       stage.classList.add('booting');
       // The core card (who / role / contact) is readable from the first frame; only the board around it powers on.
       // A deterministic clockwise sweep, beginning above the core.
@@ -1968,7 +2326,25 @@ body.listmode #depth { visibility: hidden; }
   narrow.addEventListener('change', e => { requestAnimationFrame(() => { placeBoard(); drawTraces(); }); if (e.matches) setView('list'); syncAccessibility(); });
   let rz = 0;
   window.addEventListener('resize', () => { if (rz) return; rz = requestAnimationFrame(() => { rz = 0; syncAccessibility(); if (!$('list').hidden) return; if (!dirty) home(); else apply(); if (current) focusOn(boardItem(current)); }); });
-  const start = () => requestAnimationFrame(() => { if (narrow.matches) setView('list'); placeBoard(); drawTraces(); if ($('list').hidden) home(); stage.classList.remove('pending'); motion.powerOn(); const h0 = hashKey(); if (item(h0)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} open(h0); } });
+  const start = () => requestAnimationFrame(() => {
+    readFilterFromURL();
+    if (narrow.matches) setView('list');
+    placeBoard(); drawTraces();
+    const initialFiltered = isFiltered();
+    if (initialFiltered) {
+      applyFilter({ panBoard: false, announce: false, syncUrl: false });
+      const matched = MODS.filter(matches);
+      if ($('list').hidden) {
+        if (matched.length > 0) { dirty = true; fitNodes(matched.map(m => modEls[m.key]), 0.96); }
+        else home();
+      }
+    } else if ($('list').hidden) {
+      home();
+    }
+    stage.classList.remove('pending'); motion.powerOn();
+    const h0 = hashKey();
+    if (item(h0)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} open(h0); }
+  });
   if (document.fonts && document.fonts.status !== 'loaded') {
     let started = false;
     const launch = () => { if (started) return; started = true; start(); };
@@ -1978,7 +2354,15 @@ body.listmode #depth { visibility: hidden; }
     document.fonts.ready.then(() => {
       clearTimeout(fallback);
       if (!started) launch();
-      else { placeBoard(); drawTraces(); if ($('list').hidden && !dirty) home(); }
+      else {
+        placeBoard(); drawTraces();
+        if ($('list').hidden) {
+          if (isFiltered()) {
+            const matched = MODS.filter(matches);
+            if (matched.length > 0) fitNodes(matched.map(m => modEls[m.key]), 0.96);
+          } else if (!dirty) home();
+        }
+      }
     });
   } else start();
 })();
