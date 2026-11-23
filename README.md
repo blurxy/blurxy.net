@@ -16,6 +16,18 @@ Deployed by **Cloudflare Workers Static Assets** — project `blurxy-net`, from
 this repo, branch `main`. Every push to `main` auto-deploys to blurxy.net
 (about 20 seconds). There is no build command.
 
+### Release a portfolio change
+
+1. Start a branch from the latest `main`. For résumé edits, update
+   `resume.html` and include the PDF rendered from that source in the same PR.
+2. Open a pull request targeting `main`. Check that **Visual checks** passes
+   on the latest commit before merging. This [required check](#pull-request-checks)
+   also applies to repository administrators.
+3. After merging, wait for **Workers Builds: blurxy-net** to finish. Open the
+   changed page on [blurxy.net](https://blurxy.net/) to verify the live release.
+   For résumé changes, download [the public PDF](https://blurxy.net/resume.pdf)
+   and compare it with the reviewed file.
+
 Config: `wrangler.jsonc` (`name: "blurxy-net"`, assets directory `.`).
 
 The project was renamed from `worldcup26-61z` to `blurxy-net` in the Cloudflare
