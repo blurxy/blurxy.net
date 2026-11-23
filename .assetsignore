@@ -1,1 +1,10 @@
-/.github/visual-tests/
+# Repository metadata, development tools, and local configuration
+.git/
+.github/
+.wrangler/
+node_modules/
+.gitignore
+.env*
+.dev.vars*
+/scripts/
+/wrangler.jsonc
