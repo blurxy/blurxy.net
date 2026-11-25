@@ -103,6 +103,16 @@ button { font: inherit; color: inherit; }
 .hud span { white-space: pre; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
 .hud a { white-space: nowrap; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; text-decoration: none; pointer-events: auto; }
 .hud a:hover, .hud a:focus-visible { color: var(--amber); border-color: var(--amber); }
+.featured-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; max-width: 100%; }
+.featured-links a {
+  display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px;
+  border: 1px solid var(--line); border-radius: 3px; background: var(--panel);
+  color: var(--ink); font: 500 11.5px/1.4 var(--mono); text-decoration: none; white-space: nowrap;
+}
+.hud .featured-links a { color: var(--ink); background: var(--panel); }
+.featured-links a:is(:hover, :focus-visible), .hud .featured-links a:is(:hover, :focus-visible) {
+  color: var(--amber); border-color: var(--amber);
+}
 .zoomer { position: fixed; z-index: 25; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px; }
 
 /* ---- the board ---- */
@@ -594,12 +604,19 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   <div id="boardEmpty" hidden><span class="empty-tag">0 / 14 PROJECTS</span><strong>No matching projects</strong><p id="boardEmptyMsg">No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
 </main>
 
-<footer class="hud" aria-label="Status bar and links"><span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></footer>
+<footer class="hud" aria-label="Status bar and links">
+  <nav id="featured-links" class="featured-links" aria-label="Featured pages">
+    <a href="https://blurxy.net/kev/">KEV Watch</a>
+    <a href="https://blurxy.net/osint/">OSINT Field Kit</a>
+    <a href="https://blurxy.net/resume">Résumé</a>
+    <a href="https://blurxy.net/worldcup26/">World Cup archive</a>
+  </nav>
+  <span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></footer>
 <div class="zoomer"><button class="tbtn" id="zOut" aria-label="Zoom out">−</button><button class="tbtn" id="zHome">Home</button><button class="tbtn" id="zFit">Fit</button><button class="tbtn" id="zIn" aria-label="Zoom in">+</button></div>
 
 <div id="sheet" role="dialog" aria-labelledby="shTitle" tabindex="-1" inert></div>
 <div class="sr" id="live" aria-live="polite"></div>
-<noscript><style>.ruler,.corner,.hud,.zoomer,.tbtn{display:none}</style><p style="position:fixed;z-index:50;top:80px;left:36px;right:16px;margin:0;color:#e9edf1;font:15px/1.5 system-ui,sans-serif">blurxy (Rafiul Bari). Cybersecurity student at CUNY New York City College of Technology. Seeking security internships and full-time entry-level roles. Contact <a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a>. This board needs JavaScript; the projects are at <a href="https://github.com/blurxy" style="color:#f2b705">github.com/blurxy</a>.</p></noscript>
+<noscript><style>.ruler,.corner,.hud > :not(.featured-links),.zoomer,.tbtn{display:none}</style><p style="position:fixed;z-index:50;top:80px;left:36px;right:16px;margin:0;color:#e9edf1;font:15px/1.5 system-ui,sans-serif">blurxy (Rafiul Bari). Cybersecurity student at CUNY New York City College of Technology. Seeking security internships and full-time entry-level roles. Contact <a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a>. This board needs JavaScript; the projects are at <a href="https://github.com/blurxy" style="color:#f2b705">github.com/blurxy</a>.</p></noscript>
 <section id="list" hidden aria-label="All projects"><div class="inner" id="listInner"></div></section>
 
 <script>
@@ -1904,7 +1921,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     return `<div class="sh-top"><span>E-01 · EXPERIENCE</span>${sheetActionsHTML()}</div>
       <h2 id="shTitle" tabindex="-1">Experience & resume</h2>
       <p class="lead">Security engineering, detection and automation, and identity & access.</p>
-      <div class="acts"><a class="pri" href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume PDF ↗</a><a href="/resume.html" target="_blank" rel="noopener">Print-ready view ↗</a></div>
+      <div class="acts"><a class="pri" href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume PDF ↗</a><a href="https://blurxy.net/resume" target="_blank" rel="noopener">Print-ready view ↗</a></div>
       <section class="resume-section"><h3>Experience</h3>${EXPERIENCE.map(e => `<article class="resume-role">
         <div class="resume-date">${esc(e.dates)}</div><h4>${esc(e.org)}</h4><p class="position">${esc(e.role)}</p>
         ${e.promotion ? `<p class="resume-promotion">${esc(e.promotion)}</p>` : ''}<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul></article>`).join('')}</section>
@@ -2115,6 +2132,9 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   // ---------- list view ----------
   function buildList() {
     const inner = $('listInner'); inner.innerHTML = '';
+    const featuredLinks = $('featured-links').cloneNode(true);
+    featuredLinks.removeAttribute('id');
+    inner.appendChild(featuredLinks);
     const heroClone = core.cloneNode(true); heroClone.id = 'listTop'; inner.appendChild(heroClone);
     const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume', false, experienceCard); inner.appendChild(experienceCard);
     const active = isFiltered();
