@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 
 const featuredUrls = ['/kev/', '/osint/', '/resume', '/worldcup26/']
   .map(path => 'https://blurxy.net' + path);
+const portfolioTitle = 'Rafiul Bari | Cybersecurity Portfolio · blurxy';
+const portfolioHeading = 'Rafiul Bari — Cybersecurity Portfolio';
 
 async function checkLinks(nav) {
   await expect(nav).toBeVisible();
@@ -16,8 +18,29 @@ test.describe('featured links without JavaScript', () => {
 
   test('public pages are reachable from the initial HTML', async ({ page }) => {
     await page.goto('/');
+    await expect(page).toHaveTitle(portfolioTitle);
+    await expect(page.getByRole('heading', { level: 1, name: portfolioHeading })).toBeInViewport();
+    await expect(page.getByText(/building tools for open-source investigations/)).toBeInViewport();
     await checkLinks(page.getByRole('navigation', { name: 'Featured pages' }));
   });
+});
+
+test('the static introduction fits above both project views', async ({ page }) => {
+  for (const viewport of [{ width: 1280, height: 800 }, { width: 320, height: 568 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await expect(page).toHaveTitle(portfolioTitle);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(portfolioHeading);
+    await expect(page.locator('.portfolio-intro')).toBeInViewport({ ratio: 1 });
+    for (const [button, section] of [['Board', '#stage'], ['List', '#list']]) {
+      await page.getByRole('button', { name: button, exact: true }).click();
+      const intro = await page.locator('.portfolio-intro').boundingBox();
+      const view = await page.locator(section).boundingBox();
+      expect(view.y).toBeGreaterThanOrEqual(intro.y + intro.height - 1);
+      expect(view.height).toBeGreaterThan(0);
+      await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+    }
+  }
 });
 
 test('featured links fit on the small board and are available in List', async ({ page }) => {
