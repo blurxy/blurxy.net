@@ -111,7 +111,7 @@ visualCheck(
   async (p) => {
     await p.addStyleTag({
       content:
-        '.toolbar {font-size:24px !important} .toolbar .brand{font-size:42px !important} .contact {font-size:20px !important}',
+        '.toolbar {font-size:24px !important} .toolbar .blurxy-wordmark{font-size:42px !important} .contact {font-size:20px !important}',
     });
     const right = await p
       .locator('.toolbar .actions')

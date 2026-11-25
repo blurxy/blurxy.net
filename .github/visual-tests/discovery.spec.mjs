@@ -92,7 +92,8 @@ test('the primary résumé action opens HTML with PDF and Print actions', async 
   const toolbar = page.getByRole('navigation', { name: 'Resume navigation' });
   await expect(toolbar.getByRole('link', { name: /PDF/ })).toHaveAttribute('href', '/resume.pdf');
   await expect(toolbar.getByRole('button', { name: 'Print' })).toBeVisible();
-  await toolbar.getByRole('link', { name: 'blurxy', exact: true }).click();
+  await expect(toolbar.locator('[aria-current="page"]')).toHaveText('Résumé');
+  await toolbar.getByRole('link', { name: 'blurxy home', exact: true }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('dialog', { name: 'Experience' })).toHaveCount(0);
 });
@@ -105,12 +106,27 @@ test('the résumé wordmark matches the portfolio lettering', async ({ page }) =
   for (const width of [320, 1280]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
-    const homepage = await typography(page.locator('.bar .mark'));
+    const homepage = await typography(page.locator('.bar .blurxy-wordmark'));
     await page.goto('/resume');
-    const wordmark = page.getByRole('link', { name: 'blurxy', exact: true });
+    const wordmark = page.getByRole('link', { name: 'blurxy home', exact: true });
     await expect(wordmark).toBeVisible();
     await expect(wordmark).toHaveAttribute('href', '/');
     expect(await typography(wordmark)).toEqual(homepage);
     expect((await wordmark.boundingBox()).height).toBeGreaterThanOrEqual(28);
+  }
+});
+
+test('portfolio project pages open in the same tab as their notes', async ({ page }) => {
+  for (const [key, title, label, path] of [
+    ['kev', 'KEV Watch', 'Open KEV Watch', '/kev/'],
+    ['osint', 'OSINT Field Kit', 'Open OSINT Field Kit', '/osint/'],
+    ['worldcup', 'World Cup 2026', 'View World Cup archive', '/worldcup26/'],
+  ]) {
+    await page.goto('/#' + key);
+    const sheet = page.getByRole('dialog', { name: title });
+    const project = sheet.getByRole('link', { name: label });
+    await expect(project).toHaveAttribute('href', path);
+    expect(await project.getAttribute('target')).toBeNull();
+    await expect(sheet.getByRole('link', { name: /Source/ })).toHaveAttribute('target', '_blank');
   }
 });

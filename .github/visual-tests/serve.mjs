@@ -14,6 +14,7 @@ const aliases = new Map([
 ]);
 const types = new Map([
   ['.html', 'text/html; charset=utf-8'],
+  ['.css', 'text/css; charset=utf-8'],
   ['.woff2', 'font/woff2'],
   ['.png', 'image/png'],
   ['.pdf', 'application/pdf'],
