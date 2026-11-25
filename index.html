@@ -120,10 +120,17 @@ button { font: inherit; color: inherit; }
 .portfolio-intro {
   padding: 12px max(16px, env(safe-area-inset-right, 0px), calc((100% - 1060px) / 2)) 12px
     max(16px, env(safe-area-inset-left, 0px), calc((100% - 1060px) / 2));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
   background: var(--bg); border-bottom: 1px solid var(--line);
 }
+.portfolio-intro > div { flex: 1 1 24rem; min-width: 0; }
 .portfolio-intro h1 { margin: 0; font: 750 clamp(20px, 2.5vw, 28px)/1.15 var(--display); }
 .portfolio-intro p { margin: 5px 0 0; color: #c4cdd6; line-height: 1.45; }
+.portfolio-resume { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid var(--amber); border-radius: 3px; background: var(--amber); color: var(--bg);
+  font: 700 14px var(--display); text-decoration: none; }
+.portfolio-resume:hover { background: #ffd24a; }
+@media (pointer: coarse) { .portfolio-resume { min-height: 44px; } }
 .portfolio-views { position: relative; }
 
 /* ---- the board ---- */
@@ -193,10 +200,11 @@ button { font: inherit; color: inherit; }
   padding-block: 20px calc(40px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 #list .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 18px; }
 #list .inner > * { min-width: 0; }
+#stage.pending ~ #list { visibility: hidden; }
 #list .core, #list .journal, #list .mod { position: static; width: auto; }
 #list .mods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
 #list .zone { position: static; margin-top: 10px; margin-bottom: -4px; white-space: normal; line-height: 1.5; }
-body.listmode .ruler, body.listmode .corner, body.listmode .hud, body.listmode .zoomer { display: none; }
+body.listmode #stage, body.listmode .ruler, body.listmode .corner, body.listmode .hud, body.listmode .zoomer { display: none; }
 body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 /* While a sheet is open the zoom buttons move left of it instead of hiding under it; on narrow screens the sheet covers everything, so they hide. */
 @media (min-width: 761px) { body.sheetopen .zoomer { right: calc(min(440px, 100%) + 14px); } body.sheetopen #boardEmpty { left: calc((100% - min(440px, 100%)) / 2); } }
@@ -244,7 +252,6 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 #list .mod { position: relative; }
 #world .core { box-shadow: 0 18px 50px -24px #000a; }
 .hud #hClock { color: #9aa3ae; }
-body.listmode #depth { visibility: hidden; }
 @media (prefers-reduced-motion: no-preference) {
   .mod { transition: transform 280ms cubic-bezier(.22,1,.36,1); }
   .mod::after, .trace-highlight { transition: opacity 220ms ease-out; }
@@ -602,12 +609,15 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 
 <main class="portfolio">
   <header class="portfolio-intro" id="portfolioIntro">
-    <h1>Rafiul Bari — Cybersecurity Portfolio</h1>
-    <p>I’m a cybersecurity student at CUNY City Tech building tools for open-source investigations, vulnerability tracking, and security detection.</p>
-    <noscript>
-      <p>I’m seeking security internships and full-time entry-level roles. <a href="mailto:rafiulbari70@gmail.com">Contact me by email</a>.</p>
-      <p>The interactive board needs JavaScript. Explore the featured pages below or find my projects on <a href="https://github.com/blurxy">GitHub</a>.</p>
-    </noscript>
+    <div>
+      <h1>Rafiul Bari — Cybersecurity Portfolio</h1>
+      <p>I’m a cybersecurity student at CUNY City Tech building tools for open-source investigations, vulnerability tracking, and security detection.</p>
+      <noscript>
+        <p>I’m seeking security internships and full-time entry-level roles. <a href="mailto:rafiulbari70@gmail.com">Contact me by email</a>.</p>
+        <p>The interactive board needs JavaScript. Explore the featured pages below or find my projects on <a href="https://github.com/blurxy">GitHub</a>.</p>
+      </noscript>
+    </div>
+    <a class="portfolio-resume" href="https://blurxy.net/resume">Résumé</a>
   </header>
   <div class="portfolio-views">
     <div class="corner" aria-hidden="true"></div>
@@ -629,10 +639,9 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   <nav id="featured-links" class="featured-links" aria-label="Featured pages">
     <a href="https://blurxy.net/kev/">KEV Watch</a>
     <a href="https://blurxy.net/osint/">OSINT Field Kit</a>
-    <a href="https://blurxy.net/resume">Résumé</a>
     <a href="https://blurxy.net/worldcup26/">World Cup archive</a>
   </nav>
-  <span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></footer>
+  <span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a></footer>
 <div class="zoomer"><button class="tbtn" id="zOut" aria-label="Zoom out">−</button><button class="tbtn" id="zHome">Home</button><button class="tbtn" id="zFit">Fit</button><button class="tbtn" id="zIn" aria-label="Zoom in">+</button></div>
 
 <div class="sr" id="live" aria-live="polite"></div>
@@ -645,8 +654,6 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 
 <script>
 (() => {
-  // Set this one value when the PDF is ready. No placeholder link is rendered.
-  const RESUME_URL = '/resume.pdf';
   const COURSEWAKE_RELEASE = 'v0.2.11 beta 1';
   const MODS = [
   {
@@ -1020,7 +1027,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     <p class="value">I test where security controls fail and build code-enforced limits.</p>
     <p class="seeking">Graduating this December — seeking security <br>internships and full-time entry-level roles.</p>
     <p class="education">CUNY New York City College of Technology · Cybersecurity<br>Coursework complete December 2026<br>Commencement Spring 2027</p>
-    <div class="links" aria-label="Contact"><a href="mailto:rafiulbari70@gmail.com" draggable="false">rafiulbari70@gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com" draggable="false">Copy email</button><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener" draggable="false">LinkedIn ↗</a><a href="https://github.com/blurxy" target="_blank" rel="noopener" draggable="false">GitHub ↗</a>${RESUME_URL ? `<a href="${esc(RESUME_URL)}" target="_blank" rel="noopener" draggable="false">Resume ↗</a>` : ''}</div>
+    <div class="links" aria-label="Contact"><a href="mailto:rafiulbari70@gmail.com" draggable="false">rafiulbari70@gmail.com</a><button type="button" class="copy-email" data-copy-email="rafiulbari70@gmail.com" aria-label="Copy email address rafiulbari70@gmail.com" draggable="false">Copy email</button><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener" draggable="false">LinkedIn ↗</a><a href="https://github.com/blurxy" target="_blank" rel="noopener" draggable="false">GitHub ↗</a></div>
     <div class="foot"><a href="#projects" class="browse" draggable="false">Explore all ${MODS.length} projects ↓</a></div>`;
   world.appendChild(core);
 
@@ -1126,7 +1133,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     <span class="journal-intro">Network discovery, sandbox boundaries, detection rules, and model evaluation.</span><span class="journal-action">Read the entries ↗</span>`;
   world.appendChild(journal);
 
-  const RESUME = { id: 'E-01', key: 'resume', name: 'Experience & resume' };
+  const RESUME = { id: 'E-01', key: 'resume', name: 'Experience' };
   const EXPERIENCE = [
   {
     "role": "Operations & Systems Associate",
@@ -1204,7 +1211,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   const resume = document.createElement('button');
   resume.className = 'journal resume-teaser'; resume.id = 'resume'; resume.dataset.key = 'resume';
   resume.setAttribute('aria-haspopup', 'dialog'); resume.setAttribute('aria-controls', 'sheet'); resume.setAttribute('aria-expanded', 'false');
-  resume.innerHTML = `<span class="journal-meta">E-01 · EXPERIENCE</span><span class="journal-title">Resume & experience</span>
+  resume.innerHTML = `<span class="journal-meta">E-01 · EXPERIENCE</span><span class="journal-title">Experience</span>
     <span class="journal-intro">Access audit: caught a migration file that would have deactivated an employee&#8217;s active account, and wrote the corrected plan.</span><span class="journal-action">Read the record ↗</span>`;
   world.appendChild(resume);
 
@@ -1525,23 +1532,36 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     }
   };
 
-  // Stack rows from measured card heights; writes happen only after all measurements.
-  function placeBoard() {
-    const h = Object.fromEntries(MODS.map(m => [m.key, modEls[m.key].offsetHeight]));
+  // Measure the visible board once, before placing cards, drawing traces, or moving the camera.
+  function layoutBoard() {
+    const rect = stage.getBoundingClientRect();
+    const coreBox = { x: CORE.x, y: CORE.y, w: core.offsetWidth, h: core.offsetHeight };
+    const resumeTop = coreBox.h + 12;
+    const resumeBottom = resumeTop + resume.offsetHeight + 16;
+    const coreWidth = Math.max(coreBox.w, resume.offsetWidth);
+    const journalHeight = journal.offsetHeight;
+    const cards = Object.fromEntries(MODS.map(({key}) => {
+      const card = modEls[key];
+      return [key, { w: card.offsetWidth, h: card.offsetHeight }];
+    }));
+    const h = Object.fromEntries(Object.entries(cards).map(([key, size]) => [key, size.h]));
     const rows = [0];
     rows[1] = rows[0] + Math.max(h.ids, h.aur) + 40;
     rows[2] = rows[1] + Math.max(h.haunted, h.trading) + 40;
-    rows[3] = rows[2] + Math.max(journal.offsetHeight, h.jetson) + 100;
+    rows[3] = rows[2] + Math.max(journalHeight, h.jetson) + 100;
     rows[4] = rows[3] + h.osint + 40;
     rows[5] = rows[4] + Math.max(h.kev, h.beacon) + 40;
     rows[6] = rows[4];
     rows[7] = rows[6] + Math.max(h.coursewake, h.chladni) + 40;
     const yByKey = {ids: rows[0], aur: rows[0], haunted: rows[1], trading: rows[1], jetson: rows[2], osint: rows[3], kev: rows[4], beacon: rows[4], pyexec: rows[5], spore: rows[5], coursewake: rows[6], chladni: rows[6], cactus: rows[7], worldcup: rows[7]};
     MODS.forEach(m => { m.y = yByKey[m.key]; modEls[m.key].style.top = m.y + 'px'; modEls[m.key].style.left = m.x + 'px'; });
-    resume.style.left = '0px'; resume.style.top = (core.offsetHeight + 12) + 'px';
+    resume.style.left = '0px'; resume.style.top = resumeTop + 'px';
     journal.style.left = '560px'; journal.style.top = rows[2] + 'px';
     ZONES.systems[2] = rows[3] - 42; ZONES.builds[2] = rows[6] - 42;
     world.querySelectorAll('.zone').forEach(el => { el.style.top = ZONES[el.dataset.zone][2] + 'px'; });
+    motion.setBounds(rect);
+    drawTraces(coreBox, cards);
+    return { rect, resumeBottom, coreWidth, homeHeight: Math.max(resumeBottom, rows[1] + h.haunted, rows[1] + h.trading) };
   }
 
   const modEls = {};
@@ -1562,12 +1582,12 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   $('hMods').textContent = `${MODS.length} MODULES`;
 
   // traces from core to each module: orthogonal, with a port on each end
-  function drawTraces() {
-    const svg = $('traces'); const cr = { x: CORE.x, y: CORE.y, w: core.offsetWidth, h: core.offsetHeight };
+  function drawTraces(cr, cards) {
+    const svg = $('traces');
     let minx = 0, miny = 0, maxx = 0, maxy = 0; const paths = [];
     const cx = cr.x + cr.w / 2, cy = cr.y + cr.h / 2;
     for (const m of MODS) {
-      const el = modEls[m.key]; const w = el.offsetWidth, h = el.offsetHeight; const mx = m.x + w / 2, my = m.y + h / 2;
+      const {w, h} = cards[m.key]; const mx = m.x + w / 2, my = m.y + h / 2;
       let sx, sy, ex, ey, d, points;
       if (Math.abs(mx - cx) > Math.abs(my - cy) * 1.1) {
         sx = mx > cx ? cr.x + cr.w : cr.x; sy = Math.max(cr.y + 24, Math.min(cr.y + cr.h - 24, my));
@@ -1641,12 +1661,12 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   }
   // Home keeps the entire core, contact row, and full E-01 Experience card readable beside the top security cards.
   // On narrow viewports (e.g. 390px phones), frame the core + E-01 at legible scale above the HUD and zoom controls.
-  function home() {
-    const r = stage.getBoundingClientRect();
-    const resumeBottom = resume.offsetTop + resume.offsetHeight + 16;
+  function home(layout) {
+    const r = layout?.rect ?? stage.getBoundingClientRect();
+    const resumeBottom = layout?.resumeBottom ?? (resume.offsetTop + resume.offsetHeight + 16);
     if (r.width < 680) {
       const padX = 14, padY = 16, bottomPad = 116;
-      const coreW = Math.max(core.offsetWidth, resume.offsetWidth);
+      const coreW = layout?.coreWidth ?? Math.max(core.offsetWidth, resume.offsetWidth);
       const s = clampS(Math.min(0.95, (r.width - padX * 2) / coreW, Math.max(0.64, (r.height - padY - bottomPad) / resumeBottom)));
       cam.s = s;
       cam.x = (r.width - coreW * s) / 2;
@@ -1654,7 +1674,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
       apply();
       return;
     }
-    const height = Math.max(resumeBottom, modEls.haunted.offsetTop + modEls.haunted.offsetHeight, modEls.trading.offsetTop + modEls.trading.offsetHeight);
+    const height = layout?.homeHeight ?? Math.max(resumeBottom, modEls.haunted.offsetTop + modEls.haunted.offsetHeight, modEls.trading.offsetTop + modEls.trading.offsetHeight);
     const width = 1160, top = -42, padX = 48, padY = 34;
     cam.s = clampS(Math.min(1, (r.width - padX * 2) / width, (r.height - padY * 2 - 36) / (height - top)));
     cam.x = (r.width - width * cam.s) / 2;
@@ -1943,9 +1963,9 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 
   function resumeHTML() {
     return `<div class="sh-top"><span>E-01 · EXPERIENCE</span>${sheetActionsHTML()}</div>
-      <h2 id="shTitle" tabindex="-1">Experience & resume</h2>
+      <h2 id="shTitle" tabindex="-1">Experience</h2>
       <p class="lead">Security engineering, detection and automation, and identity & access.</p>
-      <div class="acts"><a class="pri" href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume PDF ↗</a><a href="https://blurxy.net/resume" target="_blank" rel="noopener">Print-ready view ↗</a></div>
+      <div class="acts"><a class="pri" href="/resume">View full résumé</a></div>
       <section class="resume-section"><h3>Experience</h3>${EXPERIENCE.map(e => `<article class="resume-role">
         <div class="resume-date">${esc(e.dates)}</div><h4>${esc(e.org)}</h4><p class="position">${esc(e.role)}</p>
         ${e.promotion ? `<p class="resume-promotion">${esc(e.promotion)}</p>` : ''}<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul></article>`).join('')}</section>
@@ -2010,7 +2030,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     if (!current) return; const key = current, closing = item(key); current = null; sheetBack = null;
     const sh = $('sheet'); sh.classList.remove('open', 'is-archived'); sh.inert = true; document.body.classList.remove('sheetopen');
     motion.sync(); syncAccessibility();
-    setTimeout(() => { if (!current) sh.innerHTML = ''; }, motion.reduced() ? 0 : 360);
+    setTimeout(() => { if (!current) sh.replaceChildren(); }, motion.reduced() ? 0 : 360);
     [...Object.values(modEls), journal, resume].forEach(el => el.classList.remove('sel')); motion.highlight(null);
     $('crumb').textContent = 'board / blurxy / all modules';
     $('live').textContent = `${closing ? closing.name : 'Detail sheet'} closed`;
@@ -2156,19 +2176,24 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
 
   // ---------- list view ----------
   function buildList() {
-    const inner = $('listInner'); inner.innerHTML = '';
+    const content = document.createDocumentFragment();
     const featuredLinks = $('featured-links').cloneNode(true);
     featuredLinks.removeAttribute('id');
-    inner.appendChild(featuredLinks);
-    const heroClone = core.cloneNode(true); heroClone.id = 'listTop'; inner.appendChild(heroClone);
-    const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume', false, experienceCard); inner.appendChild(experienceCard);
+    content.appendChild(featuredLinks);
+    const heroClone = core.cloneNode(true);
+    heroClone.id = 'listTop';
+    heroClone.querySelector('.tag').remove();
+    heroClone.querySelector('.role').remove();
+    heroClone.querySelector('h2').textContent = 'About & contact';
+    content.appendChild(heroClone);
+    const experienceCard = resume.cloneNode(true); experienceCard.removeAttribute('id'); experienceCard.onclick = () => open('resume', false, experienceCard); content.appendChild(experienceCard);
     const active = isFiltered();
     let totalShown = 0;
     for (const z of ['security', 'systems', 'builds']) {
       const items = MODS.filter(x => x.zone === z && matches(x));
       if (!items.length) continue;
       totalShown += items.length;
-      const h = document.createElement('div'); h.className = 'zone'; h.id = 'zone-' + z; h.textContent = ZONES[z][0]; inner.appendChild(h);
+      const h = document.createElement('div'); h.className = 'zone'; h.id = 'zone-' + z; h.textContent = ZONES[z][0]; content.appendChild(h);
       const grid = document.createElement('div'); grid.className = 'mods';
       for (const m of items) {
         const b = document.createElement('button');
@@ -2177,17 +2202,17 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
         b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-controls', 'sheet'); b.setAttribute('aria-expanded', String(current === m.key));
         b.innerHTML = modHTML(m); b.onclick = () => open(m.key, false, b); grid.appendChild(b);
       }
-      inner.appendChild(grid);
+      content.appendChild(grid);
     }
     if (active && totalShown === 0) {
       const empty = document.createElement('div'); empty.className = 'list-empty';
       empty.innerHTML = `<span class="empty-tag">0 / ${MODS.length} PROJECTS</span><strong>No matching projects</strong><p>${esc(emptyFilterMessage())}</p><button type="button" class="tbtn" id="listResetBtn">Reset filters</button>`;
       empty.querySelector('#listResetBtn').onclick = () => resetFilters({ panBoard: false, restoreFocus: true });
-      inner.appendChild(empty);
+      content.appendChild(empty);
     }
     const collection = document.createElement('div'); collection.className = 'journal-collection'; collection.id = 'zone-journal';
     const h = document.createElement('div'); h.className = 'zone'; h.textContent = 'From the journal'; collection.appendChild(h);
-    const j = journal.cloneNode(true); j.removeAttribute('id'); j.onclick = () => open('journal', false, j); collection.appendChild(j); inner.appendChild(collection);
+    const j = journal.cloneNode(true); j.removeAttribute('id'); j.onclick = () => open('journal', false, j); collection.appendChild(j); content.appendChild(collection);
 
     const footer = document.createElement('footer'); footer.className = 'site-footer'; footer.setAttribute('aria-label', 'Site footer');
     footer.innerHTML = `<div class="ft-brand">
@@ -2202,11 +2227,11 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
           <button type="button" data-sec="systems">Tools &amp; research</button>
           <button type="button" data-sec="builds">Other builds</button>
           <button type="button" data-open="journal">Investigation notes</button>
-          <button type="button" data-open="resume">Experience &amp; resume</button>
+          <button type="button" data-open="resume">Experience</button>
         </div>
       </nav>
       <div class="ft-actions">
-        <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${esc(RESUME_URL)}" target="_blank" rel="noopener">Resume ↗</a><a href="/v1/">v1 archive ↗</a></div>
+        <div class="ft-links"><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/v1/">v1 archive ↗</a></div>
       </div>`;
     footer.addEventListener('click', e => {
       const sec = e.target.closest('[data-sec]');
@@ -2219,7 +2244,8 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
       const o = e.target.closest('[data-open]');
       if (o) { open(o.dataset.open, false, o); return; }
     });
-    inner.appendChild(footer);
+    content.appendChild(footer);
+    $('listInner').replaceChildren(content);
   }
   function setView(v) {
     const list = v === 'list'; if (list === !$('list').hidden) return;
@@ -2228,12 +2254,13 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     document.body.classList.toggle('listmode', list); motion.sync();
     if (list) buildList();
     else requestAnimationFrame(() => {
-      placeBoard(); drawTraces();
+      if (!$('list').hidden) return;
+      const layout = layoutBoard();
       const active = isFiltered();
       const matched = MODS.filter(matches);
       if (current) focusOn(boardItem(current));
       else if (active && matched.length > 0) fitNodes(matched.map(m => modEls[m.key]), 0.96);
-      else home();
+      else home(layout);
     });
     syncAccessibility();
   }
@@ -2268,7 +2295,8 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     const fine = matchMedia('(hover: hover) and (pointer: fine)');
     const fx = document.createElement('div'); fx.className = 'trace-fx'; fx.setAttribute('aria-hidden', 'true'); world.prepend(fx);
     const depth = $('depth'), grid = $('grid'), scan = $('scanline');
-    let bounds = stage.getBoundingClientRect(), routes = [], boot = [], pulse = null, scanAnimation = null;
+    let bounds, routes = [], boot = [], pulse = null, scanAnimation = null;
+    const rect = () => bounds ??= stage.getBoundingClientRect();
     let booted = false, bootTimer = 0, pulseTimer = 0, clockTimer = 0, pulseIndex = 0;
     let raf = 0, x = 0, y = 0, tx = 0, ty = 0, previous = 0, hovering = null;
     // Visitor's Motion toggle (WCAG 2.2.2 pause control). Remembered per browser; storage may be blocked, so default on.
@@ -2396,7 +2424,10 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
       if (e.pointerType !== 'mouse' || !e.isPrimary) return;
       poke();
       if (e.buttons) { stopAmbient(); clearDepth(); return; }
-      if (allowed()) aim(Math.max(-1,Math.min(1, (e.clientX-bounds.left)/bounds.width*2-1)), Math.max(-1,Math.min(1,(e.clientY-bounds.top)/bounds.height*2-1)));
+      if (allowed()) {
+        const {left, top, width, height} = rect();
+        aim(Math.max(-1, Math.min(1, (e.clientX - left) / width * 2 - 1)), Math.max(-1, Math.min(1, (e.clientY - top) / height * 2 - 1)));
+      }
     }, {passive: true});
     stage.addEventListener('pointerleave', () => aim(0,0));
     stage.addEventListener('pointerdown', () => { interrupt(); stopAmbient(); clearDepth(); }, {passive: true});
@@ -2417,54 +2448,55 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
     document.addEventListener('visibilitychange', sync);
     window.addEventListener('blur', () => { interrupt(); stopAmbient(); clearDepth(); });
     window.addEventListener('focus', sync);
-    window.addEventListener('resize', () => { bounds = stage.getBoundingClientRect(); clearDepth(); });
+    window.addEventListener('resize', () => { bounds = undefined; clearDepth(); });
     clockSync();
-    return {wire, highlight, sync, powerOn, reduced: () => preference.matches, rect: () => bounds};
+    return {wire, highlight, sync, powerOn, reduced: () => preference.matches, rect, setBounds: value => { bounds = value; }};
   })();
 
   // One breakpoint for CSS and JS. Narrowing past it switches to the list; widening keeps whatever view is showing.
   const narrow = matchMedia('(max-width: 760px)');
-  narrow.addEventListener('change', e => { requestAnimationFrame(() => { placeBoard(); drawTraces(); }); if (e.matches) setView('list'); syncAccessibility(); });
+  readFilterFromURL();
+  if (narrow.matches) setView('list');
+  narrow.addEventListener('change', e => {
+    if (e.matches) setView('list');
+    else requestAnimationFrame(() => { if ($('list').hidden) layoutBoard(); });
+    syncAccessibility();
+  });
   let rz = 0;
   window.addEventListener('resize', () => { if (rz) return; rz = requestAnimationFrame(() => { rz = 0; syncAccessibility(); if (!$('list').hidden) return; if (!dirty) home(); else apply(); if (current) focusOn(boardItem(current)); }); });
   const start = () => requestAnimationFrame(() => {
-    readFilterFromURL();
-    if (narrow.matches) setView('list');
-    placeBoard(); drawTraces();
     const initialFiltered = isFiltered();
-    if (initialFiltered) {
-      applyFilter({ panBoard: false, announce: false, syncUrl: false });
-      const matched = MODS.filter(matches);
-      if ($('list').hidden) {
+    if (initialFiltered) applyFilter({ panBoard: false, announce: false, syncUrl: false });
+    if ($('list').hidden) {
+      const layout = layoutBoard();
+      if (initialFiltered) {
+        const matched = MODS.filter(matches);
         if (matched.length > 0) { dirty = true; fitNodes(matched.map(m => modEls[m.key]), 0.96); }
-        else home();
-      }
-    } else if ($('list').hidden) {
-      home();
+        else home(layout);
+      } else home(layout);
     }
     stage.classList.remove('pending'); motion.powerOn();
     const h0 = hashKey();
     if (item(h0)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} open(h0); }
   });
-  if (document.fonts && document.fonts.status !== 'loaded') {
+  // Let the browser lay out the selected view and discover its fonts before measuring the board.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (!document.fonts || document.fonts.status === 'loaded') { start(); return; }
     let started = false;
     const launch = () => { if (started) return; started = true; start(); };
-    // The world stays hidden (#stage.pending) until fonts are in, so waiting costs no visible flash; 1 s covers a cold
-    // first visit, after which a late font only re-measures and the boot reveal is cut short rather than delayed further.
+    // Reveal the view on slow font connections, then refresh a visible board when the fonts arrive.
     const fallback = setTimeout(launch, 1000);
     document.fonts.ready.then(() => {
       clearTimeout(fallback);
       if (!started) launch();
-      else {
-        placeBoard(); drawTraces();
-        if ($('list').hidden) {
-          if (isFiltered()) {
-            const matched = MODS.filter(matches);
-            if (matched.length > 0) fitNodes(matched.map(m => modEls[m.key]), 0.96);
-          } else if (!dirty) home();
-        }
+      else if ($('list').hidden) {
+        const layout = layoutBoard();
+        if (isFiltered()) {
+          const matched = MODS.filter(matches);
+          if (matched.length > 0) fitNodes(matched.map(m => modEls[m.key]), 0.96);
+        } else if (!dirty) home(layout);
       }
     });
-  } else start();
+  }));
 })();
 </script>
