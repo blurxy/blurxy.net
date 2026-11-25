@@ -482,6 +482,9 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
 
 /* 3-column list grid alignment */
 #list .inner { max-width: 1060px; }
+#listTop h2 { margin: 0 0 8px; font: 750 22px/1.15 var(--display); }
+#listTop .value { font-size: 17px; line-height: 1.4; text-wrap: wrap; }
+#listTop .seeking, #listTop .education, #listTop .links { margin-top: 12px; }
 #list .mods { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 #list .mod { grid-template-rows: auto auto 1fr auto; align-content: stretch; }
 #list .mod .mb { align-content: start; }
