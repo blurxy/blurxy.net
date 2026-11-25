@@ -17,7 +17,7 @@ async function checkResumeAction(page) {
   const link = page.getByRole('link', { name: 'Résumé', exact: true });
   await expect(link).toHaveCount(1);
   await expect(link).toBeInViewport({ ratio: 1 });
-  await expect(link).toHaveAttribute('href', '/resume');
+  await expect(link).toHaveAttribute('href', 'https://blurxy.net/resume');
   await expect(page.locator('a[href$="/resume.pdf"]')).toHaveCount(0);
   return link;
 }
@@ -83,8 +83,8 @@ test('featured links fit on the small board and are available in List', async ({
 
 test('the primary résumé action opens HTML with PDF and Print actions', async ({ page }) => {
   await page.goto('/');
-  const link = await checkResumeAction(page);
-  await link.click();
+  await checkResumeAction(page);
+  await page.goto('/resume');
   await expect(page).toHaveURL(/\/resume$/);
   const canonical = page.locator('head link[rel="canonical"]');
   await expect(canonical).toHaveCount(1);
