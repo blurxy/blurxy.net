@@ -7,51 +7,15 @@
 <link rel="canonical" href="https://blurxy.net/resume">
 <meta name="description" content="Rafiul Bari — security engineering, detection engineering, and identity and access. Experience, education, training, and technical projects.">
 <meta name="theme-color" content="#08090c">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 16,0 16,16' fill='%23f2b705'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+<link rel="stylesheet" href="/assets/blurxy-v1.css">
 <style>
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 400 800;
-  font-stretch: 62% 125%;
-  font-display: swap;
-  src: url('/assets/fonts/archivo-latin-var.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 400 800;
-  font-stretch: 62% 125%;
-  font-display: swap;
-  src: url('/assets/fonts/jetbrains-mono-greek-var.woff2') format('woff2');
-  unicode-range: U+03A3, U+03B1, U+03B8;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('/assets/fonts/jetbrains-mono-greek-var.woff2') format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('/assets/fonts/jetbrains-mono-latin-var.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 :root { --bg:#08090c; --paper:#0e1217; --ink:#e9edf1; --muted:#abb5c1; --line:#303a45; --amber:#f2b705; --display:Archivo,Arial,sans-serif; --mono:'JetBrains Mono',monospace; color-scheme:dark; }
 * { box-sizing:border-box; }
 body { margin:0; color:var(--ink); background:var(--bg); font:14px/1.5 var(--display); -webkit-font-smoothing:antialiased; }
 a { color:inherit; text-decoration:none; } a:hover { text-decoration:underline; text-underline-offset:3px; }
 :focus-visible { outline:2px solid var(--amber); outline-offset:4px; }
-.toolbar { max-width:1060px; margin:0 auto; padding:22px 24px; display:flex; justify-content:space-between; align-items:center; gap:20px; font:500 12px var(--mono); }
-.brand { display:inline-flex; align-items:center; gap:10px; min-height:28px; white-space:nowrap;
- font:800 17px/1 "Archivo","Arial Narrow",system-ui,sans-serif; font-stretch:125%; letter-spacing:.02em; }
-.brand::before { content:''; flex:none; width:10px; height:10px; background:var(--amber); clip-path:polygon(0 0,100% 0,100% 100%); }
+.toolbar { --blurxy-page-width:1044px; justify-content:space-between; font:500 12px var(--mono); }
 .toolbar .actions { display:flex; align-items:center; gap:18px; }
 .toolbar button { font:inherit; color:var(--ink); background:var(--paper); padding:9px 12px; border:1px solid var(--line); border-radius:3px; cursor:pointer; }
 .document { max-width:1012px; margin:8px auto 48px; padding:44px; background:var(--paper); border:1px solid var(--line); border-top:3px solid var(--amber); }
@@ -94,16 +58,15 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
  .contact a { min-width:0; overflow-wrap:anywhere; }
 }
 @media screen and (pointer:coarse) {
- .brand, .toolbar .actions a, .contact a, .copy-email { min-height:36px; }
+ .toolbar .actions a, .contact a, .copy-email { min-height:36px; }
 }
 @media screen and (max-width:760px) {
- .toolbar { padding:18px 16px; flex-wrap:wrap; gap:12px; } .toolbar .actions { flex-wrap:wrap; gap:12px; }
+ .toolbar .actions { flex-wrap:wrap; gap:12px; }
  .document { margin:0 12px 24px; padding:24px 20px; } h1 { font-size:42px; }
  .columns { grid-template-columns:1fr; gap:26px; } .side-column { border-left:0; border-top:1px solid var(--line); padding:24px 0 0; }
  .contact { font-size:10px; } .identity-top { gap:12px; } .kicker { font-size:10px; }
 }
 @media screen and (max-width:360px) {
- .brand { gap:6px; font-size:16px; font-stretch:100%; }
 }
 /* Native letter pagination: no scaling tricks, fixed heights, clipping, or animated print content. */
 @page { size:letter; margin:.42in .45in; }
@@ -111,7 +74,7 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
  :root { --bg:#fff; --paper:#fff; --ink:#111820; --muted:#46505b; --line:#bcc3cb; --amber:#795700; color-scheme:light; }
  *, *::before, *::after { animation:none !important; transition:none !important; box-shadow:none !important; text-shadow:none !important; }
  html, body { width:auto; height:auto; margin:0; background:#fff !important; color:var(--ink); font-size:9.2pt; line-height:1.3; }
- .toolbar, .copy-email { display:none !important; }
+ .blurxy-page-bar, .copy-email { display:none !important; }
  .document { width:auto; max-width:none; margin:0; padding:0; border:0; }
  .identity { padding-bottom:11px; border-top:3px solid #a77a00; padding-top:10px; }
  .kicker { font-size:7pt; } .handle { display:none !important; }
@@ -142,7 +105,15 @@ ul { padding-left:16px; margin:9px 0 0; } li { margin:0 0 7px; }
 </style>
 </head>
 <body>
-<nav class="toolbar" aria-label="Resume navigation"><a class="brand" href="/">blurxy</a><div class="actions"><a href="/resume.pdf">PDF ↗</a><button type="button" onclick="window.print()">Print</button></div></nav>
+<header class="blurxy-page-bar">
+  <nav class="toolbar blurxy-page-frame" aria-label="Resume navigation">
+    <div class="blurxy-trail">
+      <a class="blurxy-wordmark" href="/" aria-label="blurxy home">blurxy</a>
+      <span class="blurxy-location" aria-current="page">Résumé</span>
+    </div>
+    <div class="actions"><a href="/resume.pdf">PDF ↗</a><button type="button" onclick="window.print()">Print</button></div>
+  </nav>
+</header>
 <main class="document">
 <header class="identity">
  <div class="identity-top"><p class="kicker">Professional record</p><span class="handle">blurxy</span></div>

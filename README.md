@@ -6,9 +6,9 @@ entry-level roles.
 
 Live at **https://blurxy.net** — "follow the evidence".
 
-The site is a single-file static board (`index.html`, inline CSS/JS, no build
-step): 14 projects, an Experience card, and Investigation Notes from
-the journal, in a dark board design with an amber accent.
+The portfolio is a static board (`index.html`, no build step) with 14 projects,
+an Experience card, and Investigation Notes. The board, résumé, and project
+pages share a wordmark and self-hosted fonts.
 
 ## Deployment
 
@@ -51,6 +51,12 @@ The `kev/`, `osint/` and `worldcup26/` folders in this repo contain only
 "moved" stubs pointing at those repos. `_redirects` sends bare project paths
 with a query string (`/kev?utm_source=x`) to their slash URLs with a 307, so
 the sub-site Workers can serve them.
+
+The public pages on blurxy.net use `/assets/blurxy-v1.css` for the wordmark,
+fonts, and project header. Keep that asset URL available for the project
+Workers. Deploy a new asset version from this hub before pointing project
+pages at it. The root wordmark returns to the portfolio. Each project's
+**Project notes** link opens its own board and List detail view via its hash.
 
 ## Files
 

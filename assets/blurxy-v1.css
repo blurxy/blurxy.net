@@ -1,0 +1,107 @@
+/* Shared portfolio fonts and wordmark. Keep this URL available for deployed project pages. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('/assets/fonts/archivo-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-greek-var.woff2') format('woff2');
+  unicode-range: U+03A3, U+03B1, U+03B8;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-greek-var.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.blurxy-wordmark {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 10px;
+  min-block-size: 28px;
+  color: inherit;
+  font: 800 17px/1 "Archivo", "Arial Narrow", system-ui, sans-serif;
+  font-stretch: 125%;
+  letter-spacing: .02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.blurxy-wordmark::before {
+  content: "";
+  inline-size: 10px;
+  block-size: 10px;
+  flex: none;
+  background: #f2b705;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.blurxy-wordmark[href]:hover { text-decoration: underline; text-underline-offset: 3px; }
+.blurxy-wordmark:focus-visible, .blurxy-project-notes:focus-visible {
+  outline: 2px solid #f2b705;
+  outline-offset: 3px;
+}
+.blurxy-page-bar {
+  background: #08090c;
+  border-block-end: 1px solid #26303b;
+  color: #e9edf1;
+  padding-block-start: env(safe-area-inset-top, 0px);
+}
+.blurxy-page-frame {
+  max-inline-size: var(--blurxy-page-width, 1180px);
+  min-block-size: 51px;
+  margin-inline: auto;
+  padding: 4px max(16px, env(safe-area-inset-right, 0px)) 4px max(16px, env(safe-area-inset-left, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+}
+.blurxy-trail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-inline-size: 0;
+}
+.blurxy-location {
+  border-inline-start: 1px solid #26303b;
+  padding-inline-start: 10px;
+  color: #aab2be;
+  font: 500 12px/1.4 "JetBrains Mono", ui-monospace, monospace;
+}
+.blurxy-project-notes {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 28px;
+  color: #aab2be;
+  font: 500 12px/1.4 "JetBrains Mono", ui-monospace, monospace;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blurxy-project-notes:hover { color: #f2b705; }
+@media (max-width: 360px) {
+  .blurxy-wordmark { gap: 6px; font-size: 16px; font-stretch: 100%; }
+}
+@media (pointer: coarse) {
+  a.blurxy-wordmark, .blurxy-project-notes { min-block-size: 36px; }
+}
