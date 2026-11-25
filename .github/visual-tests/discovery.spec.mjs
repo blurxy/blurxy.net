@@ -96,3 +96,21 @@ test('the primary résumé action opens HTML with PDF and Print actions', async 
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('dialog', { name: 'Experience' })).toHaveCount(0);
 });
+
+test('the résumé wordmark matches the portfolio lettering', async ({ page }) => {
+  const typography = wordmark => wordmark.evaluate(el => {
+    const { fontFamily, fontSize, fontWeight, fontStretch, letterSpacing, lineHeight, columnGap } = getComputedStyle(el);
+    return { text: el.textContent.trim(), fontFamily, fontSize, fontWeight, fontStretch, letterSpacing, lineHeight, columnGap };
+  });
+  for (const width of [320, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    const homepage = await typography(page.locator('.bar .mark'));
+    await page.goto('/resume');
+    const wordmark = page.getByRole('link', { name: 'blurxy', exact: true });
+    await expect(wordmark).toBeVisible();
+    await expect(wordmark).toHaveAttribute('href', '/');
+    expect(await typography(wordmark)).toEqual(homepage);
+    expect((await wordmark.boundingBox()).height).toBeGreaterThanOrEqual(28);
+  }
+});
