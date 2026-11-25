@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>blurxy — follow the evidence</title>
+<title>Rafiul Bari | Cybersecurity Portfolio · blurxy</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 16,0 16,16' fill='%23f2b705'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#08090c">
 <meta name="description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
@@ -10,14 +10,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="blurxy">
 <meta property="og:url" content="https://blurxy.net/">
-<meta property="og:title" content="blurxy — follow the evidence">
+<meta property="og:title" content="Rafiul Bari | Cybersecurity Portfolio · blurxy">
 <meta property="og:description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
 <meta property="og:image" content="https://blurxy.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="blurxy — Rafiul Bari, cybersecurity student at CUNY City Tech. Follow the evidence.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="blurxy — follow the evidence">
+<meta name="twitter:title" content="Rafiul Bari | Cybersecurity Portfolio · blurxy">
 <meta name="twitter:description" content="Rafiul Bari (blurxy), cybersecurity student at CUNY City Tech. Security investigations, OSINT tools, detection engineering, and code-enforced boundaries.">
 <meta name="twitter:image" content="https://blurxy.net/og.png">
 <meta name="twitter:image:alt" content="blurxy — Rafiul Bari, cybersecurity student at CUNY City Tech. Follow the evidence.">
@@ -94,11 +94,11 @@ button { font: inherit; color: inherit; }
 /* In the 44px top bar, full-height buttons touched both edges; inset them (still well above the 24px target minimum). */
 @media (pointer: coarse) { .bar .tbtn { min-height: 36px; padding: 6px 14px; } }
 .tbtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.ruler { position: fixed; z-index: 20; background: var(--panel); pointer-events: none; }
-.ruler.x { top: calc(44px + env(safe-area-inset-top, 0px)); left: 22px; right: 0; height: 22px; border-bottom: 1px solid var(--line); }
-.ruler.y { top: calc(66px + env(safe-area-inset-top, 0px)); left: 0; bottom: 0; width: 22px; border-right: 1px solid var(--line); }
+.ruler { position: absolute; z-index: 20; background: var(--panel); pointer-events: none; }
+.ruler.x { top: 0; left: 22px; right: 0; height: 22px; border-bottom: 1px solid var(--line); }
+.ruler.y { top: 22px; left: 0; bottom: 0; width: 22px; border-right: 1px solid var(--line); }
 .ruler canvas { display: block; }
-.corner { position: fixed; z-index: 21; top: calc(44px + env(safe-area-inset-top, 0px)); left: 0; width: 22px; height: 22px; background: var(--panel); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.corner { position: absolute; z-index: 21; top: 0; left: 0; width: 22px; height: 22px; background: var(--panel); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .hud { position: fixed; z-index: 25; left: 34px; right: 260px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px 8px; flex-wrap: wrap; align-items: center; pointer-events: none; }
 .hud span { white-space: pre; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; font-variant-numeric: tabular-nums; }
 .hud a { white-space: nowrap; font: 500 11.5px/1.4 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; text-decoration: none; pointer-events: auto; }
@@ -115,8 +115,19 @@ button { font: inherit; color: inherit; }
 }
 .zoomer { position: fixed; z-index: 25; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 6px; }
 
+/* The content row follows the introduction even when its text wraps. */
+.portfolio { position: fixed; inset: calc(44px + env(safe-area-inset-top, 0px)) 0 0; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.portfolio-intro {
+  padding: 12px max(16px, env(safe-area-inset-right, 0px), calc((100% - 1060px) / 2)) 12px
+    max(16px, env(safe-area-inset-left, 0px), calc((100% - 1060px) / 2));
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.portfolio-intro h1 { margin: 0; font: 750 clamp(20px, 2.5vw, 28px)/1.15 var(--display); }
+.portfolio-intro p { margin: 5px 0 0; color: #c4cdd6; line-height: 1.45; }
+.portfolio-views { position: relative; }
+
 /* ---- the board ---- */
-#stage { position: fixed; inset: calc(66px + env(safe-area-inset-top, 0px)) 0 0 22px; overflow: clip; cursor: grab; touch-action: none; }
+#stage { position: absolute; inset: 22px 0 0 22px; overflow: clip; cursor: grab; touch-action: none; }
 #stage.drag { cursor: grabbing; }
 #grid { position: absolute; inset: 0; }
 #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
@@ -126,7 +137,7 @@ button { font: inherit; color: inherit; }
 
 .core { position: absolute; width: 440px; padding: 22px 24px 20px; background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--amber); }
 .core .tag { font: 600 11px var(--mono); color: var(--amber); letter-spacing: .14em; }
-.core h1 { margin: 10px 0 6px; font: 800 44px/0.95 var(--display); font-stretch: 112%; letter-spacing: -.01em; text-wrap: balance; }
+.core h2 { margin: 10px 0 6px; font: 800 44px/0.95 var(--display); font-stretch: 112%; letter-spacing: -.01em; text-wrap: balance; }
 .core .who { font: 500 13px var(--mono); color: var(--muted); }
 .core .links { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
 .core .links a, .core .links .copy-email { font: 500 12px var(--mono); border: 1px solid var(--line); border-radius: 3px; padding: 6px 10px; text-decoration: none; background: var(--raised); cursor: pointer; }
@@ -178,7 +189,7 @@ button { font: inherit; color: inherit; }
 .acts .soon { font: 600 12.5px var(--mono); padding: 8px 12px; border-radius: 3px; border: 1px dashed var(--line); color: var(--muted); }
 
 /* ---- list view (also the phone default) ---- */
-#list { position: fixed; z-index: 15; inset: calc(44px + env(safe-area-inset-top, 0px)) 0 0 0; overflow-y: auto; overflow-x: hidden; background: var(--bg);
+#list { position: absolute; z-index: 15; inset: 0; overflow-y: auto; overflow-x: hidden; background: var(--bg);
   padding-block: 20px calc(40px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 #list .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 18px; }
 #list .inner > * { min-width: 0; }
@@ -196,7 +207,7 @@ body.listmode #sheet { top: calc(44px + env(safe-area-inset-top, 0px)); }
   body.sheetopen .zoomer { visibility: hidden; }
 }
 @media (max-width: 1100px) { body.sheetopen .hud { display: none; } }
-@media (max-width: 760px) { .core h1 { font-size: 38px; } .crumb { display: none; } .core .seeking br { display: none; } }
+@media (max-width: 760px) { .core h2 { font-size: 38px; } .crumb { display: none; } .core .seeking br { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 /* v2 / quiet instrument. Text and chrome stay on a flat plane; only the substrate tilts.
@@ -256,7 +267,7 @@ body.listmode #depth { visibility: hidden; }
 /* v3 / follow the evidence. The opening camera frames the core and four security projects.
    The remaining projects retain their board positions and can also be read in order in List. */
 .core { width: 480px; padding: 24px; }
-.core h1 { font-size: 54px; margin: 12px 0 8px; }
+.core h2 { font-size: 54px; margin: 12px 0 8px; }
 .core .who { font-size: 11.5px; }
 .core .role { margin: 20px 0 8px; font: 600 16px/1.4 var(--display); }
 .core .value { margin: 0; font: 650 27px/1.2 var(--display); letter-spacing: -.025em; text-wrap: balance; }
@@ -303,7 +314,7 @@ body.listmode #depth { visibility: hidden; }
 #list .zone { margin-top: 12px; }
 @media (max-width: 760px) {
   .core { padding: 20px; }
-  .core h1 { font-size: 44px; }
+  .core h2 { font-size: 44px; }
   .core .value { font-size: 24px; }
   .core .role { font-size: 15px; }
   .core .links a, .core .links .copy-email { min-height: 40px; display: inline-flex; align-items: center; }
@@ -377,12 +388,9 @@ body.listmode #depth { visibility: hidden; }
 .f-reset:hover { border-color: var(--amber); }
 
 @media (min-width: 761px) {
-  .corner, .ruler.x { top: calc(86px + env(safe-area-inset-top, 0px)); }
-  .ruler.y { top: calc(108px + env(safe-area-inset-top, 0px)); }
-  #stage { inset: calc(108px + env(safe-area-inset-top, 0px)) 0 0 22px; }
-  #sheet { top: calc(108px + env(safe-area-inset-top, 0px)); }
-  body.listmode #sheet { top: calc(86px + env(safe-area-inset-top, 0px)); }
-  #list { inset: calc(86px + env(safe-area-inset-top, 0px)) 0 0 0; }
+  .portfolio { top: calc(86px + env(safe-area-inset-top, 0px)); }
+  #sheet { position: absolute; top: 22px; }
+  body.listmode #sheet { top: 0; }
 }
 @media (max-width: 1120px) and (min-width: 761px) {
   .fbar { gap: 6px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
@@ -592,16 +600,29 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   </div>
 </section>
 
-<div class="corner" aria-hidden="true"></div>
-<div class="ruler x" aria-hidden="true"><canvas id="rx"></canvas></div>
-<div class="ruler y" aria-hidden="true"><canvas id="ry"></canvas></div>
-
-<main id="stage" class="pending" aria-label="Project board. Drag to pan, scroll to zoom, or switch to List.">
-  <canvas id="grid" aria-hidden="true"></canvas>
-  <div class="xh v" id="xv" hidden></div><div class="xh h" id="xhz" hidden></div>
-  <div id="scanline" aria-hidden="true"></div>
-  <div id="depth"><div id="world"><svg id="traces" aria-hidden="true"></svg></div></div>
-  <div id="boardEmpty" hidden><span class="empty-tag">0 / 14 PROJECTS</span><strong>No matching projects</strong><p id="boardEmptyMsg">No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
+<main class="portfolio">
+  <header class="portfolio-intro" id="portfolioIntro">
+    <h1>Rafiul Bari — Cybersecurity Portfolio</h1>
+    <p>I’m a cybersecurity student at CUNY City Tech building tools for open-source investigations, vulnerability tracking, and security detection.</p>
+    <noscript>
+      <p>I’m seeking security internships and full-time entry-level roles. <a href="mailto:rafiulbari70@gmail.com">Contact me by email</a>.</p>
+      <p>The interactive board needs JavaScript. Explore the featured pages below or find my projects on <a href="https://github.com/blurxy">GitHub</a>.</p>
+    </noscript>
+  </header>
+  <div class="portfolio-views">
+    <div class="corner" aria-hidden="true"></div>
+    <div class="ruler x" aria-hidden="true"><canvas id="rx"></canvas></div>
+    <div class="ruler y" aria-hidden="true"><canvas id="ry"></canvas></div>
+    <section id="stage" class="pending" aria-label="Project board. Drag to pan, scroll to zoom, or switch to List.">
+      <canvas id="grid" aria-hidden="true"></canvas>
+      <div class="xh v" id="xv" hidden></div><div class="xh h" id="xhz" hidden></div>
+      <div id="scanline" aria-hidden="true"></div>
+      <div id="depth"><div id="world"><svg id="traces" aria-hidden="true"></svg></div></div>
+      <div id="boardEmpty" hidden><span class="empty-tag">0 / 14 PROJECTS</span><strong>No matching projects</strong><p id="boardEmptyMsg">No projects match the active search or filter criteria.</p><div><button type="button" class="tbtn" id="boardReset">Reset filters</button></div></div>
+    </section>
+    <section id="list" hidden aria-label="All projects"><div class="inner" id="listInner"></div></section>
+    <div id="sheet" role="dialog" aria-labelledby="shTitle" tabindex="-1" inert></div>
+  </div>
 </main>
 
 <footer class="hud" aria-label="Status bar and links">
@@ -614,10 +635,13 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   <span id="hPos" aria-hidden="true">X     0 · Y     0</span><span id="hZoom" aria-hidden="true">ZOOM 100%</span><span id="hMods" aria-hidden="true"></span><span id="hClock" aria-hidden="true">LOCAL --:--:--</span><span class="hCopy">© 2026 Rafiul Bari · CUNY City Tech</span><a href="https://github.com/blurxy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/rafiul-bari" target="_blank" rel="noopener">LinkedIn ↗</a><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></footer>
 <div class="zoomer"><button class="tbtn" id="zOut" aria-label="Zoom out">−</button><button class="tbtn" id="zHome">Home</button><button class="tbtn" id="zFit">Fit</button><button class="tbtn" id="zIn" aria-label="Zoom in">+</button></div>
 
-<div id="sheet" role="dialog" aria-labelledby="shTitle" tabindex="-1" inert></div>
 <div class="sr" id="live" aria-live="polite"></div>
-<noscript><style>.ruler,.corner,.hud > :not(.featured-links),.zoomer,.tbtn{display:none}</style><p style="position:fixed;z-index:50;top:80px;left:36px;right:16px;margin:0;color:#e9edf1;font:15px/1.5 system-ui,sans-serif">blurxy (Rafiul Bari). Cybersecurity student at CUNY New York City College of Technology. Seeking security internships and full-time entry-level roles. Contact <a href="mailto:rafiulbari70@gmail.com">rafiulbari70@gmail.com</a>. This board needs JavaScript; the projects are at <a href="https://github.com/blurxy" style="color:#f2b705">github.com/blurxy</a>.</p></noscript>
-<section id="list" hidden aria-label="All projects"><div class="inner" id="listInner"></div></section>
+<noscript><style>
+  body { overflow: auto; }
+  .portfolio { position: static; display: block; padding-top: calc(44px + env(safe-area-inset-top, 0px)); }
+  .fbar, .portfolio-views, .hud > :not(.featured-links), .zoomer, .tbtn { display: none; }
+  .hud { position: static; max-width: none; padding: 12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px)); }
+</style></noscript>
 
 <script>
 (() => {
@@ -991,7 +1015,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   const core = document.createElement('section');
   core.className = 'core'; core.style.left = CORE.x + 'px'; core.style.top = CORE.y + 'px';
   core.innerHTML = `<div class="tag">FOLLOW THE EVIDENCE</div>
-    <h1>rafiul bari</h1>
+    <h2>rafiul bari</h2>
     <p class="role">Cybersecurity student at CUNY City Tech</p>
     <p class="value">I test where security controls fail and build code-enforced limits.</p>
     <p class="seeking">Graduating this December — seeking security <br>internships and full-time entry-level roles.</p>
@@ -1941,6 +1965,7 @@ body.listmode #vHelp, body.listmode #kbdHelp { display: none !important; }
   function syncAccessibility() {
     const list = !$('list').hidden, modal = !!current && window.innerWidth <= 760;
     stage.inert = list || modal; $('list').inert = modal;
+    $('portfolioIntro').inert = modal;
     document.querySelector('.bar').inert = modal;
     $('filterBar').inert = modal;
     document.querySelector('.hud').inert = list || modal;
